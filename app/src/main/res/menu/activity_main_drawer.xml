@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--android:checkableBehavior="single"-->
+    <group>
+        <item
+            android:id="@+id/nav_routes"
+            android:icon="@drawable/ic_menu_send"
+            android:title="我的行程" />
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="位置可见" />
+        <item
+            android:id="@+id/nav_music"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="音乐开关" />
+        <!--<item-->
+            <!--android:id="@+id/nav_manage"-->
+            <!--android:icon="@drawable/ic_menu_manage"-->
+            <!--android:title="Tools" />-->
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="应用设置" />
+            <item
+                android:id="@+id/nav_introduce"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="相关介绍" />
+            <item
+                android:id="@+id/nav_about_we"
+                android:icon="@drawable/ic_menu_share"
+                android:title="关于我们" />
+        </menu>
+    </item>
+
+</menu>

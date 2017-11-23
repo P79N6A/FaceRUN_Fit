@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/girl_bg_1" />
+
+    <!--<com.fly.run.view.RunTrainView-->
+    <!--android:id="@+id/view_run_train"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/margin_12"-->
+    <!--android:layout_marginRight="@dimen/margin_12"-->
+    <!--android:layout_marginTop="160dp"></com.fly.run.view.RunTrainView>-->
+
+</RelativeLayout>

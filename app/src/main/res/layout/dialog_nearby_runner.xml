@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:round="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="160dp"
+        android:layout_centerInParent="true"
+        android:background="@color/action_title_color"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/dialog_root"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <ImageView
+                android:id="@+id/dialog_header_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user_header_default" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="欧阳清风"
+            android:textColor="@color/bg_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/dialog_distance"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="你们相距：539m"
+            android:textColor="@color/bg_color"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

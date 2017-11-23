@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="grey">#ebebeb</color>
+    <color name="black">#000000</color>
+    <color name="darkgrey">#C0C0C0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="f850_default_blue">#0079ff</color>
+    <color name="transparent">#00000000</color>
+
+    <drawable name="transparent">#00000000</drawable>
+    <drawable name="action_theme">#ff2E7D32</drawable>
+
+    <color name="header_toast_bg">#ccebfc</color>
+    <color name="header_toast">#024ca1</color>
+    <color name="header_toast_line">#abdaf4</color>
+    <color name="offline_down_title">#909090</color>
+    <color name="offline_head_font">#FFFFFF</color>
+    <color name="gary">#898989</color>
+    <color name="taobao_black">#333333</color>
+    <color name="offline_down_size">#777777</color>
+    <color name="gray_lite">#c5c5c5</color>
+    <color name="progress_background">#ededed</color>
+    <color name="blue">#4c90f9</color>
+
+    <color name="green">#00ff00</color>
+    <color name="color_ffffff">#FFFFFF</color>
+    <color name="color_dash_line">#dc8707</color>
+    <color name="activity_bg_color">#F1F1F1</color>
+
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_aaaaaa">#aaaaaa</color>
+    <color name="bg_color">#cccccc</color>
+    <color name="color_f4f4f4">#f4f4f4</color>
+    <color name="color_88353535">#88353535</color>
+    <color name="translucent">#66000000</color>
+    <!--<color name="action_title_color">#353535</color>-->
+    <color name="action_title_color">#ff2E7D32</color>
+    <drawable name="transparent_background">#00000000</drawable>
+
+    <color name="color_corner_green_normal">#2E7D32</color>
+    <color name="color_corner_green_press">#53bc68</color>
+    <color name="color_2E1E1C">#2E1E1C</color>
+
+
+</resources>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_train_plan_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_4"
+        android:layout_marginLeft="@dimen/margin_16"
+        android:layout_marginRight="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="菜鸟营"
+        android:textColor="@color/activity_bg_color"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/layout_train_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:background="@drawable/bg_rectangle_ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_train_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plan_rectangle_up">
+
+            <TextView
+                android:id="@+id/tv_train_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10"
+                android:text="1公里"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_train_1_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_6"
+                android:padding="@dimen/margin_10"
+                android:text="x 1"
+                android:textSize="17sp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_train_lock_1"
+                android:layout_width="@dimen/margin_16"
+                android:layout_height="@dimen/margin_16"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@drawable/ot" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_train_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plan_rectangle_mid">
+
+            <TextView
+                android:id="@+id/tv_train_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10"
+                android:text="2公里"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_train_2_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_6"
+                android:padding="@dimen/margin_10"
+                android:text="x 1"
+                android:textSize="17sp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_train_lock_2"
+                android:layout_width="@dimen/margin_16"
+                android:layout_height="@dimen/margin_16"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@drawable/ot" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_train_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plan_rectangle_down">
+
+            <TextView
+                android:id="@+id/tv_train_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10"
+                android:text="3公里"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_train_3_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_6"
+                android:padding="@dimen/margin_10"
+                android:text="x 1"
+                android:textSize="17sp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_train_lock_3"
+                android:layout_width="@dimen/margin_16"
+                android:layout_height="@dimen/margin_16"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@drawable/ot" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

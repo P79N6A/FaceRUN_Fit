@@ -1,0 +1,21 @@
+<resources>
+    <array name="array_wake_up">
+        <item>@string/action_wake_up_badi</item>
+        <item>@string/action_wake_up_run_start</item>
+        <item>@string/action_wake_up_run_over</item>
+        <item>@string/action_wake_up_volume_up</item>
+        <item>@string/action_wake_up_volume_down</item>
+        <item>@string/action_wake_up_next</item>
+    </array>
+
+    <array name="array_wake_up_alert">
+        <item>跑步中:语音返回运动时间，里程及配速信息\n未跑步:提示请开始跑步\n唤醒后有震动提示！</item>
+        <item>语音返回跑步已开始\n唤醒后有震动提示！</item>
+        <item>跑步中:语音返回跑步已结束\n未跑步:提示没有开始，何来结束\n唤醒后有震动提示！</item>
+        <item>增大音乐类声音，唤醒后有震动提示！</item>
+        <item>减小音乐类声音，唤醒后有震动提示！</item>
+        <item>播放下一首本地音乐，唤醒后有震动提示！</item>
+        <item>播放暂停后的音乐，唤醒后有震动提示！</item>
+        <item>暂停播放中的音乐，唤醒后有震动提示！</item>
+    </array>
+</resources>
