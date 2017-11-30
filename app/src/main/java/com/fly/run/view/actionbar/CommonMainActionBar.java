@@ -46,7 +46,6 @@ public class CommonMainActionBar extends LinearLayout {
         ation_left_iv = (ImageView) findViewById(R.id.action_left_iv);
         action_right_iv = (ImageView) findViewById(R.id.action_right_iv);
         ation_left_iv.setColorFilter(getResources().getColor(R.color.black));
-        action_right_iv.setColorFilter(getResources().getColor(R.color.black));
         action_title = (TextView) findViewById(R.id.action_title);
         action_right_text = (TextView) findViewById(R.id.action_right_text);
         setStatusHeight();
