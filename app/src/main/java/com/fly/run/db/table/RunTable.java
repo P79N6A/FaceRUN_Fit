@@ -56,7 +56,7 @@ public class RunTable extends AbsBaseTable {
         sqlStatement.append(Columns.RUN_COVER).append(" TEXT,");
         sqlStatement.append(Columns.RUN_CITY).append(" TEXT,");
         sqlStatement.append(Columns.RUN_DISTRICT).append(" TEXT,");
-        sqlStatement.append(Columns.RUN_COORDINATE_LIST).append(" TEXT");
+        sqlStatement.append(Columns.RUN_COORDINATE_LIST).append(" LONGTEXT");
         sqlStatement.append(");");
         return sqlStatement.toString();
     }
