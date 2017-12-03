@@ -43,7 +43,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:clickable="true"
             android:src="@drawable/icon_facerun_circle"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/action_right_text"

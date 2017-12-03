@@ -87,7 +87,7 @@ public class App extends Application {
             public void run() {
                 if (MediaUtil.mediaEntityList == null)
                     MediaUtil.mediaEntityList = MediaUtil.getAllMediaList(getInstance(), null);
-                initialEnv();
+//                initialEnv();
             }
         }).start();
     }

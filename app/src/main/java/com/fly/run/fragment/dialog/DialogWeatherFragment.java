@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class DialogWeatherFragment extends DialogFragment {
     private ImageView ivHeader;
     private ImageView ivClose;
     //    private TextView tvTitle, tvContent;
+    private TextView tvCity;
     private TextView dialog_data_weather, dialog_data_air, dialog_data_temperature, dialog_data_sport, dialog_data_update_time;
 
     private OnEventListener mOnEventListener;
@@ -74,6 +76,7 @@ public class DialogWeatherFragment extends DialogFragment {
                 dismiss();
             }
         });
+        tvCity = (TextView) view.findViewById(R.id.tv_city);
         dialog_data_weather = (TextView) view.findViewById(R.id.dialog_data_weather);
         dialog_data_air = (TextView) view.findViewById(R.id.dialog_data_air);
         dialog_data_temperature = (TextView) view.findViewById(R.id.dialog_data_temperature);
@@ -81,6 +84,8 @@ public class DialogWeatherFragment extends DialogFragment {
         dialog_data_update_time = (TextView) view.findViewById(R.id.dialog_data_update_time);
         WeatherBean bean = WeatherUtil.weatherBean;
         if (bean != null) {
+            if (!TextUtils.isEmpty(bean.getCity()))
+                tvCity.setText(bean.getCity());
             dialog_data_weather.setText(bean.weather);
             dialog_data_air.setText(bean.airCondition + "（" + bean.getPollutionIndex() + "）");
             dialog_data_temperature.setText(bean.temperature);

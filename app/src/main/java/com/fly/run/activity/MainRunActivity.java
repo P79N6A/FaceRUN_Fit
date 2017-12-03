@@ -69,6 +69,7 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.CircleAnimView;
 import com.fly.run.view.RunTrainView;
 import com.fly.run.view.actionbar.MainRunActionBar;
+import com.fly.run.view.viewpager.CustomViewPager;
 import com.squareup.okhttp.Request;
 
 import java.io.IOException;
@@ -83,7 +84,7 @@ import static com.fly.run.view.CircleAnimView.TYPE_RUN_KEEP;
 public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizerListener, RecognitionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
     private MainRunActionBar actionBar;
     private RunDataFragment runDataFragment;
     private RunMapFragment runMapFragment;
@@ -197,7 +198,8 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
         SportModel = SharePreferceTool.getInstance().getInt("SportModel", 0);
         LimitingSpeed = SportModeActivity.LimitingSpeed[SportModel];
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (CustomViewPager) findViewById(R.id.container);
+        mViewPager.setScanScroll(false);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.addOnPageChangeListener(pageChangeListener);
         actionBar = (MainRunActionBar) findViewById(R.id.action_bar);
@@ -583,7 +585,7 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
 //            if (locationType == 2 || locationType == 4 || locationType == 5 || loc.getAccuracy() > 10) {
 //                return;
 //            }
-            if (locationType != 1){
+            if (locationType != 1) {
                 if (runDataFragment != null) {
                     String strSpeed = LocationUtils.caculateSpeed(mAllDistance, (System.currentTimeMillis() - startLocationTime));
                     setTrainNowData(retainTwo(mAllDistance / 1000f), "", strSpeed, strLocType);

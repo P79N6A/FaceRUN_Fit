@@ -13,132 +13,147 @@
 
         <!--android:background="@drawable/side_nav_bar"-->
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_header_height"
-            android:background="@drawable/side_nav_bar"
-            android:gravity="bottom"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:layout_height="@dimen/nav_header_height">
 
-            <RelativeLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin">
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/menu_bg_2" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_header_height"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_10"
+                android:paddingTop="@dimen/activity_vertical_margin">
 
                 <RelativeLayout
-                    android:id="@+id/layout_user_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/margin_8"
-                    android:layout_toLeftOf="@+id/layout_level">
+                    android:layout_marginTop="@dimen/activity_vertical_margin">
 
                     <RelativeLayout
-                        android:id="@+id/layout_header"
+                        android:id="@+id/layout_user_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/bg_circle_white">
+                        android:layout_marginRight="@dimen/margin_8"
+                        android:layout_toLeftOf="@+id/layout_level">
 
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                        <RelativeLayout
+                            android:id="@+id/layout_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_margin="@dimen/margin_2"
-                            android:src="@drawable/ic_user_header_default" />
+                            android:background="@drawable/bg_circle_white"
+                            android:padding="@dimen/margin_10">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerVertical="true"
+                                android:layout_margin="@dimen/margin_2"
+                                android:src="@mipmap/ic_launcher" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/margin_8"
+                            android:layout_toRightOf="@+id/layout_header"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:ellipsize="end"
+                                android:gravity="center_vertical"
+                                android:singleLine="true"
+                                android:text="晓风残月"
+                                android:textColor="@color/color_2E1E1C"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_subname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="center_vertical"
+                                android:marqueeRepeatLimit="1"
+                                android:scrollHorizontally="true"
+                                android:singleLine="true"
+                                android:text="kingkong@flyrun.com"
+                                android:textColor="@color/color_2E1E1C"
+                                android:textSize="10sp" />
+                        </LinearLayout>
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:id="@+id/layout_level"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_8"
-                        android:layout_toRightOf="@+id/layout_header"
-                        android:orientation="vertical">
+                        android:visibility="gone">
 
                         <TextView
-                            android:id="@+id/tv_name"
+                            android:id="@+id/tv_level"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
-                            android:ellipsize="end"
-                            android:gravity="center_vertical"
-                            android:singleLine="true"
-                            android:text="晓风残月"
-                            android:textColor="@color/activity_bg_color"
-                            android:textSize="18sp" />
+                            android:layout_height="16dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="14dp"
+                            android:background="@drawable/side_level_bg"
+                            android:gravity="center_vertical|right"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="6dp"
+                            android:text="LV 1"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
 
-                        <TextView
-                            android:id="@+id/tv_subname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center_vertical"
-                            android:marqueeRepeatLimit="1"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="kingkong@flyrun.com"
-                            android:textColor="@color/activity_bg_color"
-                            android:textSize="10sp" />
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/green_button_image" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/layout_level"
+                <TextView
+                    android:id="@+id/tv_all_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true">
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:maxLines="2"
+                    android:text="运动总里程 ：13.8公里"
+                    android:textColor="@color/activity_bg_color"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/tv_level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="14dp"
-                        android:background="@drawable/side_level_bg"
-                        android:gravity="center_vertical|right"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="6dp"
-                        android:text="LV 1"
-                        android:textColor="@color/white"
-                        android:textSize="11sp" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:maxLines="2"
+                    android:text="@string/txt_motto_ch"
+                    android:textColor="@color/activity_bg_color"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:src="@drawable/green_button_image" />
-                </RelativeLayout>
-            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_all_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:maxLines="2"
-                android:text="运动总里程 ：13.8公里"
-                android:textColor="@color/activity_bg_color"
-                android:textSize="11sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:maxLines="2"
-                android:text="@string/txt_motto_ch"
-                android:textColor="@color/activity_bg_color"
-                android:textSize="11sp" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <ListView
             android:id="@+id/listview_menu"

@@ -56,7 +56,6 @@ import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.AudioManagerUtil;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.IOTools;
-import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.MediaPlayerUtil;
 import com.fly.run.utils.PowerManagerUtil;
@@ -64,7 +63,6 @@ import com.fly.run.utils.TimeFormatUtils;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.utils.WeatherUtil;
 import com.fly.run.view.actionbar.CommonMainActionBar;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,7 +96,7 @@ public class MainActivity extends BaseUIActivity
         setContentView(R.layout.activity_main);
 
         //初始化语音唤醒功能
-        initWakeUpGroup();
+//        initWakeUpGroup();
         //语音识别
         initSpeechRecognizer();
         mediaPlayerUtil = MediaPlayerUtil.getInstance();
@@ -127,7 +125,7 @@ public class MainActivity extends BaseUIActivity
         navUserName = (TextView) navHeaderRoot.findViewById(R.id.tv_name);
         navUserAccount = (TextView) navHeaderRoot.findViewById(R.id.tv_subname);
         navHeader = (ImageView) navHeaderRoot.findViewById(R.id.imageView);
-        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.ic_user_header_default, navHeader, ImageLoaderOptions.optionsUserCornerHeader);
+//        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.ic_user_header_default, navHeader, ImageLoaderOptions.optionsUserCornerHeader);
 
         String path = Constant.UserConfigPath + "Account.info";
         AccountBean accountBean = (AccountBean) IOTools.readObject(path);
