@@ -56,15 +56,15 @@ public class WelRunActivity extends BaseUIActivity {
         @Override
         public void onLocationChanged(AMapLocation loc) {
             if (null != loc && loc.getErrorCode() == 0) {
-                if (TextUtils.isEmpty(strProvince) || TextUtils.isEmpty(strCity)) {
-                    strProvince = loc.getProvince();
-                    strCity = loc.getCity();
-                    if (strProvince.endsWith("省"))
-                        strProvince = strProvince.substring(0, strProvince.length() - 1);
-                    if (strCity.endsWith("市"))
-                        strCity = strCity.substring(0, strCity.length() - 1);
-                    httpWeatherTask();
-                }
+//                if (TextUtils.isEmpty(strProvince) || TextUtils.isEmpty(strCity)) {
+                strProvince = loc.getProvince();
+                strCity = loc.getCity();
+                if (strProvince.endsWith("省"))
+                    strProvince = strProvince.substring(0, strProvince.length() - 1);
+                if (strCity.endsWith("市"))
+                    strCity = strCity.substring(0, strCity.length() - 1);
+                httpWeatherTask();
+//                }
                 Logger.e(TAG, "Province = " + strProvince + "  City = " + strCity);
             } else {
                 Logger.e(TAG, "loc error " + strProvince + "  City = " + strCity);
