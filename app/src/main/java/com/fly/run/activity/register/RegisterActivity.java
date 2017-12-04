@@ -79,9 +79,9 @@ public class RegisterActivity extends BaseUIActivity {
             boolean isRegistSuccess = false;
             try {
                 ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
-                if (bean != null && bean.flag && !TextUtils.isEmpty(bean.reason)) {
+                if (bean != null && bean.code == 1 && !TextUtils.isEmpty(bean.data)) {
 //                    ToastUtil.show(bean.reason);
-                    AccountBean accountBean = JSON.parseObject(bean.reason, AccountBean.class);
+                    AccountBean accountBean = JSON.parseObject(bean.data, AccountBean.class);
                     if (accountBean != null) {
                         isRegistSuccess = true;
                         UserInfoManager.getInstance().setAccountInfo(accountBean);

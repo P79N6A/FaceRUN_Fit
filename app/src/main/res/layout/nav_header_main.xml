@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/margin_8"
-                        android:layout_toLeftOf="@+id/layout_level">
+                        android:layout_toLeftOf="@+id/layout_weather">
 
                         <RelativeLayout
                             android:id="@+id/layout_header"
@@ -80,7 +80,7 @@
                                 android:ellipsize="end"
                                 android:gravity="center_vertical"
                                 android:singleLine="true"
-                                android:text="晓风残月"
+                                android:text="KEEP君"
                                 android:textColor="@color/color_2E1E1C"
                                 android:textSize="18sp" />
 
@@ -95,19 +95,47 @@
                                 android:marqueeRepeatLimit="1"
                                 android:scrollHorizontally="true"
                                 android:singleLine="true"
-                                android:text="kingkong@flyrun.com"
+                                android:text="KEEP-GOING@YOU"
                                 android:textColor="@color/color_2E1E1C"
                                 android:textSize="10sp" />
                         </LinearLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/layout_level"
+                        android:id="@+id/layout_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:visibility="gone">
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tv_weather_air"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:drawableLeft="@drawable/aqi_excellent"
+                            android:drawablePadding="@dimen/margin_4"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:padding="@dimen/margin_4"
+                            android:singleLine="true"
+                            android:text="Title"
+                            android:textColor="@color/color_2E1E1C"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/tv_weather_c"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/margin_4"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:singleLine="true"
+                            android:text="Title"
+                            android:textSize="12sp"
+                            android:layout_below="@+id/tv_weather_air"
+                            android:textColor="@color/color_2E1E1C"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/tv_level"
@@ -120,12 +148,14 @@
                             android:paddingLeft="14dp"
                             android:paddingRight="6dp"
                             android:text="LV 1"
+                            android:visibility="gone"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
                         <ImageView
                             android:layout_width="26dp"
                             android:layout_height="26dp"
+                            android:visibility="gone"
                             android:src="@drawable/green_button_image" />
                     </RelativeLayout>
                 </RelativeLayout>

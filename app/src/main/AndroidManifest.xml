@@ -266,6 +266,11 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.map.record.RecordMapActivity"></activity>
+
+        <activity
+            android:name=".activity.circle.CircleActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

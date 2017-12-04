@@ -46,6 +46,28 @@ public class HttpTaskUtil {
         return this;
     }
 
+    public void QueryCircleRunTask(String account) {
+        try {
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_QUERY_CIRCLE_RUN, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void RegisterTask(String account, String password) {
         try {
             OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
@@ -121,10 +143,10 @@ public class HttpTaskUtil {
         }
     }
 
-    public void QueryUserTask(String account) {
+    public void QueryUserByAccountTask(String account) {
         try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_QUERY, new OkHttpClientManager.StringCallback() {
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_QUERY_BY_ACCOUNT, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");

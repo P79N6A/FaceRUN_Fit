@@ -10,7 +10,7 @@ public class AccountBean implements Serializable {
 
     public int id; //id标识
     public String account;
-    public String username;
+    public String name;
     public String sex;
     public String tag;
     public String description;
@@ -19,6 +19,7 @@ public class AccountBean implements Serializable {
     public String head_portrait;
     public String create_time;
     public int age;
+    public int type;
 
     public int getId() {
         return id;
@@ -39,11 +40,11 @@ public class AccountBean implements Serializable {
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
     public AccountBean setUsername(String username) {
-        this.username = username;
+        this.name = username;
         return this;
     }
 
@@ -116,6 +117,24 @@ public class AccountBean implements Serializable {
 
     public AccountBean setAge(int age) {
         this.age = age;
+        return this;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public AccountBean setType(int type) {
+        this.type = type;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public AccountBean setName(String name) {
+        this.name = name;
         return this;
     }
 }

@@ -18,4 +18,13 @@
         <item>播放暂停后的音乐，唤醒后有震动提示！</item>
         <item>暂停播放中的音乐，唤醒后有震动提示！</item>
     </array>
+
+    <array name="array_nav_menu">
+        <item>我的行程</item>
+        <item>跑步训练</item>
+        <item>囚徒健身</item>
+        <item>应用设置</item>
+        <!--<item>唤醒提示</item>-->
+        <item>关于我们</item>
+    </array>
 </resources>

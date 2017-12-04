@@ -41,12 +41,12 @@ import com.baidu.speech.EventManagerFactory;
 import com.baidu.speech.VoiceRecognitionService;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
+import com.fly.run.activity.circle.CircleActivity;
 import com.fly.run.activity.login.LoginActivity;
 import com.fly.run.activity.person.PersonInfoActivity;
 import com.fly.run.activity.setting.SettingActivity;
 import com.fly.run.activity.training.FitTime2Activity;
 import com.fly.run.activity.training.TrainPlanActivity;
-import com.fly.run.activity.wakeup.WakeUpAlertActivity;
 import com.fly.run.adapter.NavMainAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.config.Constant;
@@ -62,6 +62,7 @@ import com.fly.run.utils.PowerManagerUtil;
 import com.fly.run.utils.TimeFormatUtils;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.utils.WeatherUtil;
+import com.fly.run.view.TextView.TextViewDrawable;
 import com.fly.run.view.actionbar.CommonMainActionBar;
 
 import org.json.JSONException;
@@ -89,6 +90,9 @@ public class MainActivity extends BaseUIActivity
 
     private EventManager mWpEventManager;
     private MediaPlayerUtil mediaPlayerUtil;
+
+    private RelativeLayout layoutWeather;
+    private TextView tvWeatherAir,tvWeatherC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +130,9 @@ public class MainActivity extends BaseUIActivity
         navUserAccount = (TextView) navHeaderRoot.findViewById(R.id.tv_subname);
         navHeader = (ImageView) navHeaderRoot.findViewById(R.id.imageView);
 //        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.ic_user_header_default, navHeader, ImageLoaderOptions.optionsUserCornerHeader);
+        layoutWeather = (RelativeLayout) navHeaderRoot.findViewById(R.id.layout_weather);
+        tvWeatherAir = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_air);
+        tvWeatherC = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_c);
 
         String path = Constant.UserConfigPath + "Account.info";
         AccountBean accountBean = (AccountBean) IOTools.readObject(path);
@@ -166,8 +173,17 @@ public class MainActivity extends BaseUIActivity
                 drawer.openDrawer(GravityCompat.START);
             }
         });
+        actionBar.setActionRightListenr(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentToActivity(CircleActivity.class);
+            }
+        });
         if (WeatherUtil.weatherBean != null) {
-            actionBar.setActionRightTextListenr(WeatherUtil.weatherBean.getWeather(), new View.OnClickListener() {
+            layoutWeather.setVisibility(View.VISIBLE);
+            tvWeatherC.setText(WeatherUtil.weatherBean.getTemperature());
+            tvWeatherAir.setText(WeatherUtil.weatherBean.getWeather());
+            tvWeatherAir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DialogWeatherFragment dialogWeatherFragment = DialogWeatherFragment.newInstance("", "");
@@ -178,13 +194,17 @@ public class MainActivity extends BaseUIActivity
             String airCondition = WeatherUtil.weatherBean.getAirCondition();
             if (!TextUtils.isEmpty(airCondition)) {
                 if ("优".equalsIgnoreCase(airCondition) || "良".equalsIgnoreCase(airCondition)) {
-                    actionBar.setActionRightTextDrawableLeft(R.drawable.aqi_excellent);
-                } else if ("污染".equalsIgnoreCase(airCondition) || "轻度污染".equalsIgnoreCase(airCondition) || "中度污染".equalsIgnoreCase(airCondition)) {
-                    actionBar.setActionRightTextDrawableLeft(R.drawable.aqi_average);
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_excellent);
+                } else if ("污染".equalsIgnoreCase(airCondition)
+                        || "轻度污染".equalsIgnoreCase(airCondition)
+                        || "中度污染".equalsIgnoreCase(airCondition)) {
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_average);
                 } else {
-                    actionBar.setActionRightTextDrawableLeft(R.drawable.aqi_poor);
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_poor);
                 }
             }
+        } else {
+            layoutWeather.setVisibility(View.GONE);
         }
 
         ImageView ivRunBegin = (ImageView) findViewById(iv_run_begin);
@@ -306,10 +326,9 @@ public class MainActivity extends BaseUIActivity
                 case 3:
                     intent = new Intent(MainActivity.this, SettingActivity.class);
                     startActivityForResult(intent, 1024);
-//                    intentToActivity(SettingActivity.class);
                     break;
                 case 4:
-                    intentToActivity(WakeUpAlertActivity.class);
+//                    intentToActivity(WakeUpAlertActivity.class);
                     break;
                 case 5:
                     break;
@@ -444,8 +463,8 @@ public class MainActivity extends BaseUIActivity
                     if (!TextUtils.isEmpty(bean.getAccount()))
                         navUserAccount.setText(bean.getAccount());
                 } else {
-                    navUserName.setText("晓风残月");
-                    navUserAccount.setText("kingkong@flyrun.com");
+                    navUserName.setText("KEEP君");
+                    navUserAccount.setText("KEEP-GONING@YOU");
                 }
             }
         }

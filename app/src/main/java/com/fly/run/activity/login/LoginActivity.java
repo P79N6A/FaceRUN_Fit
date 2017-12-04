@@ -99,8 +99,8 @@ public class LoginActivity extends BaseUIActivity {
             boolean isLoginSuccess = false;
             try {
                 ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
-                if (bean != null && bean.flag && !TextUtils.isEmpty(bean.reason)) {
-                    AccountBean accountBean = JSON.parseObject(bean.reason, AccountBean.class);
+                if (bean != null && bean.code == 1 && !TextUtils.isEmpty(bean.data)) {
+                    AccountBean accountBean = JSON.parseObject(bean.data, AccountBean.class);
                     if (accountBean != null) {
                         isLoginSuccess = true;
                         UserInfoManager.getInstance().setAccountInfo(accountBean);

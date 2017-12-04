@@ -8,11 +8,11 @@ public class UrlConstants {
     /**
      * home IP
      * */
-    public static String HTTP_ROOT = "http://192.168.31.90:9000/";
+//    public static String HTTP_ROOT = "http://192.168.31.90:9000/";
     /**
      * 公司 IP
      */
-//    public static String HTTP_ROOT = "http://172.16.0.12:9000/";
+    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
     /**
      * OPPO R9
      */
@@ -51,12 +51,12 @@ public class UrlConstants {
     /**
      * 用户登录
      */
-    public static String HTTP_USER_LOGIN = HTTP_ROOT + "user/login";
+    public static String HTTP_USER_LOGIN = HTTP_ROOT + "account/login";
 
     /**
      * 用户登出
      */
-    public static String HTTP_USER_LOGIN_OUT = HTTP_ROOT + "user/loginOut";
+    public static String HTTP_USER_LOGIN_OUT = HTTP_ROOT + "account/logout";
 
     /**
      * 用户更新信息
@@ -72,6 +72,18 @@ public class UrlConstants {
      * 查询用户信息
      */
     public static String HTTP_USER_QUERY = HTTP_ROOT + "user/queryUser";
+
+    /**
+     * 查询用户信息
+     * @param account
+     */
+    public static String HTTP_USER_QUERY_BY_ACCOUNT = HTTP_ROOT + "account/select_by_account";
+
+    /**
+     * 查询用户信息
+     * @param account_id
+     */
+    public static String HTTP_USER_QUERY_BY_ACCOUNT_ID = HTTP_ROOT + "account/select_by_id";
 
     /**
      * 保存活动
@@ -92,4 +104,9 @@ public class UrlConstants {
      * 删除活动
      */
     public static String HTTP_ACTIVE_DELETE = HTTP_ROOT + "active/delActiveData";
+
+    /**
+     * 查询跑友圈
+     */
+    public static String HTTP_QUERY_CIRCLE_RUN = HTTP_ROOT + "run/list_by_account";
 }

@@ -45,7 +45,7 @@ public class LockUtil {
         wmParams = new WindowManager.LayoutParams();
         wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;// 关键部分
         wmParams.format = PixelFormat.RGBA_8888; // 设置图片格式，效果为背景透明
-        // 设置Window flag
+        // 设置Window code
         wmParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         wmParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         wmParams.flags = 1280;

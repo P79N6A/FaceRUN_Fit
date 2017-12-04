@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class ResultTaskBean implements Serializable {
 
-    public boolean flag;
-    public String reason;
+    public int code;
+    public String data;
 
 }

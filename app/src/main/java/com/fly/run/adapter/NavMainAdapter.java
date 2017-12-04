@@ -23,12 +23,14 @@ public class NavMainAdapter extends BaseAdapter {
 //    private List<String> datas = new ArrayList<>();
 
     //    private String[] navNames = {"我的行程", "位置可见", "音乐开关", "应用设置", "唤醒提示", "关于我们"};
-    private String[] navNames = {"我的行程", "跑步训练", "囚徒健身", "应用设置", "唤醒提示", "关于我们"};
-    private int[] navDrawables = {R.drawable.ic_menu_send, R.drawable.ic_menu_gallery,
-            R.drawable.ic_menu_slideshow, R.drawable.ic_menu_manage, R.drawable.ic_menu_camera, R.drawable.ic_menu_share};
+//    private String[] navNames = {"我的行程", "跑步训练", "囚徒健身", "应用设置", "唤醒提示", "关于我们"};
+    private String[] navNames;
+    private int[] navDrawables = {R.drawable.ic_menu_send, R.mipmap.ic_launcher,
+            R.mipmap.ic_menu_fit, R.drawable.ic_menu_manage, R.drawable.ic_menu_share};
 
     public NavMainAdapter(Context context) {
         this.mContext = context;
+        navNames = context.getResources().getStringArray(R.array.array_nav_menu);
     }
 
     public void setData(List<Integer> icons, List<String> list) {

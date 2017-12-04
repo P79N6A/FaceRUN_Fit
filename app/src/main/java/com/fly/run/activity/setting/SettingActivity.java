@@ -118,7 +118,7 @@ public class SettingActivity extends BaseUIActivity implements View.OnClickListe
         public void onResponse(String response) {
             try {
                 ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
-                if (bean != null && bean.flag) {
+                if (bean != null && bean.code == 1) {
                     String path = Constant.UserConfigPath + "Account.info";
                     File userFile = new File(path);
                     if (userFile != null && userFile.exists()) {

@@ -30,7 +30,7 @@ public class WelRunActivity extends BaseUIActivity {
     public static boolean isJump = false;
     private Handler mHandler = new Handler();
     private LocationUtils locationUtils;
-    private String strProvince, strCity;
+    private String strProvince = "四川", strCity = "成都";
 
 //    private WebView webView;
 
@@ -41,6 +41,7 @@ public class WelRunActivity extends BaseUIActivity {
         startTime = System.currentTimeMillis();
 //        loadWebGif();
         getRunData();
+//        httpWeatherTask();
     }
 
     private void loadWebGif() {
@@ -76,7 +77,8 @@ public class WelRunActivity extends BaseUIActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        locationUtils.destroyLocation();
+        if (locationUtils != null)
+            locationUtils.destroyLocation();
     }
 
     private void getRunData() {
@@ -107,8 +109,8 @@ public class WelRunActivity extends BaseUIActivity {
                     if (isJump)
                         return;
                     long time = System.currentTimeMillis() - startTime;
-                    if (time < 2000)
-                        this.sendEmptyMessageDelayed(1, 2000 - time);
+                    if (time < JumpTime)
+                        this.sendEmptyMessageDelayed(1, JumpTime - time);
                     else
                         this.sendEmptyMessage(1);
                     isJump = true;
