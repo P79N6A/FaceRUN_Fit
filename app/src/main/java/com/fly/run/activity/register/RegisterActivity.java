@@ -22,8 +22,6 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
-import java.io.IOException;
-
 public class RegisterActivity extends BaseUIActivity {
 
     private CommonActionBar actionBar;
@@ -103,7 +101,7 @@ public class RegisterActivity extends BaseUIActivity {
         }
 
         @Override
-        public void onFailure(Request request, IOException e) {
+        public void onFailure(Request request, Exception e) {
             if (e != null && !TextUtils.isEmpty(e.getMessage()))
                 ToastUtil.show(e.getMessage());
             else

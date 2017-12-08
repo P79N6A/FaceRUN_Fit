@@ -10,15 +10,15 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
+import com.fly.run.adapter.circle.CircleAdapter;
 import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.httptask.HttpTaskUtil;
-import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CircleActivity extends BaseUIActivity implements View.OnClickListener {
@@ -26,6 +26,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     private CommonActionBar actionBar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
+    private CircleAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
 
     @Override
@@ -54,7 +55,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         // 设置下拉进度的背景颜色，默认就是白色的
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
         // 设置下拉进度的主题颜色
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_purple, R.color.colorAccent, android.R.color.holo_blue_light, android.R.color.holo_green_light);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_purple, android.R.color.holo_green_light, R.color.colorAccent, android.R.color.holo_blue_light);
 
         // 下拉时触发SwipeRefreshLayout的下拉动画，动画完毕之后就会回调这个方法
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,14 +81,23 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
             }
         });
         listView = (ListView) findViewById(R.id.listview);
+        adapter = new CircleAdapter(this);
+        listView.setAdapter(adapter);
     }
 
     private void loadTaskData() {
-        if (httpTaskUtil == null) {
-            httpTaskUtil = new HttpTaskUtil();
-            httpTaskUtil.setResultListener(resultListener);
+//        if (httpTaskUtil == null) {
+//            httpTaskUtil = new HttpTaskUtil();
+//            httpTaskUtil.setResultListener(resultListener);
+//        }
+//        httpTaskUtil.QueryCircleRunTask(UserInfoManager.getInstance().getAccount());
+        List<CircleBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            CircleBean circleBean = new CircleBean();
+            list.add(circleBean);
         }
-        httpTaskUtil.QueryCircleRunTask(UserInfoManager.getInstance().getAccount());
+        adapter.setData(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -112,7 +122,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         }
 
         @Override
-        public void onFailure(Request request, IOException e) {
+        public void onFailure(Request request, Exception e) {
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
         }
     };

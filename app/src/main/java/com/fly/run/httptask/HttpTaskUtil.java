@@ -38,7 +38,7 @@ public class HttpTaskUtil {
     public interface ResultListener {
         public void onResponse(String response);
 
-        public void onFailure(Request request, IOException e);
+        public void onFailure(Request request, Exception e);
     }
 
     public HttpTaskUtil setResultListener(ResultListener resultListener) {
@@ -52,7 +52,6 @@ public class HttpTaskUtil {
             OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_QUERY_CIRCLE_RUN, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
                     if (resultListener != null)
                         resultListener.onFailure(request, e);
                 }
@@ -65,6 +64,8 @@ public class HttpTaskUtil {
             }, paramAccount);
         } catch (Exception e) {
             e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
         }
     }
 

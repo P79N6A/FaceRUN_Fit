@@ -26,7 +26,7 @@ import java.io.IOException;
 public class WelRunActivity extends BaseUIActivity {
 
     private long startTime = 0;
-    private final long JumpTime = 2000;
+    private final long JumpTime = 1000;
     public static boolean isJump = false;
     private Handler mHandler = new Handler();
     private LocationUtils locationUtils;
@@ -40,8 +40,8 @@ public class WelRunActivity extends BaseUIActivity {
         setContentView(R.layout.activity_wel_run);
         startTime = System.currentTimeMillis();
 //        loadWebGif();
-        getRunData();
-//        httpWeatherTask();
+//        getRunData();
+        httpWeatherTask();
     }
 
     private void loadWebGif() {

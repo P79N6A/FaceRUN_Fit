@@ -26,7 +26,6 @@ import com.fly.run.view.dialog.DialogInformation;
 import com.squareup.okhttp.Request;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class SettingActivity extends BaseUIActivity implements View.OnClickListener {
@@ -138,7 +137,7 @@ public class SettingActivity extends BaseUIActivity implements View.OnClickListe
         }
 
         @Override
-        public void onFailure(Request request, IOException e) {
+        public void onFailure(Request request, Exception e) {
 
         }
     };

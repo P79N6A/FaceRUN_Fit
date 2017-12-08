@@ -26,8 +26,6 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
-import java.io.IOException;
-
 import static com.fly.run.activity.MainActivity.Login_State_Fail;
 import static com.fly.run.activity.MainActivity.Login_State_Success;
 
@@ -123,7 +121,7 @@ public class LoginActivity extends BaseUIActivity {
         }
 
         @Override
-        public void onFailure(Request request, IOException e) {
+        public void onFailure(Request request, Exception e) {
             if (e != null && !TextUtils.isEmpty(e.getMessage()))
                 ToastUtil.show(e.getMessage());
             else
