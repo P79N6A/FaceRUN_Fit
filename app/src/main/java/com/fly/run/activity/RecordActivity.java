@@ -102,12 +102,32 @@ public class RecordActivity extends BaseUIActivity {
         actionBar.setActionRightIconListenr(R.drawable.action_delete_normal, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDelBatchTrain();
+                List<RunBean> list = adapter.getDatas();
+                if (list == null || list.size() == 0){
+                    ToastUtil.show("暂无行程");
+                    return;
+                } else {
+                    boolean isCheck = false;
+                    for (RunBean runBean : list){
+                        if (runBean.isCheck()){
+                            isCheck = true;
+                            break;
+                        }
+                    }
+                    if (isCheck)
+                        showAlertDelBatchTrain();
+                    else
+                        ToastUtil.show("没有选择行程");
+                }
             }
         });
         actionBar.setActionRightTextListenr("编辑", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (recordList == null || recordList.size() == 0){
+                    ToastUtil.show("暂无行程");
+                    return;
+                }
                 actionBar.setActionRightIconVisiable(View.VISIBLE);
                 v.setVisibility(View.GONE);
                 adapter.setEditState(true);
