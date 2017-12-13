@@ -27,6 +27,6 @@
         android:layout_margin="@dimen/margin_10"
         android:text="随心而动"
         android:textColor="@color/activity_bg_color"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </RelativeLayout>
