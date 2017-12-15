@@ -26,7 +26,7 @@
             android:minHeight="100dp"
             android:textSize="14sp" />
 
-        <com.fly.run.view.gridview.CustomGridView
+        <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:numColumns="3"
             android:verticalSpacing="@dimen/margin_4">
 
-        </com.fly.run.view.gridview.CustomGridView>
+        </GridView>
 
         <TextView
             android:id="@+id/tv_address"

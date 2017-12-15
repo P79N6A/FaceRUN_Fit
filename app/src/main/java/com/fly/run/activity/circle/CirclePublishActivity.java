@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fly.run.R;
+import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PublishCircleGridAdapter;
 import com.fly.run.bean.AccountBean;
@@ -18,7 +20,6 @@ import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
-import com.fly.run.view.gridview.CustomGridView;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private CommonActionBar actionBar;
     private EditText etInput;
     private TextView tvAddress;
-    private CustomGridView gridView;
+    private GridView gridView;
     private PublishCircleGridAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
 
@@ -59,7 +60,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private void initView() {
         etInput = (EditText) findViewById(R.id.et_input);
         tvAddress = (TextView) findViewById(R.id.tv_address);
-        gridView = (CustomGridView) findViewById(R.id.gridview);
+        gridView = (GridView) findViewById(R.id.gridview);
         adapter = new PublishCircleGridAdapter(this);
         gridView.setAdapter(adapter);
         adapter.setImageListener(new PublishCircleGridAdapter.ImageListenrt() {
@@ -70,7 +71,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
 
             @Override
             public void doAddImage() {
-
+                intentToActivity(ChooseImagesActivity.class);
             }
         });
         showGridImgsView(null);
@@ -120,7 +121,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             } catch (Exception e) {
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             } finally {
-                
+
             }
         }
 

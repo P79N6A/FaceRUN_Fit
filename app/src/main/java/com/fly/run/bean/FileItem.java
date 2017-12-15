@@ -9,6 +9,7 @@ public class FileItem implements Serializable {
     public String imageId;
     public String fileName;
     public String filePath;
+    public boolean isCheck = false;
 
     public FileItem(String imageId, String filePath, String fileName){
         this.imageId = imageId;
@@ -40,6 +41,15 @@ public class FileItem implements Serializable {
 
     public FileItem setFilePath(String filePath) {
         this.filePath = filePath;
+        return this;
+    }
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public FileItem setCheck(boolean check) {
+        isCheck = check;
         return this;
     }
 }
