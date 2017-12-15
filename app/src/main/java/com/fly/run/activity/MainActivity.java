@@ -45,7 +45,7 @@ import com.fly.run.activity.circle.CircleActivity;
 import com.fly.run.activity.login.LoginActivity;
 import com.fly.run.activity.person.PersonInfoActivity;
 import com.fly.run.activity.setting.SettingActivity;
-import com.fly.run.activity.training.FitTime2Activity;
+import com.fly.run.activity.training.FitTimeActivity;
 import com.fly.run.activity.training.TrainPlanActivity;
 import com.fly.run.adapter.NavMainAdapter;
 import com.fly.run.bean.AccountBean;
@@ -92,7 +92,8 @@ public class MainActivity extends BaseUIActivity
     private MediaPlayerUtil mediaPlayerUtil;
 
     private RelativeLayout layoutWeather;
-    private TextView tvWeatherAir,tvWeatherC;
+    private TextView tvWeatherAir;
+    private TextView tvWeatherC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,13 +195,13 @@ public class MainActivity extends BaseUIActivity
             String airCondition = WeatherUtil.weatherBean.getAirCondition();
             if (!TextUtils.isEmpty(airCondition)) {
                 if ("优".equalsIgnoreCase(airCondition) || "良".equalsIgnoreCase(airCondition)) {
-                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_excellent);
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir, this, R.drawable.aqi_excellent);
                 } else if ("污染".equalsIgnoreCase(airCondition)
                         || "轻度污染".equalsIgnoreCase(airCondition)
                         || "中度污染".equalsIgnoreCase(airCondition)) {
-                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_average);
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir, this, R.drawable.aqi_average);
                 } else {
-                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir,this,R.drawable.aqi_poor);
+                    TextViewDrawable.setTextViewDrawableLeft(tvWeatherAir, this, R.drawable.aqi_poor);
                 }
             }
         } else {
@@ -321,7 +322,7 @@ public class MainActivity extends BaseUIActivity
                     intentToActivity(TrainPlanActivity.class);
                     break;
                 case 2:
-                    intentToActivity(FitTime2Activity.class);
+                    intentToActivity(FitTimeActivity.class);
                     break;
                 case 3:
                     intent = new Intent(MainActivity.this, SettingActivity.class);
