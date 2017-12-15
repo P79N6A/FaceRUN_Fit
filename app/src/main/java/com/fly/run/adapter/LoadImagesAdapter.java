@@ -1,6 +1,7 @@
 package com.fly.run.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,8 @@ public class LoadImagesAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String content = getItem(position);
+        if (!TextUtils.isEmpty(content))
+            content = content.trim();
         ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsLanuchHeader);
         return convertView;
     }

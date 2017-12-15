@@ -30,6 +30,12 @@ public class CircleAdapter extends BaseAdapter {
         this.mContext = context;
     }
 
+    public void addData(List<CircleBean> list) {
+        if (list != null) {
+            datas.addAll(list);
+        }
+    }
+
     public void setData(List<CircleBean> list) {
         datas.clear();
         if (list != null) {
@@ -64,52 +70,21 @@ public class CircleAdapter extends BaseAdapter {
         }
         CircleBean item = getItem(position);
         if (item != null) {
-            if (!TextUtils.isEmpty(item.getName()))
-                viewHolder.tvName.setText(item.getName());
-            if (item.getCreateAt() != null)
-                viewHolder.tvTime.setText(item.getCreateAt().toLocaleString());
-            if (!TextUtils.isEmpty(item.getDesc()))
-                viewHolder.tvDesc.setText(item.getDesc());
-            if (!TextUtils.isEmpty(item.getAddress()))
+            viewHolder.tvName.setText(item.getAccount());
+            viewHolder.tvTime.setText(item.getCreateTime() == null ? "" : item.getCreateTime().toLocaleString());
+            viewHolder.tvDesc.setText(item.getDescription());
+            if (!TextUtils.isEmpty(item.getAddress())) {
+                viewHolder.tvAddress.setVisibility(View.VISIBLE);
                 viewHolder.tvAddress.setText(item.getAddress());
-            ImageLoader.getInstance().displayImage(item.getHeaderUrl(), viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
-            String url1 = "http://pic.melinked.com/me2017/a9/wrskmvrxdoak.jpg,";
-            String url2 = "http://pic.melinked.com/me2017/a29/gb8j3bcg5q8g.jpg,";
-            String url3 = "http://pic.melinked.com/me2017/a0/owquaseo63yb.jpg,";
+            } else
+                viewHolder.tvAddress.setVisibility(View.GONE);
+            ImageLoader.getInstance().displayImage("", viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
+
             String url = "http://pic.melinked.com/me2017/a9/wrskmvrxdoak.jpg," +
                     "http://pic.melinked.com/me2017/a29/gb8j3bcg5q8g.jpg," +
                     "http://pic.melinked.com/me2017/a0/owquaseo63yb.jpg,";
-            switch (position) {
-                case 0:
-                    url = url1;
-                    break;
-                case 1:
-                    url = url2;
-                    break;
-                case 2:
-                    url = url3;
-                    break;
-                case 3:
-                    url = url1 + url2;
-                    break;
-                case 4:
-                    url = url1 + url3;
-                    break;
-                case 5:
-                    url = url + url1;
-                    break;
-                case 6:
-                    url = url + url1 + url3;
-                    break;
-                case 7:
-                    url = url + url + url3;
-                    break;
-                case 8:
-                    url = url + url + url;
-                    break;
-                default:
-                    break;
-            }
+            if (!TextUtils.isEmpty(item.getPhotos()))
+                url = item.getPhotos();
             viewHolder.loadImagesView.setImagesData(url);
         }
         return convertView;

@@ -1,10 +1,6 @@
 package com.fly.run.config;
 
 public class UrlConstants {
-//    192.168.43.96 oppo r9
-//    192.168.31.90 家
-//    172.16.0.12 公司
-//    http://flyrun.ittun.com
     /**
      * home IP
      * */
@@ -12,11 +8,11 @@ public class UrlConstants {
     /**
      * 公司 IP
      */
-    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
+//    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
     /**
-     * OPPO R9
+     * 阿里云
      */
-//    public static String HTTP_ROOT = "http://flyrun.ittun.com/";
+    public static String HTTP_ROOT = "http://120.78.81.9/";
 
     /**
      * 图片根路径
@@ -75,12 +71,14 @@ public class UrlConstants {
 
     /**
      * 查询用户信息
+     *
      * @param account
      */
     public static String HTTP_USER_QUERY_BY_ACCOUNT = HTTP_ROOT + "account/select_by_account";
 
     /**
      * 查询用户信息
+     *
      * @param account_id
      */
     public static String HTTP_USER_QUERY_BY_ACCOUNT_ID = HTTP_ROOT + "account/select_by_id";
@@ -108,5 +106,15 @@ public class UrlConstants {
     /**
      * 查询跑友圈
      */
-    public static String HTTP_QUERY_CIRCLE_RUN = HTTP_ROOT + "run/list_by_account";
+    public static String HTTP_CIRCLE_QUERY = HTTP_ROOT + "circle/query";
+
+    /**
+     * 插入跑友圈
+     */
+    public static String HTTP_CIRCLE_INSERT = HTTP_ROOT + "circle/insert";
+
+    /**
+     * 删除跑友圈
+     */
+    public static String HTTP_CIRCLE_DELETE = HTTP_ROOT + "circle/delete";
 }

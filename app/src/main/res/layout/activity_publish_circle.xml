@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg_color"
+    android:orientation="vertical">
+
+    <com.fly.run.view.actionbar.CommonActionBar
+        android:id="@+id/common_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_12">
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|top"
+            android:hint="我还能跑10公里"
+            android:minHeight="100dp"
+            android:textSize="14sp" />
+
+        <com.fly.run.view.gridview.CustomGridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_6"
+            android:horizontalSpacing="@dimen/margin_4"
+            android:numColumns="3"
+            android:verticalSpacing="@dimen/margin_4">
+
+        </com.fly.run.view.gridview.CustomGridView>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_6"
+            android:drawableLeft="@drawable/ic_address"
+            android:gravity="center_vertical"
+            android:text="美国夏威夷群岛"
+            android:textColor="@color/color_corner_green_normal" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -63,7 +63,10 @@ public class LoadImagesView extends RelativeLayout {
         if (list.length == 1) {
             imageView.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            ImageLoader.getInstance().displayImage(list[0], imageView, ImageLoaderOptions.optionsLanuchHeader, new ImageLoadingListener() {
+            String url = list[0];
+            if (!TextUtils.isEmpty(url))
+                url = url.trim();
+            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsLanuchHeader, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

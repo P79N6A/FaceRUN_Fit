@@ -31,15 +31,15 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:singleLine="true"
-            android:text="Title"
+            android:text=""
             android:textColor="@color/activity_bg_color"
             android:textSize="18sp"
             android:visibility="visible" />
 
         <ImageView
             android:id="@+id/action_right_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/activity_horizontal_margin"

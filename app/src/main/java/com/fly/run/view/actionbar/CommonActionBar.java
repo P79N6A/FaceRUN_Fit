@@ -77,7 +77,7 @@ public class CommonActionBar extends LinearLayout {
         if (listener != null) {
             action_right_iv.setOnClickListener(listener);
         }
-        ation_left_iv.setVisibility(View.VISIBLE);
+        action_right_iv.setVisibility(View.VISIBLE);
     }
 
     public void setActionRightTextListenr(int src, OnClickListener listener) {

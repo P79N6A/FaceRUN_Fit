@@ -46,10 +46,11 @@ public class HttpTaskUtil {
         return this;
     }
 
-    public void QueryCircleRunTask(String account) {
+    public void InsertCircleRunTask(String data, String account_id) {
         try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_QUERY_CIRCLE_RUN, new OkHttpClientManager.StringCallback() {
+            OkHttpClientManager.Param paramData = new OkHttpClientManager.Param("data", data);
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", account_id);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_INSERT, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     if (resultListener != null)
@@ -61,7 +62,32 @@ public class HttpTaskUtil {
                     if (resultListener != null)
                         resultListener.onResponse(response);
                 }
-            }, paramAccount);
+            }, paramData, paramAccountId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    public void QueryCircleRunTask(int pageNum, int pageSize, String account_id) {
+        try {
+            OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
+            OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", account_id);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramPageNum, paramPageSize, paramAccountId);
         } catch (Exception e) {
             e.printStackTrace();
             if (resultListener != null)
