@@ -40,8 +40,8 @@ public class WelRunActivity extends BaseUIActivity {
         setContentView(R.layout.activity_wel_run);
         startTime = System.currentTimeMillis();
 //        loadWebGif();
-//        getRunData();
-        httpWeatherTask();
+        getRunData();
+//        httpWeatherTask();
     }
 
     private void loadWebGif() {

@@ -15,6 +15,7 @@ import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,9 +25,14 @@ public class ChooseImagesAdapter extends BaseAdapter {
 
     private List<FileItem> urlImages;
     private Context mContext;
+    private List<FileItem> ChooseItems = new ArrayList<>();
 
     public ChooseImagesAdapter(Context context) {
         this.mContext = context;
+    }
+
+    public List<FileItem> getChooseItems() {
+        return ChooseItems;
     }
 
     public void setData(List<FileItem> urlImages){

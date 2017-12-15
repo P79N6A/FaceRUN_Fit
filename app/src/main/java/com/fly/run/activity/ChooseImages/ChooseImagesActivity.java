@@ -1,5 +1,6 @@
 package com.fly.run.activity.ChooseImages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,8 @@ import com.fly.run.utils.MediaQueryUtil;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseImagesActivity extends BaseUIActivity {
@@ -28,6 +31,8 @@ public class ChooseImagesActivity extends BaseUIActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_images);
+        int num = getIntent().getIntExtra("num", 0);
+        ChooseCount = ChooseCount - num;
         initActionBar();
         initView();
         new Thread(new Runnable() {
@@ -36,7 +41,7 @@ public class ChooseImagesActivity extends BaseUIActivity {
                 long start = System.currentTimeMillis();
                 Log.e(TAG, "start = " + start);
                 initLocalImages();
-                Log.e(TAG, "耗时 = " + (System.currentTimeMillis() - start)+"  数量 = "+list.size());
+                Log.e(TAG, "耗时 = " + (System.currentTimeMillis() - start) + "  数量 = " + list.size());
             }
         }).start();
     }
@@ -52,6 +57,13 @@ public class ChooseImagesActivity extends BaseUIActivity {
         actionBar.setActionRightIconListenr(R.drawable.ic_jobs_commen_press, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<String> imageList = new ArrayList<String>();
+                for (FileItem item : adapter.getChooseItems())
+                    imageList.add(item.filePath);
+                Intent intent = new Intent();
+                intent.putExtra("images", (Serializable) imageList);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -88,8 +100,8 @@ public class ChooseImagesActivity extends BaseUIActivity {
             @Override
             public void doChooseImage(int position, String url) {
                 FileItem item = adapter.getItem(position);
-                if (!item.isCheck()){
-                    if (adapter.getChooseItems().size() >= ChooseCount){
+                if (!item.isCheck()) {
+                    if (adapter.getChooseItems().size() >= ChooseCount) {
                         ToastUtil.show("最多选择9张图片");
                         return;
                     }

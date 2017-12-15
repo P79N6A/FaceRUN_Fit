@@ -1,5 +1,6 @@
 package com.fly.run.activity.circle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CirclePublishActivity extends BaseUIActivity implements View.OnClickListener {
@@ -32,6 +34,8 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private GridView gridView;
     private PublishCircleGridAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
+    private final int CHOOSE_IMAGES_CODE = 1001;
+    private List<String> urlImages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +75,12 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
 
             @Override
             public void doAddImage() {
-                intentToActivity(ChooseImagesActivity.class);
+                Intent intent = new Intent(CirclePublishActivity.this, ChooseImagesActivity.class);
+                intent.putExtra("num", urlImages.size());
+                startActivityForResult(intent, CHOOSE_IMAGES_CODE);
             }
         });
-        showGridImgsView(null);
+        showGridImgsView(urlImages);
     }
 
     private void showGridImgsView(List<String> images) {
@@ -130,4 +136,15 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == CHOOSE_IMAGES_CODE) {
+            List<String> list = data.getStringArrayListExtra("images");
+            if (list != null && list.size() > 0)
+                urlImages.addAll(list);
+            showGridImgsView(urlImages);
+        }
+    }
 }

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class PublishCircleGridAdapter extends BaseAdapter {
 
-    private List<String> urlImages;
+    private List<String> urlImages = new ArrayList<>();
     private Context mContext;
 
     public PublishCircleGridAdapter(Context context) {
@@ -30,12 +30,15 @@ public class PublishCircleGridAdapter extends BaseAdapter {
     }
 
     public void setUrlImages(List<String> urlImages) {
-        this.urlImages = urlImages;
-        if (this.urlImages == null) {
-            this.urlImages = new ArrayList<>();
+        this.urlImages.clear();
+        if (urlImages != null)
+            this.urlImages.addAll(urlImages);
+        if (urlImages == null || this.urlImages.size() < 9)
             this.urlImages.add("ADD");
-        } else if (this.urlImages.size() < 9)
-            this.urlImages.add("ADD");
+    }
+
+    public void addUrlImages(List<String> urlImages) {
+        this.urlImages.addAll(urlImages);
     }
 
     @Override
@@ -71,7 +74,7 @@ public class PublishCircleGridAdapter extends BaseAdapter {
                 ImageLoader.getInstance().displayImage(add_url, viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
             } else {
                 viewHolder.ivHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                ImageLoader.getInstance().displayImage(url, viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
+                ImageLoader.getInstance().displayImage("file:///" + url, viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
             }
             viewHolder.ivHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
