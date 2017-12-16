@@ -4,7 +4,7 @@ public class UrlConstants {
     /**
      * home IP
      * */
-//    public static String HTTP_ROOT = "http://192.168.31.90:9000/";
+    public static String HTTP_ROOT = "http://192.168.31.90:9090/";
     /**
      * 公司 IP
      */
@@ -12,7 +12,7 @@ public class UrlConstants {
     /**
      * 阿里云
      */
-    public static String HTTP_ROOT = "http://120.78.81.9/";
+//    public static String HTTP_ROOT = "http://120.78.81.9/";
 
     /**
      * 图片根路径
@@ -22,12 +22,12 @@ public class UrlConstants {
     /**
      * 文件上传（图片）
      */
-    public static String HTTP_UPLOAD_IMAGE = HTTP_ROOT + "upload/uploadFile";
+    public static String HTTP_UPLOAD_IMAGE = HTTP_ROOT + "upload";
 
     /**
      * 文件下载
      */
-    public static String HTTP_DOWNLOAD_FILE = HTTP_ROOT + "download/downloadFile";
+    public static String HTTP_DOWNLOAD_FILE = HTTP_ROOT + "download_file";
 
     /**
      * 设置在线用户的位置

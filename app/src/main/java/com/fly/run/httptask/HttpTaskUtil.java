@@ -12,6 +12,7 @@ import com.fly.run.utils.PhoneUtil;
 import com.fly.run.utils.ToastUtil;
 import com.squareup.okhttp.Request;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -44,6 +45,15 @@ public class HttpTaskUtil {
     public HttpTaskUtil setResultListener(ResultListener resultListener) {
         this.resultListener = resultListener;
         return this;
+    }
+
+    public void UploadFilesTask(File[] files, String[] fileKeys, OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGE, callback, files, fileKeys);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastUtil.show(e != null ? e.getMessage() : "文件上传失败");
+        }
     }
 
     public void InsertCircleRunTask(String data, String account_id) {

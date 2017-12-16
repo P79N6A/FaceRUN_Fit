@@ -3,26 +3,28 @@ package com.fly.run.activity.circle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.fly.run.R;
 import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PublishCircleGridAdapter;
 import com.fly.run.bean.AccountBean;
-import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,15 +106,17 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             ToastUtil.show("请登录");
             return;
         }
-        String strInput = etInput.getText().toString();
-        CircleBean circleBean = new CircleBean();
-        circleBean.setAccount(bean.getAccount());
-        circleBean.setAccountId(bean.getId());
-        circleBean.setDescription(TextUtils.isEmpty(strInput) ? etInput.getHint().toString() : strInput);
-        circleBean.setPhotos("http://pic.melinked.com/me2017/a19/6ep2168ni8ek.jpg");
-        circleBean.setAddress(tvAddress.getText().toString());
-        String strJson = JSONObject.toJSONString(circleBean);
-        httpTaskUtil.InsertCircleRunTask(strJson, "" + bean.getId());
+//        String strInput = etInput.getText().toString();
+//        CircleBean circleBean = new CircleBean();
+//        circleBean.setAccount(bean.getAccount());
+//        circleBean.setAccountId(bean.getId());
+//        circleBean.setDescription(TextUtils.isEmpty(strInput) ? etInput.getHint().toString() : strInput);
+//        circleBean.setPhotos("http://pic.melinked.com/me2017/a19/6ep2168ni8ek.jpg");
+//        circleBean.setAddress(tvAddress.getText().toString());
+//        String strJson = JSONObject.toJSONString(circleBean);
+//        httpTaskUtil.InsertCircleRunTask(strJson, "" + bean.getId());
+
+        uploadFilesTask();
     }
 
     HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {
@@ -136,6 +140,28 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
         }
     };
+
+    private void uploadFilesTask() {
+        if (urlImages == null || urlImages.size() == 0)
+            return;
+        File[] files = new File[urlImages.size()];
+        String[] fileKeys = new String[urlImages.size()];
+        for (int i = 0; i < urlImages.size(); i++) {
+            files[i] = new File(urlImages.get(i));
+            fileKeys[i] = urlImages.get(i);
+        }
+        httpTaskUtil.UploadFilesTask(files, fileKeys, new OkHttpClientManager.StringCallback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                ToastUtil.show("图片上传失败，请稍后再试");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.e(TAG, response);
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
