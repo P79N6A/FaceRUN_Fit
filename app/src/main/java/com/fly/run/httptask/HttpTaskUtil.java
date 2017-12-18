@@ -47,9 +47,28 @@ public class HttpTaskUtil {
         return this;
     }
 
+    public void UploadSingleFileTask(File file, String fileKey) {
+        try {
+            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_SINGLE_IMAGE, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    ToastUtil.show(e != null ? e.getMessage() : "onFailure 文件上传失败");
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    ToastUtil.show(response != null ? response : "response 文件上传失败");
+                }
+            }, file, fileKey);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastUtil.show(e != null ? e.getMessage() : "catch 文件上传失败");
+        }
+    }
+
     public void UploadFilesTask(File[] files, String[] fileKeys, OkHttpClientManager.StringCallback callback) {
         try {
-            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGE, callback, files, fileKeys);
+            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGES, callback, files, fileKeys);
         } catch (IOException e) {
             e.printStackTrace();
             ToastUtil.show(e != null ? e.getMessage() : "文件上传失败");

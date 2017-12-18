@@ -4,11 +4,11 @@ public class UrlConstants {
     /**
      * home IP
      * */
-    public static String HTTP_ROOT = "http://192.168.31.90:9090/";
+//    public static String HTTP_ROOT = "http://192.168.31.90:9090/";
     /**
      * 公司 IP
      */
-//    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
+    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
     /**
      * 阿里云
      */
@@ -20,9 +20,14 @@ public class UrlConstants {
     public static String HTTP_SHOW_IMAGE = HTTP_ROOT + "UpLoadPath/FILE/";
 
     /**
-     * 文件上传（图片）
+     * 单文件上传（图片）
      */
-    public static String HTTP_UPLOAD_IMAGE = HTTP_ROOT + "upload";
+    public static String HTTP_UPLOAD_SINGLE_IMAGE = HTTP_ROOT + "upload";
+
+    /**
+     * 多文件上传（图片）
+     */
+    public static String HTTP_UPLOAD_IMAGES = HTTP_ROOT + "batch/upload";
 
     /**
      * 文件下载

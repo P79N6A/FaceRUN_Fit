@@ -3,21 +3,23 @@ package com.fly.run.activity.circle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fly.run.R;
 import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PublishCircleGridAdapter;
 import com.fly.run.bean.AccountBean;
+import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.Logger;
 import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
@@ -106,16 +108,10 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             ToastUtil.show("请登录");
             return;
         }
-//        String strInput = etInput.getText().toString();
-//        CircleBean circleBean = new CircleBean();
-//        circleBean.setAccount(bean.getAccount());
-//        circleBean.setAccountId(bean.getId());
-//        circleBean.setDescription(TextUtils.isEmpty(strInput) ? etInput.getHint().toString() : strInput);
-//        circleBean.setPhotos("http://pic.melinked.com/me2017/a19/6ep2168ni8ek.jpg");
-//        circleBean.setAddress(tvAddress.getText().toString());
-//        String strJson = JSONObject.toJSONString(circleBean);
-//        httpTaskUtil.InsertCircleRunTask(strJson, "" + bean.getId());
-
+        if (urlImages == null || urlImages.size() == 0) {
+            insertCircleData("");
+            return;
+        }
         uploadFilesTask();
     }
 
@@ -153,14 +149,34 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         httpTaskUtil.UploadFilesTask(files, fileKeys, new OkHttpClientManager.StringCallback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                ToastUtil.show("图片上传失败，请稍后再试");
+                ToastUtil.show(e != null ? e.getMessage() : "onFailure 文件上传失败");
             }
 
             @Override
             public void onResponse(String response) {
-                Log.e(TAG, response);
+                ToastUtil.show(response != null ? response : "response 文件上传失败");
+                if (!TextUtils.isEmpty(response)) {
+                    JSONObject jsonObject = JSON.parseObject(response);
+                    if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {
+                        String data = jsonObject.getString("data");
+                        insertCircleData(data);
+                    }
+                }
             }
         });
+    }
+
+    private void insertCircleData(String photos) {
+        String strInput = etInput.getText().toString();
+        AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
+        CircleBean circleBean = new CircleBean();
+        circleBean.setAccount(bean.getAccount());
+        circleBean.setAccountId(bean.getId());
+        circleBean.setDescription(TextUtils.isEmpty(strInput) ? etInput.getHint().toString() : strInput);
+        circleBean.setPhotos(photos);
+        circleBean.setAddress(tvAddress.getText().toString());
+        String strJson = JSONObject.toJSONString(circleBean);
+        httpTaskUtil.InsertCircleRunTask(strJson, "" + bean.getId());
     }
 
     @Override
@@ -172,5 +188,11 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
                 urlImages.addAll(list);
             showGridImgsView(urlImages);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Logger.e(TAG, "onDestroy");
+        super.onDestroy();
     }
 }
