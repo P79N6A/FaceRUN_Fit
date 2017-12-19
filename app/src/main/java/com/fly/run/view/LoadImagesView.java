@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fly.run.R;
+import com.fly.run.activity.ShowImagesActivity;
 import com.fly.run.adapter.LoadImagesAdapter;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
@@ -65,11 +66,18 @@ public class LoadImagesView extends RelativeLayout {
             imageView.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
             String url = list[0];
-            if (!TextUtils.isEmpty(url)){
+            if (!TextUtils.isEmpty(url)) {
                 url = url.trim();
                 if (!url.startsWith("http://"))
-                    url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2,url);
+                    url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
             }
+            final String finalUrl = url;
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShowImagesActivity.startShowImageActivity(getContext(), finalUrl);
+                }
+            });
             ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {

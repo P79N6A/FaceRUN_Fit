@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fly.run.R;
+import com.fly.run.activity.ShowImagesActivity;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
@@ -63,12 +64,19 @@ public class LoadImagesAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String content = getItem(position);
-        if (!TextUtils.isEmpty(content)){
+        if (!TextUtils.isEmpty(content)) {
             content = content.trim();
             if (!content.startsWith("http://"))
-                content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2,content);
+                content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, content);
         }
         ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsItemDefault);
+        final String finalUrl = content;
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowImagesActivity.startShowImageActivity(mContext,finalUrl);
+            }
+        });
         return convertView;
     }
 

@@ -282,36 +282,40 @@
             android:theme="@style/AppTheme" />
 
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.ui.MainActivity"-->
-            <!--android:label="@string/app_name"></activity>-->
+        <!--android:name="com.stickercamera.app.ui.MainActivity"-->
+        <!--android:label="@string/app_name"></activity>-->
 
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.camera.ui.CameraActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
+        <!--android:name="com.stickercamera.app.camera.ui.CameraActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.camera.ui.CropPhotoActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
+        <!--android:name="com.stickercamera.app.camera.ui.CropPhotoActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.camera.ui.AlbumActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
+        <!--android:name="com.stickercamera.app.camera.ui.AlbumActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.camera.ui.PhotoProcessActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
+        <!--android:name="com.stickercamera.app.camera.ui.PhotoProcessActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
         <!--<activity-->
-            <!--android:name="com.stickercamera.app.ui.EditTextActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
+        <!--android:name="com.stickercamera.app.ui.EditTextActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />-->
         <activity
             android:name=".activity.circle.CirclePublishActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ChooseImages.ChooseImagesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ShowImagesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
     </application>
