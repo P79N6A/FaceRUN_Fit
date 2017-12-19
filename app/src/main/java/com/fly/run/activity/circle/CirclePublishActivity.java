@@ -121,8 +121,8 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             try {
                 ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
                 if (bean != null && bean.code == 1) {
-                    if (!TextUtils.isEmpty(bean.data)) {
-                    }
+                    setResult(RESULT_OK);
+                    finish();
                 }
             } catch (Exception e) {
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
@@ -154,7 +154,6 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
 
             @Override
             public void onResponse(String response) {
-                ToastUtil.show(response != null ? response : "response 文件上传失败");
                 if (!TextUtils.isEmpty(response)) {
                     JSONObject jsonObject = JSON.parseObject(response);
                     if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {

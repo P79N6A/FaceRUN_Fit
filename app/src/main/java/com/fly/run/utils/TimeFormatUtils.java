@@ -29,11 +29,11 @@ public class TimeFormatUtils {
     private static final String WALLET_DATE_FORMAT = "MMM d, yyyy H:mm a";
     private static final String GRUOP_CHAT_NOTICE_DATE_FORMAT = "MMM d, yyyy HH:mm";
     private static final String CHAT_DATE_FORMAT = "HH:mm";
-    private static final String DATE_TIME_FORMAT = "MM-dd HH:mm";
+    private static final String DATE_TIME_FORMAT = "yyyy年MM月dd日 HH:mm";
     private static final String DATE_TIME_FORMAT2 = "yyyy/MM/dd";
     private static final String DATE_TIME_FORMAT3 = "yyyy/MM";
     private static final String DATE_TIME_FORMAT4 = "yyyy年MM月";
-    private static final String DATE_TIME_FORMAT5 = "MM月dd日 HH:mm";
+    private static final String DATE_TIME_FORMAT5 = "yyyy年MM月dd日 HH:mm";
     private static final String DATE_TIME_FORMAT6 = "yyyy-MM-dd HH:mm";
 
     private static final int ONE_DAY_MILLISECONDS = 24 * 60 * 60 * 1000;
@@ -108,12 +108,8 @@ public class TimeFormatUtils {
      * @return 时间格式 - 09-26 17:55
      */
     public static String getChatItemFormatDate(Date date) {
-        Logger.d(TAG, "getChatItemFormatDate date = " + date);
-
         SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault());
         String formatDate = format.format(date);
-        Logger.d(TAG, "getChatItemFormatDate formatDate = " + formatDate);
-
         return formatDate;
     }
 

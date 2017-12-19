@@ -68,7 +68,9 @@ public class HttpTaskUtil {
 
     public void UploadFilesTask(File[] files, String[] fileKeys, OkHttpClientManager.StringCallback callback) {
         try {
-            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGES, callback, files, fileKeys);
+            OkHttpClientManager.Param paramData = new OkHttpClientManager.Param("data", "ABCD");
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", ""+UserInfoManager.getInstance().getAccountInfo().getId());
+            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGES, callback, files, fileKeys,paramAccountId,paramData);
         } catch (IOException e) {
             e.printStackTrace();
             ToastUtil.show(e != null ? e.getMessage() : "文件上传失败");
@@ -237,108 +239,6 @@ public class HttpTaskUtil {
                         resultListener.onResponse(response);
                 }
             });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void SaveActiveTask(String account, String active_id, String title, String content,
-                               String content_img, String active_time, String address,
-                               String use_time, String distance, String level) {
-        try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
-            OkHttpClientManager.Param paramActiveId = new OkHttpClientManager.Param("active_id", active_id);
-            OkHttpClientManager.Param paramTitle = new OkHttpClientManager.Param("title", title);
-            OkHttpClientManager.Param paramContent = new OkHttpClientManager.Param("content", content);
-            OkHttpClientManager.Param paramContentImg = new OkHttpClientManager.Param("content_img", content_img);
-            OkHttpClientManager.Param paramActiveTime = new OkHttpClientManager.Param("active_time", active_time);
-            OkHttpClientManager.Param paramAddress = new OkHttpClientManager.Param("address", address);
-            OkHttpClientManager.Param paramUseTime = new OkHttpClientManager.Param("use_time", use_time);
-            OkHttpClientManager.Param paramDistance = new OkHttpClientManager.Param("distance", distance);
-            OkHttpClientManager.Param paramLevel = new OkHttpClientManager.Param("level", level);
-
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_ACTIVE_SAVE, new OkHttpClientManager.StringCallback() {
-                        @Override
-                        public void onFailure(Request request, IOException e) {
-                            ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
-                            if (resultListener != null)
-                                resultListener.onFailure(request, e);
-                        }
-
-                        @Override
-                        public void onResponse(String response) {
-                            if (resultListener != null)
-                                resultListener.onResponse(response);
-                        }
-                    }, paramAccount, paramActiveId, paramTitle, paramContent, paramContentImg, paramActiveTime, paramAddress,
-                    paramUseTime, paramDistance, paramLevel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void QueryAllActiveListTask() {
-        try {
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_ACTIVE_QUERY_ALL, new OkHttpClientManager.StringCallback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
-                    if (resultListener != null)
-                        resultListener.onFailure(request, e);
-                }
-
-                @Override
-                public void onResponse(String response) {
-                    if (resultListener != null)
-                        resultListener.onResponse(response);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void QueryUserActivesTask(String account) {
-        try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_ACTIVE_QUERY_USER, new OkHttpClientManager.StringCallback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
-                    if (resultListener != null)
-                        resultListener.onFailure(request, e);
-                }
-
-                @Override
-                public void onResponse(String response) {
-                    if (resultListener != null)
-                        resultListener.onResponse(response);
-                }
-            }, paramAccount);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void DeleteActiveTask(String id, String active_id) {
-        try {
-            OkHttpClientManager.Param paramID = new OkHttpClientManager.Param("ID", id);
-            OkHttpClientManager.Param paramActiveId = new OkHttpClientManager.Param("ActiveId", active_id);
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_ACTIVE_DELETE, new OkHttpClientManager.StringCallback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
-                    if (resultListener != null)
-                        resultListener.onFailure(request, e);
-                }
-
-                @Override
-                public void onResponse(String response) {
-                    if (resultListener != null)
-                        resultListener.onResponse(response);
-                }
-            }, paramID, paramActiveId);
         } catch (Exception e) {
             e.printStackTrace();
         }

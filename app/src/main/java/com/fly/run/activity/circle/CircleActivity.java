@@ -3,10 +3,7 @@ package com.fly.run.activity.circle;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
@@ -19,23 +16,21 @@ import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
+import com.fly.run.view.listview.DynamicListView;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
 
-public class CircleActivity extends BaseUIActivity implements View.OnClickListener {
+public class CircleActivity extends BaseUIActivity implements View.OnClickListener, DynamicListView.DynamicListViewListener {
 
     private CommonActionBar actionBar;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ListView listView;
+    private DynamicListView listView;
     private CircleAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
 
     private int pageNum = 1;
     private final int pageSize = 5;
-    private boolean isScrollMore = false;
-    private boolean isLoadMore = true;
-    private View viewListBottom = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +38,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         setContentView(R.layout.activity_circle);
         initActionBar();
         initView();
+        swipeRefreshLayout.setRefreshing(true);
         loadTaskData();
     }
 
@@ -75,31 +71,16 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                pageNum = 1;
                 loadTaskData();
             }
         });
-        listView = (ListView) findViewById(R.id.listview);
-        viewListBottom = LayoutInflater.from(this).inflate(R.layout.layout_bottom_list_more, null);
-        viewListBottom.setVisibility(View.GONE);
-        listView.addFooterView(viewListBottom);
+        listView = (DynamicListView) findViewById(R.id.listview);
         adapter = new CircleAdapter(this);
         listView.setAdapter(adapter);
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == 0 && isScrollMore && isLoadMore) {
-                    isScrollMore = false;
-                    loadTaskData();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount == totalItemCount && isLoadMore) {
-                    isScrollMore = true;
-                }
-            }
-        });
+        listView.setDoMoreWhenBottom(false);    // 滚动到低端的时候不自己加载更多
+//        listView.setOnRefreshListener(this);
+        listView.setOnMoreListener(this);
     }
 
     @Override
@@ -116,16 +97,8 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
         if (bean == null || bean.getId() <= 0) {
             ToastUtil.show("请登录");
+            swipeRefreshLayout.setRefreshing(false);
             return;
-        }
-        if (adapter != null && adapter.getCount() == 0)
-            pageNum = 1;
-        else
-            pageNum++;
-        if (pageNum == 1) {
-            swipeRefreshLayout.setRefreshing(true);
-        } else {
-            viewListBottom.setVisibility(View.VISIBLE);
         }
         httpTaskUtil.QueryCircleRunTask(pageNum, pageSize, "" + bean.getId());
     }
@@ -138,16 +111,9 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                 if (bean != null && bean.code == 1) {
                     if (!TextUtils.isEmpty(bean.data)) {
                         List<CircleBean> list = JSON.parseArray(bean.data, CircleBean.class);
-                        if (list == null || list.size() == 0) {
-                            isLoadMore = false;
+                        if (list == null || list.size() == 0)
                             return;
-                        }
-                        CircleBean circleBean = list.get(0);
-                        if (adapter.getCount() > 0 && circleBean.getId() == adapter.getItem(0).getId()) {
-                            return;
-                        }
                         if (pageNum == 1) {
-                            isLoadMore = true;
                             adapter.setData(list);
                         } else {
                             adapter.addData(list);
@@ -156,22 +122,34 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                     }
                 }
             } catch (Exception e) {
-                pageNum = 1;
-                isLoadMore = true;
+                pageNum--;
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             } finally {
-                swipeRefreshLayout.setRefreshing(false);
-                viewListBottom.setVisibility(View.GONE);
+                if (pageNum == 1)
+                    swipeRefreshLayout.setRefreshing(false);
+                else
+                    listView.doneMore();
             }
         }
 
         @Override
         public void onFailure(Request request, Exception e) {
-            pageNum = 1;
-            isLoadMore = true;
-            swipeRefreshLayout.setRefreshing(false);
-            viewListBottom.setVisibility(View.GONE);
+            pageNum--;
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
         }
     };
+
+    @Override
+    public boolean onRefreshOrMore(DynamicListView dynamicListView, boolean isRefresh) {
+        if (isRefresh) {
+            //刷新
+            pageNum = 1;
+            loadTaskData();
+        } else {
+            //加载更多
+            pageNum++;
+            loadTaskData();
+        }
+        return false;
+    }
 }

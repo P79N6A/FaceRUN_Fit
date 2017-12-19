@@ -73,36 +73,20 @@
             android:layout_below="@+id/tv_desc"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/iv_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_150"
+                android:visibility="gone"
+                android:scaleType="centerCrop"/>
+
             <com.fly.run.view.LoadImagesView
                 android:id="@+id/view_load_images"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
             </com.fly.run.view.LoadImagesView>
-
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:layout_margin="@dimen/margin_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/menu_bg_1" />-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:layout_margin="@dimen/margin_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/menu_bg_2" />-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="100dp"-->
-                <!--android:layout_margin="@dimen/margin_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/menu_bg_3" />-->
         </LinearLayout>
 
         <TextView

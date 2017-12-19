@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fly.run.R;
@@ -25,6 +26,7 @@ public class CircleAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<CircleBean> datas = new ArrayList<>();
+    private final int MAX_HEIGHT = 200;
 
     public CircleAdapter(Context context) {
         this.mContext = context;
@@ -79,13 +81,19 @@ public class CircleAdapter extends BaseAdapter {
             } else
                 viewHolder.tvAddress.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage("", viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
-
-            String url = "http://pic.melinked.com/me2017/a9/wrskmvrxdoak.jpg," +
-                    "http://pic.melinked.com/me2017/a29/gb8j3bcg5q8g.jpg," +
-                    "http://pic.melinked.com/me2017/a0/owquaseo63yb.jpg,";
+            String url = "";
             if (!TextUtils.isEmpty(item.getPhotos()))
                 url = item.getPhotos();
             viewHolder.loadImagesView.setImagesData(url);
+//            if (!TextUtils.isEmpty(url)){
+//                String[] photos = url.split(",");
+//                if (photos != null && photos.length > 0){
+//                    url = photos[0];
+//                    if (!url.startsWith("http://"))
+//                        url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2,url);
+//                }
+//            }
+//            ImageLoader.getInstance().displayImage(url, viewHolder.ivContent, ImageLoaderOptions.optionsLanuchHeader);
         }
         return convertView;
     }
@@ -96,6 +104,8 @@ public class CircleAdapter extends BaseAdapter {
         public TextView tvTime;
         public TextView tvDesc;
         public TextView tvAddress;
+        public LinearLayout layout_imgs;
+        public ImageView ivContent;
         public LoadImagesView loadImagesView;
 
         public ViewHolder(View view) {
@@ -104,6 +114,8 @@ public class CircleAdapter extends BaseAdapter {
             this.tvTime = (TextView) view.findViewById(R.id.tv_time);
             this.tvDesc = (TextView) view.findViewById(R.id.tv_desc);
             this.tvAddress = (TextView) view.findViewById(R.id.tv_address);
+            this.layout_imgs = (LinearLayout)view.findViewById(R.id.layout_imgs);
+            this.ivContent = (ImageView) view.findViewById(R.id.iv_content);
             this.loadImagesView = (LoadImagesView) view.findViewById(R.id.view_load_images);
         }
     }

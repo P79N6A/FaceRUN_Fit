@@ -15,11 +15,6 @@ public class UrlConstants {
 //    public static String HTTP_ROOT = "http://120.78.81.9/";
 
     /**
-     * 图片根路径
-     */
-    public static String HTTP_SHOW_IMAGE = HTTP_ROOT + "UpLoadPath/FILE/";
-
-    /**
      * 单文件上传（图片）
      */
     public static String HTTP_UPLOAD_SINGLE_IMAGE = HTTP_ROOT + "upload";
@@ -33,6 +28,11 @@ public class UrlConstants {
      * 文件下载
      */
     public static String HTTP_DOWNLOAD_FILE = HTTP_ROOT + "download_file";
+
+    /**
+     * 图片下载
+     */
+    public static String HTTP_DOWNLOAD_FILE_2 = HTTP_ROOT + "download_file?filename=%s";
 
     /**
      * 设置在线用户的位置
@@ -76,7 +76,6 @@ public class UrlConstants {
 
     /**
      * 查询用户信息
-     *
      * @param account
      */
     public static String HTTP_USER_QUERY_BY_ACCOUNT = HTTP_ROOT + "account/select_by_account";
@@ -87,26 +86,6 @@ public class UrlConstants {
      * @param account_id
      */
     public static String HTTP_USER_QUERY_BY_ACCOUNT_ID = HTTP_ROOT + "account/select_by_id";
-
-    /**
-     * 保存活动
-     */
-    public static String HTTP_ACTIVE_SAVE = HTTP_ROOT + "active/saveActiveData";
-
-    /**
-     * 活动数据查询列表
-     */
-    public static String HTTP_ACTIVE_QUERY_ALL = HTTP_ROOT + "active/queryActiveDataList";
-
-    /**
-     * 查询个人活动列表
-     */
-    public static String HTTP_ACTIVE_QUERY_USER = HTTP_ROOT + "active/queryUserActives";
-
-    /**
-     * 删除活动
-     */
-    public static String HTTP_ACTIVE_DELETE = HTTP_ROOT + "active/delActiveData";
 
     /**
      * 查询跑友圈

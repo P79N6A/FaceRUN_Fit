@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fly.run.R;
+import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -62,9 +63,12 @@ public class LoadImagesAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         String content = getItem(position);
-        if (!TextUtils.isEmpty(content))
+        if (!TextUtils.isEmpty(content)){
             content = content.trim();
-        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsLanuchHeader);
+            if (!content.startsWith("http://"))
+                content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2,content);
+        }
+        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsItemDefault);
         return convertView;
     }
 
