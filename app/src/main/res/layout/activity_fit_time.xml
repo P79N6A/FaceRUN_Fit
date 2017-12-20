@@ -10,27 +10,11 @@
         android:id="@+id/common_action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewUp"
-        android:layout_below="@+id/common_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="80dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewMid"
-        android:layout_below="@+id/recyclerViewUp"
-        android:layout_above="@+id/recyclerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_10"
-        android:layout_marginBottom="@dimen/margin_10"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:minHeight="80dp" />
+        android:layout_below="@+id/common_action_bar"
+        android:padding="@dimen/margin_1" />
 </RelativeLayout>

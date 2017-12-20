@@ -2,22 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/margin_2">
+    android:padding="@dimen/margin_1">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/view_bg_4" />
+        android:src="@drawable/view_bg_4"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_icon"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:gravity="bottom|center_horizontal"
+        android:padding="@dimen/margin_10"
         android:singleLine="true"
         android:text="俯卧撑" />
 </RelativeLayout>

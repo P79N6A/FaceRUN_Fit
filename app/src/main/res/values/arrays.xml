@@ -28,6 +28,24 @@
         <item>关于我们</item>
     </array>
 
+    <array name="array_fits">
+        <item>引体向上</item>
+        <item>俯卧撑</item>
+        <item>倒立撑</item>
+        <item>臂弯曲</item>
+        <item>肱三训练</item>
+        <item>仰卧起坐</item>
+        <item>仰卧卷腹</item>
+        <item>平板支撑</item>
+        <item>山羊挺身</item>
+        <item>硬拉</item>
+        <item>悬挂屈腿收腹</item>
+        <item>徒手深蹲</item>
+        <item>负重深蹲</item>
+        <item>箭步蹲</item>
+        <item>单腿深蹲</item>
+    </array>
+
     <array name="array_fit_up">
         <item>引体向上</item>
         <item>俯卧撑</item>
