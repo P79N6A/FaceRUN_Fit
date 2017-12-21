@@ -34,7 +34,7 @@
             android:paddingBottom="@dimen/margin_6"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_12"
-            android:background="@drawable/corner_join_normal"
+            android:background="@drawable/corner_join_selector"
             android:text="加入本次计划"/>
 
     </LinearLayout>

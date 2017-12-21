@@ -35,6 +35,7 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
     private List<FitBean> datas = new ArrayList<>();
     private int minItemHeight = 130;
     private int columns = 3;
+    private List<FitBean> joinDatas = new ArrayList<>();
 
     public FitRecyclerAdapter(Context context, int column) {
         this.mContext = context;
@@ -117,7 +118,17 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
         holder.gifView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFitGif dialogFitGif = new DialogFitGif(mContext);
+                final DialogFitGif dialogFitGif = new DialogFitGif(mContext);
+                dialogFitGif.setOnEventListener(new DialogFitGif.OnEventListener() {
+                    @Override
+                    public void result(boolean sure) {
+                        if (!joinDatas.contains(bean)){
+                            bean.setJoin(true);
+                            joinDatas.add(bean);
+                        }
+                        dialogFitGif.dismiss();
+                    }
+                });
                 dialogFitGif.setData(bean.getImage());
                 dialogFitGif.show();
             }

@@ -160,10 +160,7 @@ public class DialogFitGif extends Dialog {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.dialog_cancel:
-                    cancel();
-                    break;
-                case R.id.dialog_done:
+                case R.id.tv_join:
                     dismiss();
                     if (mOnEventListener != null)
                         mOnEventListener.result(true);

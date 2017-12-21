@@ -251,4 +251,15 @@ public class FitBean implements Serializable {
     public void setTime(Date time) {
         this.time = time;
     }
+
+    private boolean isJoin = false;
+
+    public boolean isJoin() {
+        return isJoin;
+    }
+
+    public FitBean setJoin(boolean join) {
+        isJoin = join;
+        return this;
+    }
 }
