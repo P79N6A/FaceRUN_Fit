@@ -20,6 +20,7 @@ public class GifView extends View {
     private static final int DEFAULT_MOVIE_VIEW_DURATION = 1000;
 
     private int mMovieResourceId;
+    private String mMovieFilePath;
     private Movie movie;
 
     private long mMovieStart;
@@ -94,6 +95,16 @@ public class GifView extends View {
     public int getGifResource() {
 
         return this.mMovieResourceId;
+    }
+
+    public void setMovieFile(String filePath) {
+        this.mMovieFilePath = filePath;
+        movie = Movie.decodeFile(filePath);
+        requestLayout();
+    }
+
+    public String getMovieFile() {
+        return mMovieFilePath;
     }
 
 
@@ -178,7 +189,7 @@ public class GifView extends View {
 
         } else {
             /*
-			 * No movie set, just set minimum available size.
+             * No movie set, just set minimum available size.
 			 */
             setMeasuredDimension(getSuggestedMinimumWidth(), getSuggestedMinimumHeight());
         }
@@ -187,8 +198,8 @@ public class GifView extends View {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-		/*
-		 * Calculate mLeft / mTop for drawing in center
+        /*
+         * Calculate mLeft / mTop for drawing in center
 		 */
         mLeft = (getWidth() - mMeasuredMovieWidth) / 2f;
         mTop = (getHeight() - mMeasuredMovieHeight) / 2f;

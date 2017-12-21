@@ -47,6 +47,28 @@ public class HttpTaskUtil {
         return this;
     }
 
+    public void QueryFitTask() {
+        try {
+            OkHttpClientManager.getInstance()._getAsyn(UrlConstants.HTTP_FIT_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
     public void UploadSingleFileTask(File file, String fileKey) {
         try {
             OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_SINGLE_IMAGE, new OkHttpClientManager.StringCallback() {
@@ -69,8 +91,8 @@ public class HttpTaskUtil {
     public void UploadFilesTask(File[] files, String[] fileKeys, OkHttpClientManager.StringCallback callback) {
         try {
             OkHttpClientManager.Param paramData = new OkHttpClientManager.Param("data", "ABCD");
-            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", ""+UserInfoManager.getInstance().getAccountInfo().getId());
-            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGES, callback, files, fileKeys,paramAccountId,paramData);
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", "" + UserInfoManager.getInstance().getAccountInfo().getId());
+            OkHttpClientManager.postAsyn(UrlConstants.HTTP_UPLOAD_IMAGES, callback, files, fileKeys, paramAccountId, paramData);
         } catch (IOException e) {
             e.printStackTrace();
             ToastUtil.show(e != null ? e.getMessage() : "文件上传失败");

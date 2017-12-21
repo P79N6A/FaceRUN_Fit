@@ -101,4 +101,9 @@ public class UrlConstants {
      * 删除跑友圈
      */
     public static String HTTP_CIRCLE_DELETE = HTTP_ROOT + "circle/delete";
+
+    /**
+     * 查询FIT
+     */
+    public static String HTTP_FIT_QUERY = HTTP_ROOT + "fit/query";
 }
