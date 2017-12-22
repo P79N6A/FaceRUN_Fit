@@ -16,6 +16,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.fly.run.R;
+import com.fly.run.bean.FitBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.IOTools;
 import com.fly.run.utils.SDCardUtil;
@@ -33,6 +34,7 @@ import java.io.IOException;
  */
 public class DialogFitGif extends Dialog {
 
+//    private LinearLayout layout_dialog_content;
     private GifView gifView;
     private TextView tv_join;
     private ProgressDialog pDialog;
@@ -65,10 +67,24 @@ public class DialogFitGif extends Dialog {
                 dismiss();
             }
         });
+//        layout_dialog_content = (LinearLayout) findViewById(R.id.layout_dialog_content);
         tv_join = (TextView) findViewById(R.id.tv_join);
         gifView = (GifView) findViewById(R.id.gifView);
         tv_join.setOnClickListener(mClickListener);
         this.setCancelable(true);
+    }
+
+    public void setFitBean(FitBean bean) {
+//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) layout_dialog_content.getLayoutParams();
+//        if (bean != null && bean.getItemWidth() > 0 && bean.getItemHeight() > 0) {
+////            int gifWidth = DisplayUtil.screenWidth - DisplayUtil.dp2px(80);
+////            int viewHeight = gifWidth * bean.getItemHeight() / bean.getItemWidth();
+////            params.height = viewHeight;
+//            params.width = bean.getItemWidth();
+//            params.height = bean.getItemHeight() + DisplayUtil.dp2px(55);
+//        } else {
+//            params.width = DisplayUtil.screenWidth - DisplayUtil.dp2px(80);
+//        }
     }
 
     /**

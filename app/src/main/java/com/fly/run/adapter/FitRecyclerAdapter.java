@@ -99,6 +99,8 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
                     return;
                 int w = bitmap.getWidth();
                 int h = bitmap.getHeight();
+                bean.setItemWidth(w);
+                bean.setItemHeight(h);
                 if (w == 0 || h == 0)
                     return;
 //                int itemWidth = DisplayUtil.screenWidth - 4 * DisplayUtil.dp2px(1);
@@ -119,10 +121,11 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
             @Override
             public void onClick(View v) {
                 final DialogFitGif dialogFitGif = new DialogFitGif(mContext);
+                dialogFitGif.setFitBean(bean);
                 dialogFitGif.setOnEventListener(new DialogFitGif.OnEventListener() {
                     @Override
                     public void result(boolean sure) {
-                        if (!joinDatas.contains(bean)){
+                        if (!joinDatas.contains(bean)) {
                             bean.setJoin(true);
                             joinDatas.add(bean);
                         }

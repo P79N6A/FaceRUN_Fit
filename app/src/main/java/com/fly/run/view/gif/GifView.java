@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.fly.run.R;
+import com.fly.run.utils.DisplayUtil;
 
 /**
  * Created by Cuneyt on 4.10.2015.
@@ -160,6 +161,8 @@ public class GifView extends View {
 //                }
                 if (movieWidth < maximumWidth) {
                     scaleH = (float) maximumWidth / (float) movieWidth;
+                } else if (movieWidth >= DisplayUtil.screenWidth) {
+                    scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth;
                 }
             }
 

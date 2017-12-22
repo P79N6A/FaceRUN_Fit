@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
-    <GridView
+    <com.fly.run.view.gridview.CustomGridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +19,6 @@
         android:horizontalSpacing="@dimen/margin_1"
         android:verticalSpacing="@dimen/margin_1">
 
-    </GridView>
+    </com.fly.run.view.gridview.CustomGridView>
 
 </RelativeLayout>

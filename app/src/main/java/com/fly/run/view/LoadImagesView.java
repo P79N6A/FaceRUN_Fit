@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -16,6 +15,7 @@ import com.fly.run.adapter.LoadImagesAdapter;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
+import com.fly.run.view.gridview.CustomGridView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class LoadImagesView extends RelativeLayout {
 
     private ImageView imageView;
-    private GridView gridView;
+    private CustomGridView gridView;
     private LoadImagesAdapter adapter;
     private final int MAX_HEIGHT = 200;
 
@@ -50,7 +50,7 @@ public class LoadImagesView extends RelativeLayout {
     private void initView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.view_load_images, this);
         imageView = (ImageView) findViewById(R.id.iv_single);
-        gridView = (GridView) findViewById(R.id.gridview);
+        gridView = (CustomGridView) findViewById(R.id.gridview);
         adapter = new LoadImagesAdapter(context);
         gridView.setAdapter(adapter);
     }

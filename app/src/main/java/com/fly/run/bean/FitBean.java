@@ -262,4 +262,25 @@ public class FitBean implements Serializable {
         isJoin = join;
         return this;
     }
+
+    private int itemWidth;
+    private int itemHeight;
+
+    public int getItemWidth() {
+        return itemWidth;
+    }
+
+    public FitBean setItemWidth(int itemWidth) {
+        this.itemWidth = itemWidth;
+        return this;
+    }
+
+    public int getItemHeight() {
+        return itemHeight;
+    }
+
+    public FitBean setItemHeight(int itemHeight) {
+        this.itemHeight = itemHeight;
+        return this;
+    }
 }
