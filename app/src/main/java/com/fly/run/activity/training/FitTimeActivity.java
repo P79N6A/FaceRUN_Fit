@@ -63,7 +63,7 @@ public class FitTimeActivity extends BaseUIActivity {
 //        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 //        mRecyclerView.setLayoutManager(linearLayoutManager);
         //设置layoutManager
-        int columns = 2;
+        int columns = 3;
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL));
         //设置适配器
         mAdapter = new FitRecyclerAdapter(this, columns);

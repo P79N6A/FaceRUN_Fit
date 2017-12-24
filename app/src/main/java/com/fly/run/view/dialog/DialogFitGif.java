@@ -34,7 +34,7 @@ import java.io.IOException;
  */
 public class DialogFitGif extends Dialog {
 
-//    private LinearLayout layout_dialog_content;
+    //    private LinearLayout layout_dialog_content;
     private GifView gifView;
     private TextView tv_join;
     private ProgressDialog pDialog;
@@ -101,8 +101,8 @@ public class DialogFitGif extends Dialog {
                 handler.sendMessage(message);
                 return;
             }
-            gifUrl = gifUrl.toUpperCase();
-            if (gifUrl.endsWith("GIF")) {
+            String suffixName = gifUrl.substring(gifUrl.lastIndexOf("."));
+            if (suffixName.equalsIgnoreCase(".gif")) {
                 gifUrl = gifUrl.trim();
                 gifUrl = "fit/" + gifUrl;
                 if (!gifUrl.startsWith("http://"))

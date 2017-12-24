@@ -80,6 +80,16 @@ public class CommonActionBar extends LinearLayout {
         action_right_iv.setVisibility(View.VISIBLE);
     }
 
+    public void setActionRightIconListenr(int src, int colcor, OnClickListener listener) {
+        if (src > 0)
+            action_right_iv.setImageResource(src);
+        if (listener != null) {
+            action_right_iv.setOnClickListener(listener);
+        }
+        action_right_iv.setColorFilter(colcor);
+        action_right_iv.setVisibility(View.VISIBLE);
+    }
+
     public void setActionRightTextListenr(int src, OnClickListener listener) {
         if (src > 0)
             action_right_text.setText(src);

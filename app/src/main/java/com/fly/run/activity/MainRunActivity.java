@@ -42,6 +42,7 @@ import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
+import com.fly.run.activity.circle.CirclePublishActivity;
 import com.fly.run.activity.lock.Lock2Activity;
 import com.fly.run.activity.map.smooth.SmoothMoveActivity;
 import com.fly.run.activity.setting.SportModeActivity;
@@ -211,6 +212,12 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
                     return;
                 }
                 finish();
+            }
+        });
+        actionBar.setActionRightListenr(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentToActivity(CirclePublishActivity.class);
             }
         });
         actionBar.setSectionListener(new MainRunActionBar.SectionListener() {

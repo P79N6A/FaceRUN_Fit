@@ -13,7 +13,26 @@ public class BaseTitleViewPagerAdapter extends PagerAdapter {
     private List<View> viewList;// view数组
     private String[] titleList;
 
+    public BaseTitleViewPagerAdapter() {
+
+    }
+
     public BaseTitleViewPagerAdapter(List<View> viewList, String[] titleList) {
+        this.viewList = viewList;
+        this.titleList = titleList;
+    }
+
+    public BaseTitleViewPagerAdapter setViewList(List<View> viewList) {
+        this.viewList = viewList;
+        return this;
+    }
+
+    public BaseTitleViewPagerAdapter setTitleList(String[] titleList) {
+        this.titleList = titleList;
+        return this;
+    }
+
+    public void setViewTitleList(List<View> viewList, String[] titleList) {
         this.viewList = viewList;
         this.titleList = titleList;
     }
@@ -41,6 +60,11 @@ public class BaseTitleViewPagerAdapter extends PagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titleList[position];
+        try {
+            return titleList == null ? "" : titleList[position];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

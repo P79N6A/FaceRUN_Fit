@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:orientation="vertical">
 
-    <com.fly.run.view.ImageZoom.ImageViewTouch
-        android:id="@+id/iv_photo"
+    <com.fly.run.view.viewpager.CustomViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_4" />
+        android:layout_height="match_parent"></com.fly.run.view.viewpager.CustomViewPager>
+
 
 </LinearLayout>

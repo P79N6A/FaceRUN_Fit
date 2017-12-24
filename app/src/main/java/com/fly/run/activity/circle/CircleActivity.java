@@ -30,7 +30,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     private HttpTaskUtil httpTaskUtil;
 
     private int pageNum = 1;
-    private final int pageSize = 5;
+    private final int pageSize = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                 finish();
             }
         });
-        actionBar.setActionRightIconListenr(R.drawable.ic_camera_white, new View.OnClickListener() {
+        actionBar.setActionRightIconListenr(R.drawable.ic_menu_camera, getResources().getColor(R.color.color_ffffff), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intentToActivity(CirclePublishActivity.class);

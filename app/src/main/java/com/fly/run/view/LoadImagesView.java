@@ -75,7 +75,7 @@ public class LoadImagesView extends RelativeLayout {
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowImagesActivity.startShowImageActivity(getContext(), finalUrl);
+                    ShowImagesActivity.startShowImageActivity(getContext(), finalUrl,0);
                 }
             });
             ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
