@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.fly.run.R;
 import com.fly.run.activity.ShowImagesActivity;
 import com.fly.run.adapter.LoadImagesAdapter;
+import com.fly.run.bean.CircleBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
@@ -31,6 +32,7 @@ public class LoadImagesView extends RelativeLayout {
     private CustomGridView gridView;
     private LoadImagesAdapter adapter;
     private final int MAX_HEIGHT = 200;
+    private CircleBean circleBean;
 
     public LoadImagesView(Context context) {
         super(context);
@@ -55,7 +57,17 @@ public class LoadImagesView extends RelativeLayout {
         gridView.setAdapter(adapter);
     }
 
-    public void setImagesData(String urls) {
+    public void setImagesData(CircleBean bean) {
+        if (bean == null)
+            return;
+        this.circleBean = bean;
+        if (!TextUtils.isEmpty(circleBean.getThumbs()))
+            showImagesData(circleBean.getThumbs());
+        else
+            showImagesData(circleBean.getPhotos());
+    }
+
+    public void showImagesData(String urls) {
         if (TextUtils.isEmpty(urls)) {
             imageView.setVisibility(View.GONE);
             gridView.setVisibility(View.GONE);
@@ -78,7 +90,7 @@ public class LoadImagesView extends RelativeLayout {
                     ShowImagesActivity.startShowImageActivity(getContext(), finalUrl,0);
                 }
             });
-            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsLanuchHeader, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

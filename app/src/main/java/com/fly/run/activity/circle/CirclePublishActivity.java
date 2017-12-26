@@ -16,6 +16,7 @@ import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PublishCircleGridAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.bean.CircleBean;
+import com.fly.run.bean.FileUploadImageBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
@@ -109,7 +110,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             return;
         }
         if (urlImages == null || urlImages.size() == 0) {
-            insertCircleData("");
+            insertCircleData("","");
             return;
         }
         uploadFilesTask();
@@ -127,13 +128,14 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             } catch (Exception e) {
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             } finally {
-
+                dismissProgressDialog();
             }
         }
 
         @Override
         public void onFailure(Request request, Exception e) {
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
+            dismissProgressDialog();
         }
     };
 
@@ -146,26 +148,42 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             files[i] = new File(urlImages.get(i));
             fileKeys[i] = urlImages.get(i);
         }
+        showProgreessDialog();
         httpTaskUtil.UploadFilesTask(files, fileKeys, new OkHttpClientManager.StringCallback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 ToastUtil.show(e != null ? e.getMessage() : "onFailure 文件上传失败");
+                dismissProgressDialog();
             }
 
             @Override
             public void onResponse(String response) {
+                dismissProgressDialog();
                 if (!TextUtils.isEmpty(response)) {
                     JSONObject jsonObject = JSON.parseObject(response);
                     if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {
                         String data = jsonObject.getString("data");
-                        insertCircleData(data);
+                        List<FileUploadImageBean> list = JSON.parseArray(data,FileUploadImageBean.class);
+                        StringBuffer photos = new StringBuffer();
+                        StringBuffer thumbs = new StringBuffer();
+                        for(FileUploadImageBean bean : list){
+                            if (bean != null){
+                                photos.append(bean.getFileNameMD5()).append(",");
+                                thumbs.append(bean.getFileNameThumb()).append(",");
+                            }
+                        }
+                        if (photos.length() > 0)
+                            photos.setLength(photos.length() - 1);
+                        if (thumbs.length() > 0)
+                            thumbs.setLength(thumbs.length() - 1);
+                        insertCircleData(photos.toString(),thumbs.toString());
                     }
                 }
             }
         });
     }
 
-    private void insertCircleData(String photos) {
+    private void insertCircleData(String photos,String thumbs) {
         String strInput = etInput.getText().toString();
         AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
         CircleBean circleBean = new CircleBean();
@@ -173,8 +191,10 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         circleBean.setAccountId(bean.getId());
         circleBean.setDescription(TextUtils.isEmpty(strInput) ? etInput.getHint().toString() : strInput);
         circleBean.setPhotos(photos);
+        circleBean.setThumbs(thumbs);
         circleBean.setAddress(tvAddress.getText().toString());
         String strJson = JSONObject.toJSONString(circleBean);
+        showProgreessDialog();
         httpTaskUtil.InsertCircleRunTask(strJson, "" + bean.getId());
     }
 

@@ -1,10 +1,13 @@
 package com.fly.run.activity.base;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.fly.run.utils.AndroidOSInfoManager;
+import com.fly.run.view.dialog.ProgressDialog;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -22,6 +26,8 @@ import java.lang.reflect.Method;
  */
 
 public class BaseUIActivity extends BaseDataActivity {
+
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -194,5 +200,43 @@ public class BaseUIActivity extends BaseDataActivity {
         }
     }
 
+    /**
+     * 显示等待对话框 当点击返回键取消对话框并停留在该界面
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void showProgreessDialog() {
+        if (pDialog == null) {
+            pDialog = new ProgressDialog(this);
+            pDialog.setCanceledOnTouchOutside(false);
+        }
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+        pDialog.show();
+        pDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    try {
+                        dismissProgressDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return false;
+            }
+        });
+    }
 
+    /**
+     * 销毁对话框
+     */
+    public void dismissProgressDialog() {
+        try {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

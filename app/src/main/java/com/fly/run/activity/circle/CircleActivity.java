@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
@@ -25,7 +26,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 
     private CommonActionBar actionBar;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private DynamicListView listView;
+    private ListView listView;
     private CircleAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
 
@@ -75,12 +76,12 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                 loadTaskData();
             }
         });
-        listView = (DynamicListView) findViewById(R.id.listview);
+        listView = (ListView) findViewById(R.id.listview);
         adapter = new CircleAdapter(this);
         listView.setAdapter(adapter);
-        listView.setDoMoreWhenBottom(false);    // 滚动到低端的时候不自己加载更多
+//        listView.setDoMoreWhenBottom(false);    // 滚动到低端的时候不自己加载更多
 //        listView.setOnRefreshListener(this);
-        listView.setOnMoreListener(this);
+//        listView.setOnMoreListener(this);
     }
 
     @Override
@@ -127,8 +128,8 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
             } finally {
                 if (pageNum == 1)
                     swipeRefreshLayout.setRefreshing(false);
-                else
-                    listView.doneMore();
+//                else
+//                    listView.doneMore();
             }
         }
 

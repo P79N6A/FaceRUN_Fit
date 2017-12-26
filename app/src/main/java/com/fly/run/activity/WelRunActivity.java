@@ -39,9 +39,13 @@ public class WelRunActivity extends BaseUIActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wel_run);
         startTime = System.currentTimeMillis();
-//        loadWebGif();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(2);
+            }
+        },3000);
         getRunData();
-//        httpWeatherTask();
     }
 
     private void loadWebGif() {
@@ -108,12 +112,12 @@ public class WelRunActivity extends BaseUIActivity {
                 case 2:
                     if (isJump)
                         return;
+                    isJump = true;
                     long time = System.currentTimeMillis() - startTime;
                     if (time < JumpTime)
                         this.sendEmptyMessageDelayed(1, JumpTime - time);
                     else
                         this.sendEmptyMessage(1);
-                    isJump = true;
                     break;
             }
         }

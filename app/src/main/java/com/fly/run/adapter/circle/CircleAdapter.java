@@ -81,10 +81,10 @@ public class CircleAdapter extends BaseAdapter {
             } else
                 viewHolder.tvAddress.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage("", viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
-            String url = "";
-            if (!TextUtils.isEmpty(item.getPhotos()))
-                url = item.getPhotos();
-            viewHolder.loadImagesView.setImagesData(url);
+//            String url = "";
+//            if (!TextUtils.isEmpty(item.getThumbs()))
+//                url = item.getThumbs();
+            viewHolder.loadImagesView.setImagesData(item);
 //            if (!TextUtils.isEmpty(url)){
 //                String[] photos = url.split(",");
 //                if (photos != null && photos.length > 0){
