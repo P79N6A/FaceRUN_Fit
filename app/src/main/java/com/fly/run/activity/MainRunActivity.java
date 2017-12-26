@@ -1,6 +1,7 @@
 package com.fly.run.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -41,8 +42,8 @@ import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
 import com.fly.run.R;
+import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
 import com.fly.run.activity.base.BaseUIActivity;
-import com.fly.run.activity.circle.CirclePublishActivity;
 import com.fly.run.activity.lock.Lock2Activity;
 import com.fly.run.activity.map.smooth.SmoothMoveActivity;
 import com.fly.run.activity.setting.SportModeActivity;
@@ -70,9 +71,11 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.CircleAnimView;
 import com.fly.run.view.RunTrainView;
 import com.fly.run.view.actionbar.MainRunActionBar;
+import com.fly.run.view.dialog.DialogChooseMedia;
 import com.fly.run.view.viewpager.CustomViewPager;
 import com.squareup.okhttp.Request;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +115,8 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
 
     private MyOrientationListener myOrientationListener;
     private float mCurrentX = 0;
+
+    private String imagePath = "";
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -217,7 +222,9 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
         actionBar.setActionRightListenr(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentToActivity(CirclePublishActivity.class);
+                DialogChooseMedia dialog = new DialogChooseMedia(MainRunActivity.this);
+                dialog.setOnEventListener(onEventListener);
+                dialog.show();
             }
         });
         actionBar.setSectionListener(new MainRunActionBar.SectionListener() {
@@ -282,6 +289,47 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
         super.onStart();
 
     }
+
+    DialogChooseMedia.OnEventListener onEventListener = new DialogChooseMedia.OnEventListener() {
+
+        @Override
+        public void result(int index) {
+            if (index == 1) {
+                imagePath = takeCarema();
+            } else if (index == 2) {
+                Intent intent = new Intent(MainRunActivity.this, ChooseImagesActivity.class);
+                intent.putExtra("num", 0);
+                startActivityForResult(intent, REQUEST_ALBUM);
+            }
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (Activity.RESULT_OK == resultCode) {
+            if (requestCode == REQUEST_CAMERA) {
+                String takePhotoPicpath = imagePath;
+                File file = new File(takePhotoPicpath);
+                if (file.exists() && file.length() > 0) {
+//                    ArrayList<String> list = new ArrayList<>();
+//                    list.add(file.getAbsolutePath());
+//                    Intent intent = new Intent(MainRunActivity.this, CirclePublishActivity.class);
+//                    intent.putExtra("images", list);
+//                    startActivity(intent);
+                }
+            } else if (requestCode == REQUEST_ALBUM) {
+                ArrayList<String> list = data.getStringArrayListExtra("images");
+                if (list != null && list.size() > 0) {
+//                    Intent intent = new Intent(MainRunActivity.this, CirclePublishActivity.class);
+//                    intent.putExtra("images", list);
+//                    startActivity(intent);
+                }
+            }
+        }
+        imagePath = "";
+    }
+
 
     public void setTrainNowData(String distance, String time, String speed, String kcal) {
         if (!TextUtils.isEmpty(distance))

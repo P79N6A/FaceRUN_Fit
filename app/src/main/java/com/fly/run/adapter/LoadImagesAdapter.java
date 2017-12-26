@@ -73,7 +73,7 @@ public class LoadImagesAdapter extends BaseAdapter {
             if (!content.startsWith("http://"))
                 content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, content);
         }
-        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsLanuchHeader);
+        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsItemDefault);
         final String finalUrl = content;
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override

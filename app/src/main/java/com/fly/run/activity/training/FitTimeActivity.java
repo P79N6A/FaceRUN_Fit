@@ -13,11 +13,13 @@ import com.fly.run.adapter.FitRecyclerAdapter;
 import com.fly.run.bean.FitBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.httptask.HttpTaskUtil;
+import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
+import java.util.Random;
 
 public class FitTimeActivity extends BaseUIActivity {
 
@@ -29,6 +31,7 @@ public class FitTimeActivity extends BaseUIActivity {
     private final String[] AllFitTrains = {"俯卧撑", "倒立撑", "引体向上", "仰卧起坐", "仰卧卷腹", "平板支撑", "徒手深蹲", "负重深蹲", "箭步蹲"};
 
     private HttpTaskUtil httpTaskUtil;
+    private int columns = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,8 @@ public class FitTimeActivity extends BaseUIActivity {
 //        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 //        mRecyclerView.setLayoutManager(linearLayoutManager);
         //设置layoutManager
-        int columns = 3;
+        if (DisplayUtil.screenWidth < 600)
+            columns = 2;
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL));
         //设置适配器
         mAdapter = new FitRecyclerAdapter(this, columns);
@@ -86,6 +90,13 @@ public class FitTimeActivity extends BaseUIActivity {
                 if (bean != null && bean.code == 1) {
                     if (!TextUtils.isEmpty(bean.data)) {
                         List<FitBean> list = JSON.parseArray(bean.data, FitBean.class);
+                        Random random = new Random();
+                        int width = (DisplayUtil.screenWidth - (columns + 1) * DisplayUtil.dp2px(2)) / columns;
+                        for (FitBean fitBean : list){
+                            int result = DisplayUtil.dp2px(((random.nextInt(10) + 1)) * 10);
+                            fitBean.setItemWidth(width);
+                            fitBean.setItemHeight(width+result);
+                        }
                         mAdapter.setData(list);
                         mAdapter.notifyDataSetChanged();
                     }

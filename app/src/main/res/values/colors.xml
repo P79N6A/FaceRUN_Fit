@@ -48,6 +48,7 @@
     <color name="color_corner_green_normal">#2E7D32</color>
     <color name="color_corner_green_press">#53bc68</color>
     <color name="color_2E1E1C">#2E1E1C</color>
+    <color name="line_bg_color">#e8e8e8</color>
 
 
 </resources>

@@ -24,6 +24,7 @@ import com.fly.run.utils.Logger;
 import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
+import com.fly.run.view.dialog.DialogChooseMedia;
 import com.squareup.okhttp.Request;
 
 import java.io.File;
@@ -39,14 +40,15 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private GridView gridView;
     private PublishCircleGridAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
-    private final int CHOOSE_IMAGES_CODE = 1001;
     private List<String> urlImages = new ArrayList<>();
+    private String imagePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish_circle);
         initActionBar();
+        initData();
         initView();
     }
 
@@ -66,6 +68,12 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         });
     }
 
+    private void initData() {
+        List<String> list = getIntent().getStringArrayListExtra("images");
+        if (list != null)
+            urlImages.addAll(list);
+    }
+
     private void initView() {
         etInput = (EditText) findViewById(R.id.et_input);
         tvAddress = (TextView) findViewById(R.id.tv_address);
@@ -75,14 +83,17 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         adapter.setImageListener(new PublishCircleGridAdapter.ImageListenrt() {
             @Override
             public void doShowImage(int position, String url) {
-
+                Logger.i(TAG, "position = " + position + "  url = " + url);
             }
 
             @Override
             public void doAddImage() {
-                Intent intent = new Intent(CirclePublishActivity.this, ChooseImagesActivity.class);
-                intent.putExtra("num", urlImages.size());
-                startActivityForResult(intent, CHOOSE_IMAGES_CODE);
+                DialogChooseMedia dialog = new DialogChooseMedia(CirclePublishActivity.this);
+                dialog.setOnEventListener(onEventListener);
+                dialog.show();
+//                Intent intent = new Intent(CirclePublishActivity.this, ChooseImagesActivity.class);
+//                intent.putExtra("num", urlImages.size());
+//                startActivityForResult(intent, REQUEST_ALBUM);
             }
         });
         showGridImgsView(urlImages);
@@ -92,6 +103,20 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         adapter.setUrlImages(images);
         adapter.notifyDataSetChanged();
     }
+
+    DialogChooseMedia.OnEventListener onEventListener = new DialogChooseMedia.OnEventListener() {
+
+        @Override
+        public void result(int index) {
+            if (index == 1) {
+                imagePath = takeCarema();
+            } else if (index == 2) {
+                Intent intent = new Intent(CirclePublishActivity.this, ChooseImagesActivity.class);
+                intent.putExtra("num", urlImages.size());
+                startActivityForResult(intent, REQUEST_ALBUM);
+            }
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -110,7 +135,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             return;
         }
         if (urlImages == null || urlImages.size() == 0) {
-            insertCircleData("","");
+            insertCircleData("", "");
             return;
         }
         uploadFilesTask();
@@ -163,11 +188,11 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
                     JSONObject jsonObject = JSON.parseObject(response);
                     if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {
                         String data = jsonObject.getString("data");
-                        List<FileUploadImageBean> list = JSON.parseArray(data,FileUploadImageBean.class);
+                        List<FileUploadImageBean> list = JSON.parseArray(data, FileUploadImageBean.class);
                         StringBuffer photos = new StringBuffer();
                         StringBuffer thumbs = new StringBuffer();
-                        for(FileUploadImageBean bean : list){
-                            if (bean != null){
+                        for (FileUploadImageBean bean : list) {
+                            if (bean != null) {
                                 photos.append(bean.getFileNameMD5()).append(",");
                                 thumbs.append(bean.getFileNameThumb()).append(",");
                             }
@@ -176,14 +201,14 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
                             photos.setLength(photos.length() - 1);
                         if (thumbs.length() > 0)
                             thumbs.setLength(thumbs.length() - 1);
-                        insertCircleData(photos.toString(),thumbs.toString());
+                        insertCircleData(photos.toString(), thumbs.toString());
                     }
                 }
             }
         });
     }
 
-    private void insertCircleData(String photos,String thumbs) {
+    private void insertCircleData(String photos, String thumbs) {
         String strInput = etInput.getText().toString();
         AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
         CircleBean circleBean = new CircleBean();
@@ -201,12 +226,22 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == CHOOSE_IMAGES_CODE) {
-            List<String> list = data.getStringArrayListExtra("images");
-            if (list != null && list.size() > 0)
-                urlImages.addAll(list);
-            showGridImgsView(urlImages);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CAMERA) {
+                String takePhotoPicpath = imagePath;
+                File file = new File(takePhotoPicpath);
+                if (file.exists() && file.length() > 0) {
+                    urlImages.add(file.getAbsolutePath());
+                    showGridImgsView(urlImages);
+                }
+            } else if (requestCode == REQUEST_ALBUM) {
+                List<String> list = data.getStringArrayListExtra("images");
+                if (list != null && list.size() > 0)
+                    urlImages.addAll(list);
+                showGridImgsView(urlImages);
+            }
         }
+        imagePath = "";
     }
 
     @Override

@@ -61,6 +61,7 @@
 
     <!-- 全屏对话框 -->
     <style name="DialogFullScreen">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 

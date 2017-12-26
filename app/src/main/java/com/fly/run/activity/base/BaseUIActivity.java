@@ -3,9 +3,12 @@ package com.fly.run.activity.base;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,8 +19,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.fly.run.utils.AndroidOSInfoManager;
+import com.fly.run.utils.SDCardUtil;
+import com.fly.run.utils.TimeFormatUtils;
 import com.fly.run.view.dialog.ProgressDialog;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -28,6 +34,8 @@ import java.lang.reflect.Method;
 public class BaseUIActivity extends BaseDataActivity {
 
     private ProgressDialog pDialog;
+    protected static final int REQUEST_CAMERA = 10001;
+    protected static final int REQUEST_ALBUM = 10002;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -238,5 +246,22 @@ public class BaseUIActivity extends BaseDataActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected String takeCarema() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        String imagePath = getTakePhotoPicpath();
+        File imageFile = new File(imagePath);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(imageFile));
+        startActivityForResult(intent, REQUEST_CAMERA);
+        return imagePath;
+    }
+
+    protected String getTakePhotoPicpath() {
+        StringBuffer sb = new StringBuffer();
+        String imageName = "image_" + TimeFormatUtils.getRecordFormatDate(System.currentTimeMillis());
+        sb.append(SDCardUtil.getImgDir()).append("/").append(imageName).append(".jpg");
+        return sb.toString();
     }
 }

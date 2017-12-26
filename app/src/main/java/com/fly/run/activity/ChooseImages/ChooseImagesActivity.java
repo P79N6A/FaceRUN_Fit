@@ -54,7 +54,7 @@ public class ChooseImagesActivity extends BaseUIActivity {
                 finish();
             }
         });
-        actionBar.setActionRightIconListenr(R.drawable.ic_jobs_commen_press, new View.OnClickListener() {
+        actionBar.setActionRightTextListenr("确定", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> imageList = new ArrayList<String>();

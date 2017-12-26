@@ -24,7 +24,7 @@ public class TimeFormatUtils {
     private static final String TAG = TimeFormatUtils.class.getSimpleName();
 
     private static final String PARSE_FORMAT_DATE_FORMAT = "yyyy-MM-dd 00:00:00";
-    private static final String PARSE_FORMAT_DATE_FORMAT2 = "yyyyMMdd_HHmmss";
+    private static final String PARSE_FORMAT_DATE_FORMAT2 = "yyyyMMddHHmmss";
     private static final String PARSE_FORMAT_TIME_FORMAT = "00:00:00";
     private static final String WALLET_DATE_FORMAT = "MMM d, yyyy H:mm a";
     private static final String GRUOP_CHAT_NOTICE_DATE_FORMAT = "MMM d, yyyy HH:mm";

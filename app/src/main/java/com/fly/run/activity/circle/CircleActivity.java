@@ -1,5 +1,7 @@
 package com.fly.run.activity.circle;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -8,6 +10,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
+import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.circle.CircleAdapter;
 import com.fly.run.bean.AccountBean;
@@ -17,9 +20,12 @@ import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
+import com.fly.run.view.dialog.DialogChooseMedia;
 import com.fly.run.view.listview.DynamicListView;
 import com.squareup.okhttp.Request;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CircleActivity extends BaseUIActivity implements View.OnClickListener, DynamicListView.DynamicListViewListener {
@@ -32,6 +38,8 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 
     private int pageNum = 1;
     private final int pageSize = 40;
+    private String imagePath = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +60,12 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                 finish();
             }
         });
-        actionBar.setActionRightIconListenr(R.drawable.ic_menu_camera, getResources().getColor(R.color.color_ffffff), new View.OnClickListener() {
+        actionBar.setActionRightIconListenr(R.drawable.icon_popup_camera, getResources().getColor(R.color.color_ffffff), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentToActivity(CirclePublishActivity.class);
+                DialogChooseMedia dialog = new DialogChooseMedia(CircleActivity.this);
+                dialog.setOnEventListener(onEventListener);
+                dialog.show();
             }
         });
     }
@@ -88,6 +98,46 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
         }
+    }
+
+    DialogChooseMedia.OnEventListener onEventListener = new DialogChooseMedia.OnEventListener() {
+
+        @Override
+        public void result(int index) {
+            if (index == 1) {
+                imagePath = takeCarema();
+            } else if (index == 2) {
+                Intent intent = new Intent(CircleActivity.this, ChooseImagesActivity.class);
+                intent.putExtra("num", 0);
+                startActivityForResult(intent, REQUEST_ALBUM);
+            }
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (Activity.RESULT_OK == resultCode) {
+            if (requestCode == REQUEST_CAMERA) {
+                String takePhotoPicpath = imagePath;
+                File file = new File(takePhotoPicpath);
+                if (file.exists() && file.length() > 0) {
+                    ArrayList<String> list = new ArrayList<>();
+                    list.add(file.getAbsolutePath());
+                    Intent intent = new Intent(CircleActivity.this, CirclePublishActivity.class);
+                    intent.putExtra("images", list);
+                    startActivity(intent);
+                }
+            } else if (requestCode == REQUEST_ALBUM) {
+                ArrayList<String> list = data.getStringArrayListExtra("images");
+                if (list != null && list.size() > 0) {
+                    Intent intent = new Intent(CircleActivity.this, CirclePublishActivity.class);
+                    intent.putExtra("images", list);
+                    startActivity(intent);
+                }
+            }
+        }
+        imagePath = "";
     }
 
     private void loadTaskData() {

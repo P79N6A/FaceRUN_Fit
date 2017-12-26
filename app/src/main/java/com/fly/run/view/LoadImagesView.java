@@ -90,7 +90,7 @@ public class LoadImagesView extends RelativeLayout {
                     ShowImagesActivity.startShowImageActivity(getContext(), finalUrl,0);
                 }
             });
-            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsLanuchHeader, new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 
