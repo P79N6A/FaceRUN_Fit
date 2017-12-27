@@ -17,7 +17,6 @@ import com.fly.run.adapter.ImageTouchViewPagerAdapter;
 import com.fly.run.bean.UrlDrawableBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.ImageLoaderOptions;
-import com.fly.run.utils.Logger;
 import com.fly.run.view.ImageTouchView.ImageTouchViewLayout;
 import com.fly.run.view.viewpager.CustomViewPager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -122,7 +121,6 @@ public class ShowImagesActivity extends BaseUIActivity {
         ImageLoader.getInstance().displayImage(url, imageTouchViewLayout.getImageViewTouch(), displayImageOptions, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
-                Logger.e(TAG,"Started");
             }
 
             @Override
@@ -133,7 +131,6 @@ public class ShowImagesActivity extends BaseUIActivity {
 
             @Override
             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                Logger.e(TAG,"Complete");
                 if (bitmap == null)
                     return;
 //                int w = bitmap.getWidth();

@@ -84,28 +84,10 @@ public class FitTime2Activity extends BaseUIActivity implements ViewPager.OnPage
     public void onPageSelected(int position) {
         switch (position) {
             case 0:
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gifView.setGifResource(R.mipmap.push_up);
-                    }
-                },200);
                 break;
             case 1:
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gifView.setGifResource(R.mipmap.cheng_daoli);
-                    }
-                },200);
                 break;
             case 2:
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        gifView.setGifResource(R.mipmap.pull_ups);
-                    }
-                },200);
                 break;
         }
     }

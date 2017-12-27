@@ -1,6 +1,9 @@
 package com.fly.run.activity.training;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -31,6 +34,7 @@ public class FitTimeActivity extends BaseUIActivity {
 
     private HttpTaskUtil httpTaskUtil;
     private int columns = 3;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,13 @@ public class FitTimeActivity extends BaseUIActivity {
                 finish();
             }
         });
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.float_action);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -70,8 +81,20 @@ public class FitTimeActivity extends BaseUIActivity {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL));
         //设置适配器
         mAdapter = new FitRecyclerAdapter(this, columns);
+        mAdapter.setHandler(handler);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1){
+                List<FitBean> list = mAdapter.getJoinDatas();
+
+            }
+        }
+    };
 
     private void loadTaskData() {
         if (httpTaskUtil == null) {

@@ -2,6 +2,7 @@ package com.fly.run.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
     private int minItemHeight = 130;
     private int columns = 3;
     private List<FitBean> joinDatas = new ArrayList<>();
+    private Handler handler;
 
     public FitRecyclerAdapter(Context context, int column) {
         this.mContext = context;
@@ -44,11 +46,20 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
         this.columns = column;
     }
 
+    public FitRecyclerAdapter setHandler(Handler handler) {
+        this.handler = handler;
+        return this;
+    }
+
     public void setData(List<FitBean> datas) {
         this.datas.clear();
         if (datas != null) {
             this.datas.addAll(datas);
         }
+    }
+
+    public List<FitBean> getJoinDatas() {
+        return joinDatas;
     }
 
     @Override
@@ -136,8 +147,14 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
                         if (!joinDatas.contains(bean)) {
                             bean.setJoin(true);
                             joinDatas.add(bean);
+                        } else {
+                            if (bean.isJoin()){
+                                bean.setJoin(false);
+                                joinDatas.remove(bean);
+                            }
                         }
                         dialogFitGif.dismiss();
+                        handler.sendEmptyMessage(1);
                     }
                 });
                 dialogFitGif.setData(bean.getImage());

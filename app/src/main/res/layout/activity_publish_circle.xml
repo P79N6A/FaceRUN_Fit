@@ -42,10 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_6"
+            android:drawablePadding="@dimen/margin_4"
+            android:paddingTop="@dimen/margin_6"
+            android:paddingBottom="@dimen/margin_6"
             android:drawableLeft="@drawable/ic_address"
             android:gravity="center_vertical"
-            android:text="美国夏威夷群岛"
-            android:textColor="@color/color_corner_green_normal" />
+            android:hint="所在位置"
+            android:textColorHint="@color/color_999999"
+            android:textColor="@color/color_999999" />
     </LinearLayout>
 
 </LinearLayout>
