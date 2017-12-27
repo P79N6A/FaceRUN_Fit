@@ -116,8 +116,6 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
     private MyOrientationListener myOrientationListener;
     private float mCurrentX = 0;
 
-    private String imagePath = "";
-
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -295,7 +293,7 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
         @Override
         public void result(int index) {
             if (index == 1) {
-                imagePath = takeCarema();
+                takeCarema();
             } else if (index == 2) {
                 Intent intent = new Intent(MainRunActivity.this, ChooseImagesActivity.class);
                 intent.putExtra("num", 0);
@@ -309,8 +307,7 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
         super.onActivityResult(requestCode, resultCode, data);
         if (Activity.RESULT_OK == resultCode) {
             if (requestCode == REQUEST_CAMERA) {
-                String takePhotoPicpath = imagePath;
-                File file = new File(takePhotoPicpath);
+                File file = new File(takeImagePath);
                 if (file.exists() && file.length() > 0) {
 //                    ArrayList<String> list = new ArrayList<>();
 //                    list.add(file.getAbsolutePath());
@@ -327,7 +324,7 @@ public class MainRunActivity extends BaseUIActivity implements SpeechSynthesizer
                 }
             }
         }
-        imagePath = "";
+        takeImagePath = "";
     }
 
 

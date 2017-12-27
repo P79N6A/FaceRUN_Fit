@@ -4,6 +4,8 @@
 package com.fly.run.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 import com.fly.run.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -13,7 +15,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
  * ImageLoaderOptions.java - ImageLoader config parameters
  *
  * @author Kevin.Zhang
- *         <p/>
+ *         <p>
  *         2014-2-27 下午5:17:25
  */
 public class ImageLoaderOptions {
@@ -86,6 +88,18 @@ public class ImageLoaderOptions {
         DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder();
         builder.showImageOnLoading(imageResId);
         builder.showImageForEmptyUri(imageResId);
+        builder.cacheInMemory(true);
+        builder.cacheOnDisk(true);
+        builder.bitmapConfig(Bitmap.Config.RGB_565);
+        builder.imageScaleType(ImageScaleType.IN_SAMPLE_INT);
+        builder.resetViewBeforeLoading(false);
+        return builder.build();
+    }
+
+    public static DisplayImageOptions getDisplayImageScaleOptions(Drawable loadingDrawable) {
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder();
+        builder.showImageOnLoading(loadingDrawable);
+        builder.showImageForEmptyUri(loadingDrawable);
         builder.cacheInMemory(true);
         builder.cacheOnDisk(true);
         builder.bitmapConfig(Bitmap.Config.RGB_565);

@@ -19,7 +19,6 @@ import com.fly.run.view.actionbar.CommonActionBar;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
-import java.util.Random;
 
 public class FitTimeActivity extends BaseUIActivity {
 
@@ -90,13 +89,13 @@ public class FitTimeActivity extends BaseUIActivity {
                 if (bean != null && bean.code == 1) {
                     if (!TextUtils.isEmpty(bean.data)) {
                         List<FitBean> list = JSON.parseArray(bean.data, FitBean.class);
-                        Random random = new Random();
-                        int width = (DisplayUtil.screenWidth - (columns + 1) * DisplayUtil.dp2px(2)) / columns;
-                        for (FitBean fitBean : list){
-                            int result = DisplayUtil.dp2px(((random.nextInt(10) + 1)) * 10);
-                            fitBean.setItemWidth(width);
-                            fitBean.setItemHeight(width+result);
-                        }
+//                        Random random = new Random();
+//                        int width = (DisplayUtil.screenWidth - (columns + 1) * DisplayUtil.dp2px(2)) / columns;
+//                        for (FitBean fitBean : list){
+//                            int result = DisplayUtil.dp2px(((random.nextInt(10) + 1)) * 10);
+//                            fitBean.setItemWidth(width);
+//                            fitBean.setItemHeight(width+result);
+//                        }
                         mAdapter.setData(list);
                         mAdapter.notifyDataSetChanged();
                     }

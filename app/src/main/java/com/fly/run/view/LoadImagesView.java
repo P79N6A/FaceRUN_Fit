@@ -21,8 +21,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import java.util.Arrays;
-
 /**
  * Created by xinzhendi-031 on 2017/12/8.
  */
@@ -83,11 +81,11 @@ public class LoadImagesView extends RelativeLayout {
                 if (!url.startsWith("http://"))
                     url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
             }
-            final String finalUrl = url;
+//            final String finalUrl = url;
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowImagesActivity.startShowImageActivity(getContext(), finalUrl,0);
+                    ShowImagesActivity.startShowImageActivity(getContext(), circleBean.getPhotos(),0);
                 }
             });
             ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
@@ -130,7 +128,7 @@ public class LoadImagesView extends RelativeLayout {
         } else if (list.length > 1) {
             imageView.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
-            adapter.setData(Arrays.asList(list));
+            adapter.setDataCircleBean(circleBean);
             adapter.notifyDataSetChanged();
         }
     }

@@ -41,7 +41,6 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private PublishCircleGridAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
     private List<String> urlImages = new ArrayList<>();
-    private String imagePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +108,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         @Override
         public void result(int index) {
             if (index == 1) {
-                imagePath = takeCarema();
+                takeCarema();
             } else if (index == 2) {
                 Intent intent = new Intent(CirclePublishActivity.this, ChooseImagesActivity.class);
                 intent.putExtra("num", urlImages.size());
@@ -228,7 +227,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CAMERA) {
-                String takePhotoPicpath = imagePath;
+                String takePhotoPicpath = takeImagePath;
                 File file = new File(takePhotoPicpath);
                 if (file.exists() && file.length() > 0) {
                     urlImages.add(file.getAbsolutePath());
@@ -241,7 +240,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
                 showGridImgsView(urlImages);
             }
         }
-        imagePath = "";
+        takeImagePath = "";
     }
 
     @Override

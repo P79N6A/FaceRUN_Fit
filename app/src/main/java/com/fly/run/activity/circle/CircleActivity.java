@@ -38,7 +38,6 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 
     private int pageNum = 1;
     private final int pageSize = 40;
-    private String imagePath = "";
 
 
     @Override
@@ -105,7 +104,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         @Override
         public void result(int index) {
             if (index == 1) {
-                imagePath = takeCarema();
+                takeCarema();
             } else if (index == 2) {
                 Intent intent = new Intent(CircleActivity.this, ChooseImagesActivity.class);
                 intent.putExtra("num", 0);
@@ -119,7 +118,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if (Activity.RESULT_OK == resultCode) {
             if (requestCode == REQUEST_CAMERA) {
-                String takePhotoPicpath = imagePath;
+                String takePhotoPicpath = takeImagePath;
                 File file = new File(takePhotoPicpath);
                 if (file.exists() && file.length() > 0) {
                     ArrayList<String> list = new ArrayList<>();
@@ -137,7 +136,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                 }
             }
         }
-        imagePath = "";
+        takeImagePath = "";
     }
 
     private void loadTaskData() {
@@ -164,6 +163,13 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                         List<CircleBean> list = JSON.parseArray(bean.data, CircleBean.class);
                         if (list == null || list.size() == 0)
                             return;
+                        if (adapter.getCount() > 0) {
+                            CircleBean circleBean1 = adapter.getItem(0);
+                            CircleBean circleBean2 = list.get(0);
+                            if (circleBean1 != null && circleBean2 != null && circleBean1.getId() == circleBean2.getId()) {
+                                return;
+                            }
+                        }
                         if (pageNum == 1) {
                             adapter.setData(list);
                         } else {

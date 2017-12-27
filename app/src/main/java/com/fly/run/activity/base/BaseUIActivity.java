@@ -1,15 +1,20 @@
 package com.fly.run.activity.base;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.fly.run.utils.AndroidOSInfoManager;
 import com.fly.run.utils.SDCardUtil;
@@ -36,11 +42,15 @@ public class BaseUIActivity extends BaseDataActivity {
     private ProgressDialog pDialog;
     protected static final int REQUEST_CAMERA = 10001;
     protected static final int REQUEST_ALBUM = 10002;
+    protected String takeImagePath = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setImmerseLayout();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ALBUM);
+        }
     }
 
     protected void setImmerseLayout() {
@@ -249,13 +259,19 @@ public class BaseUIActivity extends BaseDataActivity {
     }
 
     protected String takeCarema() {
+        takeImagePath = "";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+            return "";
+        }
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        String imagePath = getTakePhotoPicpath();
-        File imageFile = new File(imagePath);
+        takeImagePath = getTakePhotoPicpath();
+        File imageFile = new File(takeImagePath);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
                 Uri.fromFile(imageFile));
         startActivityForResult(intent, REQUEST_CAMERA);
-        return imagePath;
+        return takeImagePath;
     }
 
     protected String getTakePhotoPicpath() {
@@ -263,5 +279,24 @@ public class BaseUIActivity extends BaseDataActivity {
         String imageName = "image_" + TimeFormatUtils.getRecordFormatDate(System.currentTimeMillis());
         sb.append(SDCardUtil.getImgDir()).append("/").append(imageName).append(".jpg");
         return sb.toString();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        doNext(requestCode, grantResults);
+    }
+
+    private void doNext(int requestCode, int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                takeCarema();
+            } else {
+                // Permission Denied
+                //  displayFrameworkBugMessageAndExit();
+                Toast.makeText(this, "请在应用管理中打开“相机”访问权限！", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
