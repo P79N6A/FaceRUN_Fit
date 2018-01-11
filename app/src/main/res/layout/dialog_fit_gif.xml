@@ -6,8 +6,8 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_rectangle_ffffff"
@@ -16,25 +16,26 @@
 
         <com.fly.run.view.gif.GifView
             android:id="@+id/gifView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_item_default"
-            android:scaleType="centerCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:minHeight="80dp" />
 
         <TextView
             android:id="@+id/tv_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_16"
-            android:paddingRight="@dimen/margin_16"
-            android:paddingTop="@dimen/margin_6"
-            android:paddingBottom="@dimen/margin_6"
+            android:layout_below="@+id/gifView"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_12"
             android:background="@drawable/corner_join_selector"
-            android:text="加入本次计划"/>
+            android:paddingBottom="@dimen/margin_6"
+            android:paddingLeft="@dimen/margin_16"
+            android:paddingRight="@dimen/margin_16"
+            android:paddingTop="@dimen/margin_6"
+            android:text="加入本次计划" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

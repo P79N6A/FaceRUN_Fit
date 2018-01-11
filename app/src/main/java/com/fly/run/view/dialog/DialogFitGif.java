@@ -13,12 +13,14 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fly.run.R;
 import com.fly.run.bean.FitBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.IOTools;
+import com.fly.run.utils.Logger;
 import com.fly.run.utils.SDCardUtil;
 import com.fly.run.view.gif.GifView;
 
@@ -139,6 +141,20 @@ public class DialogFitGif extends Dialog {
                 case 1:
                     String filePath = (String) msg.obj;
                     gifView.setMovieFile(filePath);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) gifView.getLayoutParams();
+                            int w = params.width;
+                            int h = params.height;
+                            if (w > 0 && h > 0) {
+                                params.width = (int) (w * 0.8f);
+                                params.height = (int) (h * 0.8f);
+                                gifView.setLayoutParams(params);
+                                Logger.e("dialog fig w= " + params.width + " h = " + params.height);
+                            }
+                        }
+                    }, 2000);
                     break;
                 case 11:
                     showProgreessDialog();

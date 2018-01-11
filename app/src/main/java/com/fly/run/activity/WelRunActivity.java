@@ -42,17 +42,10 @@ public class WelRunActivity extends BaseUIActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Logger.e(TAG, "after 3s");
                 handler.sendEmptyMessage(2);
             }
-        },3000);
-        getRunData();
-    }
-
-    private void loadWebGif() {
-//        webView = (WebView) findViewById(R.id.webview);
-//        webView.setBackgroundColor(0x00000000);
-//        String gifPath = "file:///android_asset/image_8.gif";
-//        webView.loadUrl(gifPath);
+        }, 3000);
         getRunData();
     }
 
@@ -104,16 +97,19 @@ public class WelRunActivity extends BaseUIActivity {
             switch (msg.what) {
                 case 1:
 //                    intentToActivity(MainActivity.class);
+                    Logger.e(TAG, "handler1");
                     Intent intent = new Intent(WelRunActivity.this, MainActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.anim_alpha_in, R.anim.anim_alpha_out);
                     finish();
                     break;
                 case 2:
+                    Logger.e(TAG, "handler2 isJump = " + isJump);
                     if (isJump)
                         return;
                     isJump = true;
                     long time = System.currentTimeMillis() - startTime;
+                    Logger.e(TAG, "handler2 time = " + time);
                     if (time < JumpTime)
                         this.sendEmptyMessageDelayed(1, JumpTime - time);
                     else
@@ -124,6 +120,7 @@ public class WelRunActivity extends BaseUIActivity {
     };
 
     private void httpWeatherTask() {
+        Logger.e(TAG, "httpWeatherTask strProvince = " + strProvince + "  strCity" + strCity);
         if (!NetWorkUtil.haveNetWork(this)) {
             ToastUtil.show("请检查网络");
             handler.sendEmptyMessage(2);
@@ -137,11 +134,13 @@ public class WelRunActivity extends BaseUIActivity {
         OkHttpClientManager.getInstance()._getAsyn(WeatherUtil.getWeatherUrl(strProvince, strCity), new OkHttpClientManager.StringCallback() {
             @Override
             public void onFailure(Request request, IOException e) {
+                Logger.e(TAG, "httpWeatherTask onFailure");
                 handler.sendEmptyMessage(2);
             }
 
             @Override
             public void onResponse(String response) {
+                Logger.e(TAG, "httpWeatherTask onResponse");
                 if (TextUtils.isEmpty(response)) {
                     handler.sendEmptyMessage(2);
                     return;

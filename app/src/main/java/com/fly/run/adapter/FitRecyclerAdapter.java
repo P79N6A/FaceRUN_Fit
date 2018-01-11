@@ -1,7 +1,6 @@
 package com.fly.run.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -19,8 +18,6 @@ import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.view.dialog.DialogFitGif;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,19 +70,6 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final FitBean bean = datas.get(position);
         holder.tv.setText(bean.getTitle());
-//        Random random = new Random();
-//        int result = DisplayUtil.dp2px((random.nextInt(10) + 1) * 30);
-//        if (result < minItemHeight) {
-//            result = minItemHeight;
-//        }
-//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.tv.getLayoutParams();
-//        params.height = result;
-//        int r = random.nextInt(200) + 55;
-//        int g = random.nextInt(200) + 55;
-//        int b = random.nextInt(200) + 55;
-//        holder.tv.setBackgroundColor(Color.argb(255, r, g, b));
-//        holder.gifView.setGifResource(R.mipmap.gif3);
-//        holder.gifView.setGifResource(R.drawable.menu_bg_1);
         String url = "";
         if (!TextUtils.isEmpty(bean.getImage())) {
             url = "fit/" + bean.getImage();
@@ -93,49 +77,7 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
             if (!url.startsWith("http://"))
                 url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
         }
-        if (bean.getItemWidth() > 0 && bean.getItemHeight() > 0){
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.gifView.getLayoutParams();
-            params.height = bean.getItemHeight();
-            params.width = bean.getItemWidth();
-            ImageLoader.getInstance().displayImage(url, holder.gifView, ImageLoaderOptions.optionsItemDefault);
-        } else {
-            ImageLoader.getInstance().displayImage(url, holder.gifView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String s, View view) {
-
-                }
-
-                @Override
-                public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-                }
-
-                @Override
-                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                    if (bitmap == null)
-                        return;
-                    int w = bitmap.getWidth();
-                    int h = bitmap.getHeight();
-
-                    if (w == 0 || h == 0)
-                        return;
-//                int itemWidth = DisplayUtil.screenWidth - 4 * DisplayUtil.dp2px(1);
-                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.gifView.getLayoutParams();
-                    int viewWidth = (DisplayUtil.screenWidth - (columns + 1) * DisplayUtil.dp2px(2)) / columns;
-                    int viewHeight = viewWidth * h / w;
-                    params.height = viewHeight;
-                    params.width = viewWidth;
-                    bean.setItemWidth(viewWidth);
-                    bean.setItemHeight(viewHeight);
-                }
-
-                @Override
-                public void onLoadingCancelled(String s, View view) {
-
-                }
-            });
-        }
-        final String finalUrl = url;
+        ImageLoader.getInstance().displayImage(url, holder.gifView, ImageLoaderOptions.optionsLanuchHeader);
         holder.gifView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +90,7 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
                             bean.setJoin(true);
                             joinDatas.add(bean);
                         } else {
-                            if (bean.isJoin()){
+                            if (bean.isJoin()) {
                                 bean.setJoin(false);
                                 joinDatas.remove(bean);
                             }
@@ -177,6 +119,9 @@ public class FitRecyclerAdapter extends RecyclerView.Adapter<FitRecyclerAdapter.
             super(view);
             gifView = (ImageView) view.findViewById(R.id.gifView);
             tv = (TextView) view.findViewById(R.id.tv_title);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) gifView.getLayoutParams();
+            params.height = (DisplayUtil.screenWidth - DisplayUtil.dp2px(8)) / 3;
+            params.width = params.height;
         }
     }
 }

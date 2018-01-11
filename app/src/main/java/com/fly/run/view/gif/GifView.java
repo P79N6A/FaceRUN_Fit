@@ -159,11 +159,12 @@ public class GifView extends View {
 //                if (movieWidth > maximumWidth) {
 //                    scaleH = (float) movieWidth / (float) maximumWidth;
 //                }
-                if (movieWidth < maximumWidth) {
-                    scaleH = (float) maximumWidth / (float) movieWidth;
-                } else if (movieWidth >= DisplayUtil.screenWidth) {
-                    scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth;
-                }
+//                if (movieWidth < maximumWidth) {
+//                    scaleH = (float) maximumWidth / (float) movieWidth;
+//                } else if (movieWidth >= DisplayUtil.screenWidth) {
+//                    scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth;
+//                }
+                scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth * 0.9f;
             }
 
 			/*

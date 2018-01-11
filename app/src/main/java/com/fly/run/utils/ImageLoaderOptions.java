@@ -38,7 +38,7 @@ public class ImageLoaderOptions {
     public static DisplayImageOptions optionsUserCornerHeader = getDisplayImageOptions(R.drawable.ic_user_header_default,
             DisplayUtil.dp2px(_CORNER_RADIUS_100));
     public static DisplayImageOptions optionsUserHeader = getDisplayImageScaleOptions(R.drawable.ic_user_header_default);
-    public static DisplayImageOptions optionsLanuchHeader = getDisplayImageScaleOptions(R.mipmap.ic_launcher);
+    public static DisplayImageOptions optionsLanuchHeader = getDisplayImageScaleOptions(R.drawable.ic_launcher_run);
     public static DisplayImageOptions optionsItemDefault = getDisplayImageScaleOptions(R.drawable.menu_bg_3);
 
     public static DisplayImageOptions getOptions(int drawable, int corner) {
