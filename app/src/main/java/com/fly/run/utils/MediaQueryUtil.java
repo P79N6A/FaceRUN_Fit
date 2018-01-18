@@ -2,6 +2,7 @@ package com.fly.run.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -96,6 +97,33 @@ public class MediaQueryUtil {
         cursor.close();
         cursor = null;
         return texts;
+    }
+
+    public static List<FileItem> getAllVideoImages(Context context) {
+        List<FileItem> files = new ArrayList<>();
+        Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        // 只查询JPEG和PNG扩展名的图片，并按照最近修改时间排序
+        StringBuffer selection = new StringBuffer();
+        selection.append(MediaStore.Images.Media.MIME_TYPE).append("= ? or ").append(MediaStore.Images.Media.MIME_TYPE);
+        selection.append(" = ? or ").append(MediaStore.Files.FileColumns.MIME_TYPE).append("= ?");
+        String[] args = new String[]{"image/jpeg", "image/png", "video/mp4"};
+        Cursor cursor = context.getContentResolver().query(MediaStore.Files.getContentUri("external"), null, selection.toString(), args, MediaStore.Images.Media.DATE_MODIFIED);
+        List<String> photoUrlList = new ArrayList<String>();
+        String fileId;
+        String fileName;
+        String filePath;
+        while (cursor.moveToNext()) {
+            // 获取图片的路径
+            fileId = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID));
+            fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE));
+            filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+            Log.e("AllVideoImages", cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.MIME_TYPE)) + "--" + filePath);
+            FileItem fileItem = new FileItem(fileId, filePath, fileName);
+            files.add(fileItem);
+        }
+        cursor.close();
+        cursor = null;
+        return files;
     }
 
 }

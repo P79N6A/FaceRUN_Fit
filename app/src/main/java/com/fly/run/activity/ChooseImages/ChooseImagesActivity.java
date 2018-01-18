@@ -40,6 +40,7 @@ public class ChooseImagesActivity extends BaseUIActivity {
             public void run() {
                 long start = System.currentTimeMillis();
                 Log.e(TAG, "start = " + start);
+                initLocalVideos();
                 initLocalImages();
                 Log.e(TAG, "耗时 = " + (System.currentTimeMillis() - start) + "  数量 = " + list.size());
             }
@@ -85,6 +86,11 @@ public class ChooseImagesActivity extends BaseUIActivity {
     private void initLocalImages() {
         list = MediaQueryUtil.getAllPhoto(this);
         handler.sendEmptyMessage(1);
+    }
+
+    private void initLocalVideos() {
+        List<FileItem> list = MediaQueryUtil.getAllVideoImages(this);
+        Log.e(TAG, "size = " + list.size());
     }
 
     private void initView() {

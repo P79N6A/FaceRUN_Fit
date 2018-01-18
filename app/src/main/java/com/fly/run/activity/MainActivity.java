@@ -45,8 +45,8 @@ import com.fly.run.activity.circle.CircleActivity;
 import com.fly.run.activity.login.LoginActivity;
 import com.fly.run.activity.person.PersonInfoActivity;
 import com.fly.run.activity.setting.SettingActivity;
-import com.fly.run.activity.training.FitTimeActivity;
 import com.fly.run.activity.training.TrainPlanActivity;
+import com.fly.run.activity.training.plan.FitPlanActivity;
 import com.fly.run.adapter.NavMainAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.config.Constant;
@@ -322,7 +322,7 @@ public class MainActivity extends BaseUIActivity
                     intentToActivity(TrainPlanActivity.class);
                     break;
                 case 2:
-                    intentToActivity(FitTimeActivity.class);
+                    intentToActivity(FitPlanActivity.class);
                     break;
                 case 3:
                     intent = new Intent(MainActivity.this, SettingActivity.class);
