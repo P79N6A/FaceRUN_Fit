@@ -8,11 +8,11 @@ public class UrlConstants {
     /**
      * 公司 IP
      */
-//    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
+    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
     /**
      * 阿里云
      */
-    public static String HTTP_ROOT = "http://120.78.81.9/";
+//    public static String HTTP_ROOT = "http://120.78.81.9/";
 
     /**
      * 单文件上传（图片）
@@ -111,4 +111,9 @@ public class UrlConstants {
      * 查询FIT
      */
     public static String HTTP_FIT_QUERY = HTTP_ROOT + "fit/query";
+
+    /**
+     * 查询SysFITPlan
+     */
+    public static String HTTP_FIT_PLAN_QUERY = HTTP_ROOT + "fit/query_fit_plan";
 }

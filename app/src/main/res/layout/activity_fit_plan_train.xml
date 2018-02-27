@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_100">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="不设目标"
+            android:textColor="@color/color_333333"
+            android:textSize="20sp" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:max="100" />
+
+        <RelativeLayout
+            android:id="@+id/layout_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="∞" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/layout_max"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/colorPrimaryDark" />
+
+        <View
+            android:id="@+id/view_line2"
+            android:layout_width="1px"
+            android:layout_height="10dp"
+            android:layout_below="@+id/view_line1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_4"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/tv_jishu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_2"
+            android:text="计数"
+            android:textColor="@color/color_666666"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_train"
+        android:layout_width="@dimen/margin_100"
+        android:layout_height="@dimen/margin_100"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:background="@drawable/btn_circle_fit_train"
+        android:gravity="center"
+        android:text="开始"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/margin_18" />
+
+</RelativeLayout>

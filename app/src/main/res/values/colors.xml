@@ -42,7 +42,7 @@
     <color name="color_88353535">#88353535</color>
     <color name="translucent">#66000000</color>
     <!--<color name="action_title_color">#353535</color>-->
-    <color name="action_title_color">#ff2E7D32</color>
+    <color name="action_title_color">#fca017</color>
     <drawable name="transparent_background">#00000000</drawable>
 
     <color name="color_corner_green_normal">#2E7D32</color>

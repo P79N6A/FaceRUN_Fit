@@ -156,15 +156,15 @@ public class GifView extends View {
 
             if (measureModeWidth != MeasureSpec.UNSPECIFIED) {
                 int maximumWidth = MeasureSpec.getSize(widthMeasureSpec);
-//                if (movieWidth > maximumWidth) {
-//                    scaleH = (float) movieWidth / (float) maximumWidth;
-//                }
-//                if (movieWidth < maximumWidth) {
-//                    scaleH = (float) maximumWidth / (float) movieWidth;
-//                } else if (movieWidth >= DisplayUtil.screenWidth) {
-//                    scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth;
-//                }
-                scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth * 0.9f;
+                if (movieWidth > maximumWidth) {
+                    scaleH = (float) movieWidth / (float) maximumWidth;
+                }
+                if (movieWidth < maximumWidth) {
+                    scaleH = (float) maximumWidth / (float) movieWidth;
+                } else if (movieWidth >= DisplayUtil.screenWidth) {
+                    scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth;
+                }
+//                scaleH = (float) (DisplayUtil.screenWidth) / (float) movieWidth * 0.9f;
             }
 
 			/*

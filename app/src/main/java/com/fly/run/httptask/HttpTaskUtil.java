@@ -47,6 +47,29 @@ public class HttpTaskUtil {
         return this;
     }
 
+    public void QuerySysFitPlanTask() {
+        try {
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", "" + UserInfoManager.getInstance().getAccountInfo().getId());
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_FIT_PLAN_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },paramAccountId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
     public void QueryFitTask() {
         try {
             OkHttpClientManager.getInstance()._getAsyn(UrlConstants.HTTP_FIT_QUERY, new OkHttpClientManager.StringCallback() {
