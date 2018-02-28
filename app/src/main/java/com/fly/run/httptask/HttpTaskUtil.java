@@ -49,7 +49,7 @@ public class HttpTaskUtil {
 
     public void QuerySysFitPlanTask() {
         try {
-            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", "" + UserInfoManager.getInstance().getAccountInfo().getId());
+            OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", "" + UserInfoManager.getInstance().getAccountId());
             OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_FIT_PLAN_QUERY, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
@@ -62,7 +62,7 @@ public class HttpTaskUtil {
                     if (resultListener != null)
                         resultListener.onResponse(response);
                 }
-            },paramAccountId);
+            }, paramAccountId);
         } catch (Exception e) {
             e.printStackTrace();
             if (resultListener != null)

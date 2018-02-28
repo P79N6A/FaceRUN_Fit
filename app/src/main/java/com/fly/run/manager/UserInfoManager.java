@@ -10,6 +10,7 @@ public class UserInfoManager {
 
     private static UserInfoManager userInfoManager;
     private AccountBean accountBean = null;
+    public static final int SysAccountId = -999;
 
     public static UserInfoManager getInstance() {
         if (userInfoManager == null)
@@ -27,6 +28,10 @@ public class UserInfoManager {
 
     public String getAccount() {
         return accountBean != null ? accountBean.getAccount() : "";
+    }
+
+    public int getAccountId() {
+        return accountBean != null ? accountBean.getId() : SysAccountId;
     }
 
     public void logout() {

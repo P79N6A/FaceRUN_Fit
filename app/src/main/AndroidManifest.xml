@@ -327,7 +327,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.training.plan.FitPlanTrainActivity"
+            android:name=".activity.training.plan.FitPlanTargetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.training.plan.FitPlanTrainingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
     </application>

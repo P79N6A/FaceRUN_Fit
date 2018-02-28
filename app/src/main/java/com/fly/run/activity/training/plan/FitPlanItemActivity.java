@@ -49,7 +49,7 @@ public class FitPlanItemActivity extends BaseUIActivity {
         tv_train.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FitPlanTrainActivity.startActivityJump(FitPlanItemActivity.this,fitPlanBean);
+                FitPlanTargetActivity.startActivityJump(FitPlanItemActivity.this,fitPlanBean);
             }
         });
         setData();
