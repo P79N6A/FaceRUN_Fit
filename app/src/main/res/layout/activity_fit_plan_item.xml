@@ -29,13 +29,32 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_8"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_8"
+                android:paddingRight="@dimen/margin_8"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_train_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_8"
+                android:paddingRight="@dimen/margin_8"/>
+
+            <TextView
+                android:id="@+id/tv_train_times"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_8"
+                android:paddingLeft="@dimen/margin_8"
+                android:paddingRight="@dimen/margin_8"/>
 
             <TextView
                 android:id="@+id/tv_do_it"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_8"
                 android:paddingLeft="@dimen/margin_8"
                 android:paddingRight="@dimen/margin_8"/>
 

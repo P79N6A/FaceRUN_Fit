@@ -145,12 +145,12 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
             httpTaskUtil.setResultListener(resultListener);
         }
         AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
-        if (bean == null || bean.getId() <= 0) {
-            ToastUtil.show("请登录");
-            swipeRefreshLayout.setRefreshing(false);
-            return;
-        }
-        httpTaskUtil.QueryCircleRunTask(pageNum, pageSize, "" + bean.getId());
+//        if (bean == null || bean.getId() <= 0) {
+//            ToastUtil.show("请登录");
+//            swipeRefreshLayout.setRefreshing(false);
+//            return;
+//        }
+        httpTaskUtil.QueryCircleRunTask(pageNum, pageSize, bean == null ? "-999":"" + bean.getId());
     }
 
     HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {

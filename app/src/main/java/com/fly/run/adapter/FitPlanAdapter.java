@@ -14,10 +14,12 @@ import com.fly.run.R;
 import com.fly.run.bean.FitPlanBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
+import com.fly.run.utils.SDCardUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +78,11 @@ public class FitPlanAdapter extends BaseAdapter {
         }
         viewHolder.tvTimes.setText(mTimes);
         String url = bean.getImage();
-        if (!url.startsWith("http://") || !url.startsWith("https://"))
+        String filePath = new String(SDCardUtil.getGifDir() + "/" + url);
+        File file = new File(filePath);
+        if (file.exists() && file.length() > 0) {
+            url = "file://"+filePath;
+        } else if (!url.startsWith("http://") || !url.startsWith("https://"))
             url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, "fit/" + url);
         final ViewHolder finalViewHolder = viewHolder;
         ImageLoader.getInstance().displayImage(url, viewHolder.ivIcon, new ImageLoadingListener() {

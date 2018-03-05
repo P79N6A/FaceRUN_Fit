@@ -44,14 +44,15 @@ public class FitPlanTargetActivity extends BaseUIActivity {
             }
         });
         if (fitPlanBean != null) {
+            tv_jishu.setText(fitPlanBean.getTitle());
             int type = fitPlanBean.getCountstype();
             if (type == 1) { //计时
                 seekBar.setMax(10 * 60);
-                tv_jishu.setText("计时");
+//                tv_jishu.setText("计时");
                 tv_title.setText("坚持" + " " + TimeFormatUtils.formatDurationHHMMss(fitPlanBean.getCounts() * 1000));
             } else { //计数
                 seekBar.setMax(100);
-                tv_jishu.setText("计数");
+//                tv_jishu.setText("计数");
                 tv_title.setText("坚持" + fitPlanBean.getCounts() + "个");
             }
             seekBar.setProgress(fitPlanBean.getCounts());
