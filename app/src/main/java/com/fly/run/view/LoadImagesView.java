@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fly.run.R;
-import com.fly.run.activity.ShowImagesActivity;
+import com.fly.run.activity.media.ShowImagesActivity;
 import com.fly.run.adapter.LoadImagesAdapter;
 import com.fly.run.bean.CircleBean;
 import com.fly.run.config.UrlConstants;
@@ -88,7 +88,7 @@ public class LoadImagesView extends RelativeLayout {
                     ShowImagesActivity.startShowImageActivity(getContext(), circleBean.getPhotos(),0);
                 }
             });
-            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsPicDefault, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

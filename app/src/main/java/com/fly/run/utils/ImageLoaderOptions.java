@@ -40,6 +40,7 @@ public class ImageLoaderOptions {
     public static DisplayImageOptions optionsUserHeader = getDisplayImageScaleOptions(R.drawable.ic_user_header_default);
     public static DisplayImageOptions optionsLanuchHeader = getDisplayImageScaleOptions(R.drawable.ic_launcher_run);
     public static DisplayImageOptions optionsItemDefault = getDisplayImageScaleOptions(R.drawable.menu_bg_3);
+    public static DisplayImageOptions optionsPicDefault = getDisplayImageScaleOptions(R.drawable.ic_setting_picture_press);
 
     public static DisplayImageOptions getOptions(int drawable, int corner) {
         return getDisplayImageOptions(drawable, DisplayUtil.dp2px(corner));

@@ -1,6 +1,6 @@
 package com.fly.run.config;
 
-import java.util.ArrayList;
+import com.amap.api.location.AMapLocation;
 
 public class AppConstants {
     public static String[] LocationMode = {"精确定位(GPS)", "模糊定位(WIFI)"};
@@ -38,6 +38,6 @@ public class AppConstants {
     public static int AUDIO_VOLUME_CURRENT = 0;
     public static int AUDIO_VOLUME_MAX = 0;
 
-
+    public static AMapLocation aMapLocation = null;
 
 }

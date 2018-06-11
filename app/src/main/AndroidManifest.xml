@@ -315,7 +315,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.ShowImagesActivity"
+            android:name=".activity.media.ShowImagesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
@@ -332,6 +332,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.training.plan.FitPlanTrainingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.media.DisplayVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
     </application>

@@ -27,8 +27,7 @@ public class SharePreferceTool {
         shareprefece = context.getSharedPreferences(SMART_NAME,
                 Context.MODE_MULTI_PROCESS +
                         Context.MODE_APPEND +
-                        Context.MODE_WORLD_READABLE +
-                        Context.MODE_WORLD_WRITEABLE
+                        Context.MODE_PRIVATE
         );
         editor = shareprefece.edit();
     }
@@ -41,8 +40,7 @@ public class SharePreferceTool {
         shareprefece = context.getSharedPreferences(name,
                 Context.MODE_MULTI_PROCESS +
                         Context.MODE_APPEND +
-                        Context.MODE_WORLD_READABLE +
-                        Context.MODE_WORLD_WRITEABLE
+                        Context.MODE_PRIVATE
         );
         editor = shareprefece.edit();
     }

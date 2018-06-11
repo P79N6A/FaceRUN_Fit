@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.fly.run.R;
 import com.fly.run.view.ImageZoom.ImageViewTouch;
@@ -18,6 +19,7 @@ public class ImageTouchViewLayout extends RelativeLayout {
 
     private ImageViewTouch imageViewTouch;
     private ProgressBar progressBar;
+    private TextView tvPersent;
 
     public ImageTouchViewLayout(Context context) {
         super(context);
@@ -44,6 +46,7 @@ public class ImageTouchViewLayout extends RelativeLayout {
             }
         });
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        tvPersent = (TextView)findViewById(R.id.tv_persent);
     }
 
     public ImageViewTouch getImageViewTouch() {
@@ -52,5 +55,9 @@ public class ImageTouchViewLayout extends RelativeLayout {
 
     public ProgressBar getProgressBar() {
         return progressBar;
+    }
+
+    public TextView getTvPersent() {
+        return tvPersent;
     }
 }

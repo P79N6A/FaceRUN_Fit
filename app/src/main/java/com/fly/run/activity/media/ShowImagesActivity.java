@@ -1,4 +1,4 @@
-package com.fly.run.activity;
+package com.fly.run.activity.media;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,7 +41,7 @@ public class ShowImagesActivity extends BaseUIActivity {
     private int mPosition = 0;
     private List<String> images = new ArrayList<>();
     private List<ImageTouchViewLayout> viewList = new ArrayList<>();
-    private Map<Integer,Boolean> selectMap = new HashMap<>();
+    private Map<Integer, Boolean> selectMap = new HashMap<>();
     private static Map<Integer, UrlDrawableBean> mUrlDrawableMap = new HashMap<>();
 
     public static void startShowImageActivity(Context context, String images, int position) {
@@ -114,18 +114,18 @@ public class ShowImagesActivity extends BaseUIActivity {
         Drawable drawable = null;
         try {
             drawable = mUrlDrawableMap.get(position).getDrawable();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         DisplayImageOptions displayImageOptions = ImageLoaderOptions.getDisplayImageScaleOptions(drawable);
-        ImageLoader.getInstance().displayImage(url, imageTouchViewLayout.getImageViewTouch(), displayImageOptions, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, imageTouchViewLayout.getImageViewTouch(), ImageLoaderOptions.optionsLanuchHeader, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
             }
 
             @Override
             public void onLoadingFailed(String s, View view, FailReason failReason) {
-                setProgressView(imageTouchViewLayout,View.GONE);
+                setProgressView(imageTouchViewLayout, View.GONE);
             }
 
 
@@ -141,8 +141,8 @@ public class ShowImagesActivity extends BaseUIActivity {
 //                float scaleH = h * 1.0f / ScreenHeight;
 //                scale = Math.min(scaleW, scaleH);
 //                final float finalScale = scale;
-                selectMap.put(position,true);
-                setProgressView(imageTouchViewLayout,View.GONE);
+                selectMap.put(position, true);
+                setProgressView(imageTouchViewLayout, View.GONE);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -153,15 +153,16 @@ public class ShowImagesActivity extends BaseUIActivity {
 
             @Override
             public void onLoadingCancelled(String s, View view) {
-                setProgressView(imageTouchViewLayout,View.GONE);
+                setProgressView(imageTouchViewLayout, View.GONE);
             }
         });
     }
 
-    private void setProgressView(ImageTouchViewLayout imageTouchViewLayout,int visiable){
+    private void setProgressView(ImageTouchViewLayout imageTouchViewLayout, int visiable) {
         if (imageTouchViewLayout == null || imageTouchViewLayout.getProgressBar() == null)
             return;
         imageTouchViewLayout.getProgressBar().setVisibility(visiable);
+        imageTouchViewLayout.getTvPersent().setVisibility(visiable);
     }
 
     ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {

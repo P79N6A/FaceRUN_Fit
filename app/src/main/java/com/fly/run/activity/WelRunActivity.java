@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.amap.api.location.AMapLocation;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
+import com.fly.run.config.AppConstants;
 import com.fly.run.utils.LocationUtils;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.NetWorkUtil;
@@ -54,6 +55,7 @@ public class WelRunActivity extends BaseUIActivity {
         public void onLocationChanged(AMapLocation loc) {
             if (null != loc && loc.getErrorCode() == 0) {
 //                if (TextUtils.isEmpty(strProvince) || TextUtils.isEmpty(strCity)) {
+                AppConstants.aMapLocation = loc;
                 strProvince = loc.getProvince();
                 strCity = loc.getCity();
                 if (strProvince.endsWith("省"))

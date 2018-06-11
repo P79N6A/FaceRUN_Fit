@@ -3,7 +3,9 @@ package com.fly.run.app;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.os.StrictMode;
 
+import com.fly.run.R;
 import com.fly.run.config.AppConstants;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
@@ -11,6 +13,7 @@ import com.fly.run.utils.MediaUtil;
 import com.fly.run.utils.SDCardUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -68,7 +71,17 @@ public class App extends Application {
         int maxImageMemoryCacheSize = (maxMemory == 0) ? ImageLoaderOptions.MAX_IMAGE_DISK_CACHE_SIZE : (maxMemory / 8);
 //		File cacheDir = StorageUtils.getOwnCacheDirectory(appContext, "Melinked/imageloader/Cache");
 // 				.diskCache(new UnlimitedDiskCache(cacheDir)) //自定义缓存路径
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).memoryCache(new LruMemoryCache(maxImageMemoryCacheSize))
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showStubImage(R.drawable.ic_launcher_run) // 设置图片下载期间显示的图片
+                .showImageOnLoading(R.drawable.ic_launcher_run)    //设置下载过程中图片显示
+                .showImageForEmptyUri(R.drawable.ic_launcher_run) // 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.ic_launcher_run) // 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisc(true) // 设置下载的图片是否缓存在SD卡中
+                .build(); // 创建配置过得DisplayImageOption对象
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                .defaultDisplayImageOptions(options)
+                .memoryCache(new LruMemoryCache(maxImageMemoryCacheSize))
                 .memoryCacheExtraOptions(ImageLoaderOptions.MAX_IMAGE_WIDTH, ImageLoaderOptions.MAX_IMAGE_HEIGHT)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
@@ -85,6 +98,10 @@ public class App extends Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                // android 7.0系统解决拍照的问题
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
+                builder.detectFileUriExposure();
                 if (MediaUtil.mediaEntityList == null)
                     MediaUtil.mediaEntityList = MediaUtil.getAllMediaList(getInstance(), null);
 //                initialEnv();

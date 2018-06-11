@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fly.run.R;
-import com.fly.run.activity.ShowImagesActivity;
+import com.fly.run.activity.media.ShowImagesActivity;
 import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.UrlDrawableBean;
 import com.fly.run.config.UrlConstants;
@@ -112,7 +112,7 @@ public class LoadImagesAdapter extends BaseAdapter {
             if (!content.startsWith("http://"))
                 content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, content);
         }
-        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsItemDefault, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsPicDefault, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 
@@ -141,7 +141,7 @@ public class LoadImagesAdapter extends BaseAdapter {
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowImagesActivity.startShowImageActivity(mContext, circleBean.getPhotos(), position,mUrlDrawableMap);
+                ShowImagesActivity.startShowImageActivity(mContext, circleBean.getPhotos(), position, mUrlDrawableMap);
             }
         });
         return convertView;

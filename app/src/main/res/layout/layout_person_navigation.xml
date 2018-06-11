@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/grey"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin_6"
+    android:paddingTop="@dimen/margin_6">
+
+    <LinearLayout
+        android:id="@+id/layout_shoucang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/btn_ffffff_f4f4f4_selector"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:src="@drawable/aqi_excellent" />
+
+        <TextView
+            android:id="@+id/tv_shoucang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="收藏" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_guanzhu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/btn_ffffff_f4f4f4_selector"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:src="@drawable/aqi_excellent" />
+
+        <TextView
+            android:id="@+id/tv_guanzhu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="关注" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_chengjiu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/btn_ffffff_f4f4f4_selector"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:src="@drawable/aqi_excellent" />
+
+        <TextView
+            android:id="@+id/tv_chengjiu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="成就" />
+    </LinearLayout>
+
+</LinearLayout>
