@@ -166,6 +166,10 @@
             android:label="@string/title_activity_main_run"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.person.PersonInfoEditActivity"
+            android:label="@string/title_activity_main_run"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activity.photo.PhotoActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_main_run"
@@ -336,6 +340,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.media.DisplayVideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.webview.MyWebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
     </application>

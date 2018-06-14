@@ -29,7 +29,7 @@ public class LoadImagesView extends RelativeLayout {
     private ImageView imageView;
     private CustomGridView gridView;
     private LoadImagesAdapter adapter;
-    private final int MAX_HEIGHT = 200;
+    private int MAX_HEIGHT = 300;
     private CircleBean circleBean;
 
     public LoadImagesView(Context context) {
@@ -49,6 +49,7 @@ public class LoadImagesView extends RelativeLayout {
 
     private void initView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.view_load_images, this);
+        MAX_HEIGHT = DisplayUtil.screenWidth - DisplayUtil.dp2px(8);
         imageView = (ImageView) findViewById(R.id.iv_single);
         gridView = (CustomGridView) findViewById(R.id.gridview);
         adapter = new LoadImagesAdapter(context);
@@ -107,7 +108,7 @@ public class LoadImagesView extends RelativeLayout {
                     int h = bitmap.getHeight();
                     if (w == 0 || h == 0)
                         return;
-                    int maxHeight = DisplayUtil.dp2px(MAX_HEIGHT);
+                    int maxHeight = MAX_HEIGHT;
                     LayoutParams params = (LayoutParams) imageView.getLayoutParams();
                     int viewWidth = DisplayUtil.screenWidth - DisplayUtil.dp2px(8);
                     int viewHeight = viewWidth * h / w;

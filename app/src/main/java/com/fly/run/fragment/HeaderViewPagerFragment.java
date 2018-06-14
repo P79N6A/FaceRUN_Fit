@@ -1,7 +1,6 @@
 package com.fly.run.fragment;
 
-import android.support.v4.app.Fragment;
-
+import com.fly.run.fragment.base.BaseFragment;
 import com.lzy.widget.HeaderScrollHelper;
 
 /**
@@ -13,6 +12,6 @@ import com.lzy.widget.HeaderScrollHelper;
  * 修订历史：
  * ================================================
  */
-public abstract class HeaderViewPagerFragment extends Fragment implements HeaderScrollHelper.ScrollableContainer {
+public abstract class HeaderViewPagerFragment extends BaseFragment implements HeaderScrollHelper.ScrollableContainer {
     protected final String TAG = this.getClass().getSimpleName();
 }

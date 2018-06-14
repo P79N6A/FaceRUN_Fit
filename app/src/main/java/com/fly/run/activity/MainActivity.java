@@ -47,6 +47,7 @@ import com.fly.run.activity.person.PersonInfoActivity;
 import com.fly.run.activity.setting.SettingActivity;
 import com.fly.run.activity.training.TrainPlanActivity;
 import com.fly.run.activity.training.plan.FitPlanActivity;
+import com.fly.run.activity.webview.MyWebActivity;
 import com.fly.run.adapter.NavMainAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.config.Constant;
@@ -329,7 +330,7 @@ public class MainActivity extends BaseUIActivity
                     startActivityForResult(intent, 1024);
                     break;
                 case 4:
-//                    intentToActivity(WakeUpAlertActivity.class);
+                    intentToActivity(MyWebActivity.class);
                     break;
                 case 5:
                     break;

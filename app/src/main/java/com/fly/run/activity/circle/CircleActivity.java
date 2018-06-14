@@ -150,7 +150,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 //            swipeRefreshLayout.setRefreshing(false);
 //            return;
 //        }
-        httpTaskUtil.QueryCircleRunTask(pageNum, pageSize, bean == null ? "-999":"" + bean.getId());
+        httpTaskUtil.QueryCircleRunTask(pageNum, pageSize);
     }
 
     HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {

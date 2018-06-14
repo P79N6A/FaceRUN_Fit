@@ -72,7 +72,10 @@ public class CircleAdapter extends BaseAdapter {
         }
         CircleBean item = getItem(position);
         if (item != null) {
-            viewHolder.tvName.setText(item.getAccount());
+            String strAccount = item.getAccount();
+            if (!TextUtils.isEmpty(strAccount) && strAccount.contains("@"))
+                strAccount = strAccount.split("@")[0];
+            viewHolder.tvName.setText(strAccount);
             viewHolder.tvTime.setText(item.getCreateTime() == null ? "" : item.getCreateTime().toLocaleString());
             viewHolder.tvDesc.setText(item.getDescription());
             if (!TextUtils.isEmpty(item.getAddress())) {

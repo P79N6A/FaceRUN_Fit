@@ -47,5 +47,16 @@
             android:text="我是标题栏"
             android:textColor="#FFF"
             android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="@dimen/action_bar_height"
+            android:layout_height="@dimen/action_bar_height"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_edit_detail" />
+
     </RelativeLayout>
 </LinearLayout>

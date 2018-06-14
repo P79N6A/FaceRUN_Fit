@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PersonInfoAdapter;
+import com.fly.run.bean.AccountBean;
 import com.fly.run.fragment.HeaderViewPagerFragment;
 import com.fly.run.fragment.ListViewFragment;
 import com.fly.run.manager.UserInfoManager;
@@ -37,16 +38,18 @@ public class PersonInfoActivity extends BaseUIActivity {
     private TextView titleBar_title;
     private View status_bar_fix;
     private View titleBar;
-    private ImageView ivBack;
+    private ImageView ivBack, ivEdit;
     public List<HeaderViewPagerFragment> fragments;
     private ViewPager viewPager;
+    private AccountBean accountBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
+        accountBean = UserInfoManager.getInstance().getAccountInfo();
         personHeaderView = (PersonHeaderView) findViewById(R.id.peopleHeaderView);
-        personHeaderView.setData(UserInfoManager.getInstance().getAccountInfo());
+        personHeaderView.setData(accountBean);
         titleBar = findViewById(R.id.titleBar);
         titleBar_Bg = titleBar.findViewById(R.id.bg);
         //当状态栏透明后，内容布局会上移，这里使用一个和状态栏高度相同的view来修正内容区域
@@ -60,9 +63,21 @@ public class PersonInfoActivity extends BaseUIActivity {
                 finish();
             }
         });
+        ivEdit = (ImageView) titleBar.findViewById(R.id.edit);
+        ivEdit.setColorFilter(getResources().getColor(R.color.white));
+        ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               intentToActivity(PersonInfoEditActivity.class);
+            }
+        });
         titleBar_Bg.setAlpha(0);
         status_bar_fix.setAlpha(0);
+        titleBar_title.setAlpha(0);
         titleBar_title.setText("");
+        if (accountBean != null) {
+            titleBar_title.setText(accountBean.getName());
+        }
         //内容的fragment
         fragments = new ArrayList<>();
         fragments.add(ListViewFragment.newInstance());
@@ -88,7 +103,6 @@ public class PersonInfoActivity extends BaseUIActivity {
                 //注意头部局的颜色也需要改变
                 status_bar_fix.setAlpha(alpha);
                 titleBar_title.setAlpha(alpha);
-//                titleBar_title.setText("标题栏透明度(" + (int) (alpha * 100) + "%)");
             }
 
             @Override

@@ -4,7 +4,6 @@
     android:layout_height="80dp"
     android:background="@color/grey"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_6"
     android:paddingTop="@dimen/margin_6">
 
     <LinearLayout
@@ -16,11 +15,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_shoucang_count"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_4"
-            android:src="@drawable/aqi_excellent" />
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/red"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_shoucang"
@@ -39,11 +42,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_guanzhu_count"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_4"
-            android:src="@drawable/aqi_excellent" />
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/red"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_guanzhu"
@@ -62,18 +69,22 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_4"
-            android:src="@drawable/aqi_excellent" />
-
         <TextView
-            android:id="@+id/tv_chengjiu"
+            android:id="@+id/tv_chengji_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="成就" />
+            android:text="0"
+            android:textColor="@color/red"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_chengji"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="成绩" />
     </LinearLayout>
 
 </LinearLayout>

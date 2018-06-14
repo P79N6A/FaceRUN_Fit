@@ -146,12 +146,12 @@ public class HttpTaskUtil {
         }
     }
 
-    public void QueryCircleRunTask(int pageNum, int pageSize, String account_id) {
+    public void QueryCircleByIdRunTask(int pageNum, int pageSize, String account_id) {
         try {
             OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
             OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
             OkHttpClientManager.Param paramAccountId = new OkHttpClientManager.Param("account_id", account_id);
-            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_QUERY, new OkHttpClientManager.StringCallback() {
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_QUERY_BY_ID, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     if (resultListener != null)
@@ -171,10 +171,34 @@ public class HttpTaskUtil {
         }
     }
 
+    public void QueryCircleRunTask(int pageNum, int pageSize) {
+        try {
+            OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
+            OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramPageNum, paramPageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
     public void RegisterTask(String account, String password) {
         try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
-            OkHttpClientManager.Param paramPassword = new OkHttpClientManager.Param("Password", password);
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
+            OkHttpClientManager.Param paramPassword = new OkHttpClientManager.Param("password", password);
             OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_REGISTER, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
@@ -196,12 +220,11 @@ public class HttpTaskUtil {
 
     public void LoginTask(String account, String password) {
         try {
-            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("Account", account);
-            OkHttpClientManager.Param paramPassword = new OkHttpClientManager.Param("Password", password);
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
+            OkHttpClientManager.Param paramPassword = new OkHttpClientManager.Param("password", password);
             OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_LOGIN, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
-                    ToastUtil.show("注册失败:服务器异常，请查看网络连接状态！");
                     if (resultListener != null)
                         resultListener.onFailure(request, e);
                 }

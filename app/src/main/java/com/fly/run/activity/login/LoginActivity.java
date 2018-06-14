@@ -85,6 +85,7 @@ public class LoginActivity extends BaseUIActivity {
                     httpTaskUtil = new HttpTaskUtil().setResultListener(resultListener);
                 }
                 httpTaskUtil.LoginTask(strEmail, strPassword);
+                showProgreessDialog();
             }
         });
     }
@@ -92,8 +93,10 @@ public class LoginActivity extends BaseUIActivity {
     private HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {
         @Override
         public void onResponse(String response) {
-            if (TextUtils.isEmpty(response))
+            if (TextUtils.isEmpty(response)){
+                dismissProgressDialog();
                 return;
+            }
             boolean isLoginSuccess = false;
             try {
                 ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
@@ -110,6 +113,7 @@ public class LoginActivity extends BaseUIActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                dismissProgressDialog();
                 sendBroadcast(isLoginSuccess ? Login_State_Success : Login_State_Fail);
                 if (isLoginSuccess) {
 //                    setResult(RESULT_OK);
@@ -122,6 +126,7 @@ public class LoginActivity extends BaseUIActivity {
 
         @Override
         public void onFailure(Request request, Exception e) {
+            dismissProgressDialog();
             if (e != null && !TextUtils.isEmpty(e.getMessage()))
                 ToastUtil.show(e.getMessage());
             else

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
+
+    <com.fly.run.view.actionbar.CommonActionBar
+        android:id="@+id/common_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_below="@+id/common_action_bar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_userPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_46"
+            android:background="@drawable/btn_ffffff_f4f4f4_selector"
+            android:paddingLeft="@dimen/margin_8"
+            android:paddingRight="@dimen/margin_8"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/img_view_header_moor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_common_indicator" />
+
+            <ImageView
+                android:id="@+id/img_view_header"
+                android:layout_width="@dimen/margin_40"
+                android:layout_height="@dimen/margin_40"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_6"
+                android:layout_toLeftOf="@id/img_view_header_moor"
+                android:src="@drawable/ic_user_header_default" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_60"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="头像"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/font_32" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_1"
+            android:background="@color/line_bg_color"></View>
+
+        <com.fly.run.view.ForwardItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_text="姓名"
+            app:title_textColor="@color/color_999999"
+            app:content_text="平行线"></com.fly.run.view.ForwardItemView>
+
+        <com.fly.run.view.ForwardItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_text="性别"
+            app:title_textColor="@color/color_999999"
+            app:content_text="男"></com.fly.run.view.ForwardItemView>
+
+        <com.fly.run.view.ForwardItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_text="爱好"
+            app:title_textColor="@color/color_999999"
+            app:content_text="健身，篮球"></com.fly.run.view.ForwardItemView>
+    </LinearLayout>
+
+</RelativeLayout>

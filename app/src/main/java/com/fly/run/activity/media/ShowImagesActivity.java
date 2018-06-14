@@ -80,6 +80,11 @@ public class ShowImagesActivity extends BaseUIActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mUrlDrawableMap.clear();

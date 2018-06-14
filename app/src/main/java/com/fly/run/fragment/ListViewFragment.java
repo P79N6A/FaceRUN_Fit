@@ -2,21 +2,30 @@ package com.fly.run.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
+import com.fly.run.adapter.circle.CircleAdapter;
+import com.fly.run.bean.AccountBean;
+import com.fly.run.bean.CircleBean;
+import com.fly.run.bean.ResultTaskBean;
+import com.fly.run.httptask.HttpTaskUtil;
+import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.HeaderView.PersonNavigationView;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ================================================
@@ -31,6 +40,10 @@ public class ListViewFragment extends HeaderViewPagerFragment {
 
     private ListView listView;
     private PersonNavigationView personNavigationView;
+    private CircleAdapter adapter;
+    private HttpTaskUtil httpTaskUtil;
+    private int pageNum = 1;
+    private final int pageSize = 40;
 
     public static ListViewFragment newInstance() {
         return new ListViewFragment();
@@ -43,14 +56,16 @@ public class ListViewFragment extends HeaderViewPagerFragment {
         listView = (ListView) view.findViewById(R.id.listView);
         personNavigationView = new PersonNavigationView(getContext());
         listView.addHeaderView(personNavigationView);
-        listView.setAdapter(new MyAdapter());
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "点击了条目" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter = new CircleAdapter(getActivity());
+        listView.setAdapter(adapter);
+        loadTaskData();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        dismissProgressDialog();
+        super.onDestroyView();
     }
 
     @Override
@@ -97,4 +112,51 @@ public class ListViewFragment extends HeaderViewPagerFragment {
             return convertView;
         }
     }
+
+
+    private void loadTaskData() {
+        AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
+        if (bean == null || bean.getId() <= 0){
+            ToastUtil.show("请登录");
+            return;
+        }
+        if (httpTaskUtil == null) {
+            httpTaskUtil = new HttpTaskUtil();
+            httpTaskUtil.setResultListener(resultListener);
+        }
+        showProgreessDialog();
+        httpTaskUtil.QueryCircleByIdRunTask(pageNum, pageSize, "" + bean.getId());
+    }
+
+    HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {
+        @Override
+        public void onResponse(String response) {
+            try {
+                ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
+                if (bean != null && bean.code == 1) {
+                    if (!TextUtils.isEmpty(bean.data)) {
+                        List<CircleBean> list = JSON.parseArray(bean.data, CircleBean.class);
+                        if (list == null || list.size() == 0)
+                            return;
+                        if (pageNum == 1) {
+                            adapter.setData(list);
+                        } else {
+                            adapter.addData(list);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception e) {
+                ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
+            } finally {
+                dismissProgressDialog();
+            }
+        }
+
+        @Override
+        public void onFailure(Request request, Exception e) {
+            dismissProgressDialog();
+            ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
+        }
+    };
 }

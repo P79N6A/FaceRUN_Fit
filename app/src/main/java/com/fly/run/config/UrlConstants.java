@@ -52,7 +52,7 @@ public class UrlConstants {
     /**
      * 用户注册
      */
-    public static String HTTP_USER_REGISTER = HTTP_ROOT + "user/registerUser";
+    public static String HTTP_USER_REGISTER = HTTP_ROOT + "account/registerUser";
 
     /**
      * 用户登录
@@ -96,6 +96,11 @@ public class UrlConstants {
      * 查询跑友圈
      */
     public static String HTTP_CIRCLE_QUERY = HTTP_ROOT + "circle/query";
+
+    /**
+     * 查询我发的跑友圈
+     */
+    public static String HTTP_CIRCLE_QUERY_BY_ID = HTTP_ROOT + "circle/query_by_id";
 
     /**
      * 插入跑友圈
