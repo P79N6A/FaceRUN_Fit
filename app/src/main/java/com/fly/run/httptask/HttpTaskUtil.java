@@ -195,6 +195,9 @@ public class HttpTaskUtil {
         }
     }
 
+    /**
+     * 用户注册
+     * */
     public void RegisterTask(String account, String password) {
         try {
             OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
@@ -213,6 +216,32 @@ public class HttpTaskUtil {
                         resultListener.onResponse(response);
                 }
             }, paramAccount, paramPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用户编辑
+     * */
+    public void UserEditTask(String account, String name) {
+        try {
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
+            OkHttpClientManager.Param paramName = new OkHttpClientManager.Param("name", name);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_EDIT, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    ToastUtil.show("用户编辑失败:服务器异常，请查看网络连接状态！");
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramAccount, paramName);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -55,6 +55,11 @@ public class UrlConstants {
     public static String HTTP_USER_REGISTER = HTTP_ROOT + "account/registerUser";
 
     /**
+     * 用户编辑
+     */
+    public static String HTTP_USER_EDIT = HTTP_ROOT + "account/edit";
+
+    /**
      * 用户登录
      */
     public static String HTTP_USER_LOGIN = HTTP_ROOT + "account/login";

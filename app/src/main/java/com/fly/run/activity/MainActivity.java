@@ -55,6 +55,7 @@ import com.fly.run.db.helper.RunDBHelper;
 import com.fly.run.fragment.dialog.DialogWeatherFragment;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.AudioManagerUtil;
+import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.IOTools;
 import com.fly.run.utils.Logger;
@@ -491,6 +492,7 @@ public class MainActivity extends BaseUIActivity
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
         intentFilter.addAction(Intent.ACTION_BATTERY_OKAY);
+        intentFilter.addAction(BroadcastUtil.USER_INFO_UPDATE);
         if (null == mLoginStateReceiver) {
             mLoginStateReceiver = new BroadcastReceiver() {
                 @Override
@@ -529,6 +531,11 @@ public class MainActivity extends BaseUIActivity
                                 //pause
                                 mediaPlayerUtil.pauseMedia();
                             }
+                            break;
+                        case BroadcastUtil.USER_INFO_UPDATE:
+                            String name = UserInfoManager.getInstance().getAccountInfo().getName();
+                            if (!TextUtils.isEmpty(name))
+                                navUserName.setText(name);
                             break;
                     }
                 }

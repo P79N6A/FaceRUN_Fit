@@ -35,14 +35,16 @@
                 android:clickable="false"
                 android:src="@drawable/ic_common_indicator" />
 
-            <ImageView
+            <com.fly.run.view.ImageView.RoundAngleImageView
                 android:id="@+id/img_view_header"
                 android:layout_width="@dimen/margin_40"
                 android:layout_height="@dimen/margin_40"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/margin_6"
                 android:layout_toLeftOf="@id/img_view_header_moor"
-                android:src="@drawable/ic_user_header_default" />
+                android:src="@mipmap/ic_launcher"
+                app:roundWidth="@dimen/margin_20"
+                app:roundHeight="@dimen/margin_20"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,25 +64,49 @@
             android:background="@color/line_bg_color"></View>
 
         <com.fly.run.view.ForwardItemView
+            android:id="@+id/item_view_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:title_text="姓名"
             app:title_textColor="@color/color_999999"
             app:content_text="平行线"></com.fly.run.view.ForwardItemView>
 
         <com.fly.run.view.ForwardItemView
+            android:id="@+id/item_view_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:title_text="性别"
             app:title_textColor="@color/color_999999"
             app:content_text="男"></com.fly.run.view.ForwardItemView>
 
         <com.fly.run.view.ForwardItemView
+            android:id="@+id/item_view_like"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:title_text="爱好"
             app:title_textColor="@color/color_999999"
             app:content_text="健身，篮球"></com.fly.run.view.ForwardItemView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffffff"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:id="@+id/iv_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_13"
+            android:background="@drawable/corner_bg_actionbar_color"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:layout_marginLeft="@dimen/margin_18"
+            android:layout_marginRight="@dimen/margin_18"
+            android:src="@drawable/icon_toast_ok"/>
     </LinearLayout>
 
 </RelativeLayout>

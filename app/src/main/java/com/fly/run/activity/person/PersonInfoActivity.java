@@ -1,10 +1,15 @@
 package com.fly.run.activity.person;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +24,7 @@ import com.fly.run.bean.AccountBean;
 import com.fly.run.fragment.HeaderViewPagerFragment;
 import com.fly.run.fragment.ListViewFragment;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.view.HeaderView.MyHeaderViewPager;
 import com.fly.run.view.HeaderView.PersonHeaderView;
@@ -42,11 +48,13 @@ public class PersonInfoActivity extends BaseUIActivity {
     public List<HeaderViewPagerFragment> fragments;
     private ViewPager viewPager;
     private AccountBean accountBean;
+    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_info);
+        registerReceiver();
         accountBean = UserInfoManager.getInstance().getAccountInfo();
         personHeaderView = (PersonHeaderView) findViewById(R.id.peopleHeaderView);
         personHeaderView.setData(accountBean);
@@ -120,6 +128,12 @@ public class PersonInfoActivity extends BaseUIActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterReceiver();
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //当前窗口获取焦点时，才能正真拿到titlebar的高度，此时将需要固定的偏移量设置给scrollableLayout即可
@@ -150,6 +164,35 @@ public class PersonInfoActivity extends BaseUIActivity {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+    }
+
+    public void registerReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BroadcastUtil.USER_INFO_UPDATE);
+        if (null == mReceiver) {
+            mReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    switch (action) {
+                        case BroadcastUtil.USER_INFO_UPDATE:
+                            AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
+                            if (!TextUtils.isEmpty(bean.getName())){
+                                accountBean = bean;
+                                personHeaderView.setData(bean);
+                            }
+                            break;
+                    }
+                }
+            };
+        }
+        registerReceiver(mReceiver, intentFilter);
+    }
+
+    public void unRegisterReceiver() {
+        if (null != mReceiver) {
+            unregisterReceiver(mReceiver);
         }
     }
 }

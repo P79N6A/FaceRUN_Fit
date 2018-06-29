@@ -1,6 +1,5 @@
 package com.fly.run.activity.register;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.config.Constant;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.IOTools;
 import com.fly.run.utils.TextTools;
 import com.fly.run.utils.ToastUtil;
@@ -90,7 +90,7 @@ public class RegisterActivity extends BaseUIActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                sendBroadcast(isRegistSuccess ? MainActivity.Regist_State_Success : MainActivity.Regist_State_Fail);
+                BroadcastUtil.sendBroadcast(RegisterActivity.this,isRegistSuccess ? MainActivity.Regist_State_Success : MainActivity.Regist_State_Fail);
                 if (isRegistSuccess) {
 //                    setResult(RESULT_OK);
                     finish();
@@ -108,14 +108,5 @@ public class RegisterActivity extends BaseUIActivity {
                 ToastUtil.show("与服务器连接失败");
         }
     };
-
-    /**
-     * 发送广播
-     */
-    private void sendBroadcast(String action) {
-        Intent intent = new Intent();
-        intent.setAction(action);
-        sendBroadcast(intent);
-    }
 
 }

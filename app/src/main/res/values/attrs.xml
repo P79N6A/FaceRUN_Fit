@@ -40,4 +40,13 @@
         <attr name="content_text" format="string"></attr>
         <attr name="content_textSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="RoundAngleImageView">
+        <attr name="roundWidth" format="dimension" />
+        <attr name="roundHeight" format="dimension" />
+        <attr name="roundLeftTop" format="boolean" />
+        <attr name="roundRightTop" format="boolean" />
+        <attr name="roundLeftBottom" format="boolean" />
+        <attr name="roundRightBottom" format="boolean" />
+    </declare-styleable>
 </resources>
