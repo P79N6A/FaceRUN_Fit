@@ -1,9 +1,11 @@
 package com.fly.run.activity.ChooseImages;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
@@ -27,11 +29,21 @@ public class ChooseImagesActivity extends BaseUIActivity {
     private ChooseImagesAdapter adapter;
     private int ChooseCount = 9;
 
+    private boolean isMultiple = true; //是否支持多选
+
+    public static void startActivityResult(Activity activity, int num, boolean isMultiple) {
+        Intent intent = new Intent(activity, ChooseImagesActivity.class);
+        intent.putExtra("num", 0);
+        intent.putExtra("isMultiple", isMultiple);
+        activity.startActivityForResult(intent, REQUEST_ALBUM);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_images);
         int num = getIntent().getIntExtra("num", 0);
+        isMultiple = getIntent().getBooleanExtra("isMultiple", isMultiple);
         ChooseCount = ChooseCount - num;
         initActionBar();
         initView();
@@ -40,8 +52,10 @@ public class ChooseImagesActivity extends BaseUIActivity {
             public void run() {
                 long start = System.currentTimeMillis();
                 Log.e(TAG, "start = " + start);
+                handler.sendEmptyMessage(2);
                 initLocalVideos();
                 initLocalImages();
+                handler.sendEmptyMessageDelayed(3,50);
                 Log.e(TAG, "耗时 = " + (System.currentTimeMillis() - start) + "  数量 = " + list.size());
             }
         }).start();
@@ -77,6 +91,12 @@ public class ChooseImagesActivity extends BaseUIActivity {
                 case 1:
                     showGridImgsView(list);
                     break;
+                case 2:
+                    showProgreessDialog();
+                    break;
+                case 3:
+                    dismissProgressDialog();
+                    break;
             }
         }
     };
@@ -106,6 +126,16 @@ public class ChooseImagesActivity extends BaseUIActivity {
             @Override
             public void doChooseImage(int position, String url) {
                 FileItem item = adapter.getItem(position);
+                if (!isMultiple){
+                    ArrayList<String> imageList = new ArrayList<String>();
+                    if (item != null && !TextUtils.isEmpty(item.getFilePath()))
+                        imageList.add(item.getFilePath());
+                    Intent intent = new Intent();
+                    intent.putExtra("images", (Serializable) imageList);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    return;
+                }
                 if (!item.isCheck()) {
                     if (adapter.getChooseItems().size() >= ChooseCount) {
                         ToastUtil.show("最多选择9张图片");

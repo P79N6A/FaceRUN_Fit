@@ -25,8 +25,8 @@ public class NavMainAdapter extends BaseAdapter {
     //    private String[] navNames = {"我的行程", "位置可见", "音乐开关", "应用设置", "唤醒提示", "关于我们"};
 //    private String[] navNames = {"我的行程", "跑步训练", "囚徒健身", "应用设置", "唤醒提示", "关于我们"};
     private String[] navNames;
-    private int[] navDrawables = {R.drawable.ic_menu_send, R.mipmap.ic_launcher,
-            R.mipmap.ic_menu_fit, R.drawable.ic_menu_manage, R.drawable.ic_menu_share};
+    private int[] navDrawables = {R.drawable.icon_action_history, R.drawable.icon_action_run,
+            R.drawable.icon_action_fit, R.drawable.icon_action_setting, R.drawable.icon_action_share};
 
     public NavMainAdapter(Context context) {
         this.mContext = context;

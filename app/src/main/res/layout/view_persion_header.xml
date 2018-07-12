@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/iv_header_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/margin_2"
             android:src="@drawable/ic_user_header_default" />
@@ -51,7 +51,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_4"
             android:gravity="center"
-            android:text="四川∙成都"
+            android:text="四川·成都"
             android:textColor="@color/color_f4f4f4" />
 
     </RelativeLayout>

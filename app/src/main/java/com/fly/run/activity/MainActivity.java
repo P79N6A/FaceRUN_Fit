@@ -58,6 +58,7 @@ import com.fly.run.utils.AudioManagerUtil;
 import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.IOTools;
+import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.MediaPlayerUtil;
 import com.fly.run.utils.PowerManagerUtil;
@@ -66,6 +67,7 @@ import com.fly.run.utils.ToastUtil;
 import com.fly.run.utils.WeatherUtil;
 import com.fly.run.view.TextView.TextViewDrawable;
 import com.fly.run.view.actionbar.CommonMainActionBar;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,12 +98,12 @@ public class MainActivity extends BaseUIActivity
     private RelativeLayout layoutWeather;
     private TextView tvWeatherAir;
     private TextView tvWeatherC;
+    private AccountBean accountBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //初始化语音唤醒功能
 //        initWakeUpGroup();
         //语音识别
@@ -132,13 +134,12 @@ public class MainActivity extends BaseUIActivity
         navUserName = (TextView) navHeaderRoot.findViewById(R.id.tv_name);
         navUserAccount = (TextView) navHeaderRoot.findViewById(R.id.tv_subname);
         navHeader = (ImageView) navHeaderRoot.findViewById(R.id.imageView);
-//        ImageLoader.getInstance().displayImage("drawable://" + R.drawable.ic_user_header_default, navHeader, ImageLoaderOptions.optionsUserCornerHeader);
         layoutWeather = (RelativeLayout) navHeaderRoot.findViewById(R.id.layout_weather);
         tvWeatherAir = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_air);
         tvWeatherC = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_c);
 
         String path = Constant.UserConfigPath + "Account.info";
-        AccountBean accountBean = (AccountBean) IOTools.readObject(path);
+        accountBean = (AccountBean) IOTools.readObject(path);
         if (accountBean != null) {
             UserInfoManager.getInstance().setAccountInfo(accountBean);
             if (accountBean != null) {
@@ -148,6 +149,7 @@ public class MainActivity extends BaseUIActivity
                     navUserAccount.setText(accountBean.getAccount());
             }
         }
+        ImageLoader.getInstance().displayImage(accountBean != null ? accountBean.getHeadPortrait() : "", navHeader, ImageLoaderOptions.optionsUserCornerHeader);
         layoutUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -533,9 +535,12 @@ public class MainActivity extends BaseUIActivity
                             }
                             break;
                         case BroadcastUtil.USER_INFO_UPDATE:
-                            String name = UserInfoManager.getInstance().getAccountInfo().getName();
+                            accountBean = UserInfoManager.getInstance().getAccountInfo();
+                            String name = accountBean.getName();
                             if (!TextUtils.isEmpty(name))
                                 navUserName.setText(name);
+                            String headerUrl = accountBean.getHeadPortrait();
+                            ImageLoader.getInstance().displayImage(headerUrl, navHeader, ImageLoaderOptions.optionsUserCornerHeader);
                             break;
                     }
                 }

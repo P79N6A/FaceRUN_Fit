@@ -63,7 +63,7 @@ public class PersonHeaderView extends RelativeLayout {
 
     public void setData(AccountBean bean) {
         if (bean != null) {
-            String headerUrl = bean.getHead_portrait();
+            String headerUrl = bean.getHeadPortrait();
             Logger.e("PersonHeaderView", "headerUrl = " + headerUrl);
             ImageLoader.getInstance().displayImage(headerUrl, iv_header_icon, ImageLoaderOptions.optionsUserCornerHeader);
             if (!TextUtils.isEmpty(bean.getUsername()))

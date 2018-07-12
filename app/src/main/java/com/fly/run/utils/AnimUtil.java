@@ -62,4 +62,17 @@ public class AnimUtil {
         animator.setStartDelay(delay);
         animator.start(); // 开始运行动画
     }
+
+
+    public static void scaleZanAnim(View view, float begin, float end, long delay, long duration) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", begin, end); // 初始化动画，设置各个参数
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", begin, end); // 初始化动画，设置各个参数
+        AnimatorSet set = new AnimatorSet();
+        //同时沿X,Y轴放大
+        set.play(scaleX).with(scaleY);
+        //都设置3s，也可以为每个单独设置
+        set.setDuration(duration);// 设置动画持续时间
+        set.setStartDelay(delay);// 设置动画延时播放
+        set.start();// 开始运行动画
+    }
 }

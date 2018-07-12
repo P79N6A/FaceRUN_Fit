@@ -53,14 +53,14 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_circle_white"
-                            android:padding="@dimen/margin_10">
+                            android:padding="@dimen/margin_2">
 
                             <ImageView
                                 android:id="@+id/imageView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:layout_centerVertical="true"
-                                android:layout_margin="@dimen/margin_2"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
                                 android:src="@mipmap/ic_launcher" />
                         </RelativeLayout>
 

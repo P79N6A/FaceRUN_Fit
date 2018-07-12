@@ -28,6 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_jobs_commen_press" />
+        app:rippleColor="@color/action_title_color"
+        app:srcCompat="@drawable/icon_foot_print" />
 
 </RelativeLayout>

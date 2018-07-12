@@ -126,7 +126,7 @@ public class LoadImagesView extends RelativeLayout {
 
                 }
             });
-        } else if (list.length > 1) {
+        } else {
             imageView.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
             adapter.setDataCircleBean(circleBean);

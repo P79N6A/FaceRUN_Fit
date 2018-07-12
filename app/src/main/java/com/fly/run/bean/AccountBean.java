@@ -16,7 +16,7 @@ public class AccountBean implements Serializable {
     public String description;
     public String profession;
     public String level;
-    public String head_portrait;
+    public String headPortrait;
     public String create_time;
     public int age;
     public int type;
@@ -93,12 +93,12 @@ public class AccountBean implements Serializable {
         return this;
     }
 
-    public String getHead_portrait() {
-        return head_portrait;
+    public String getHeadPortrait() {
+        return headPortrait;
     }
 
-    public AccountBean setHead_portrait(String head_portrait) {
-        this.head_portrait = head_portrait;
+    public AccountBean setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
         return this;
     }
 

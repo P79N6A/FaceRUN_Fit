@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:background="@color/color_ffffff">
 
     <RelativeLayout
         android:id="@+id/layout_top"
@@ -12,13 +13,15 @@
         android:minHeight="45dp"
         android:padding="@dimen/margin_4">
 
-        <ImageView
+        <com.fly.run.view.ImageView.RoundAngleImageView
             android:id="@+id/iv_header_icon"
             android:layout_width="@dimen/margin_50"
             android:layout_height="@dimen/margin_50"
             android:layout_centerVertical="true"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:roundHeight="25dp"
+            app:roundWidth="25dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
-                android:text="2017-12-08 10:36"
+                android:text=""
                 android:textColor="@color/color_666666"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -62,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_4"
-            android:text="艾弗森法撒旦法是范德萨发沙发沙发，斯蒂芬第三阿斯顿发射点发沙发发，沙发沙发沙发沙发沙发上方啊啊是范玮琪；非分之想股份公司发发生大发发撒的发生非。"
+            android:text=""
             android:textColor="@color/color_333333"
             android:textSize="14sp" />
 
@@ -77,8 +80,8 @@
                 android:id="@+id/iv_content"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_150"
-                android:visibility="gone"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
 
             <com.fly.run.view.LoadImagesView
                 android:id="@+id/view_load_images"
@@ -96,9 +99,26 @@
             android:layout_below="@+id/layout_imgs"
             android:layout_marginBottom="@dimen/margin_4"
             android:layout_marginTop="@dimen/margin_4"
-            android:text="成都市高新区，天府软件园"
-            android:textColor="@color/color_corner_green_normal"
+            android:drawableLeft="@drawable/icon_action_position2"
+            android:drawablePadding="@dimen/margin_2"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/color_666666"
             android:textSize="12sp" />
     </RelativeLayout>
+
+    <com.fly.run.view.circle.CircleBottomActionbarView
+        android:id="@+id/view_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_content"></com.fly.run.view.circle.CircleBottomActionbarView>
+
+    <com.fly.run.view.circle.CircleBottomReviewView
+        android:id="@+id/view_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_actionbar">
+
+    </com.fly.run.view.circle.CircleBottomReviewView>
 
 </RelativeLayout>

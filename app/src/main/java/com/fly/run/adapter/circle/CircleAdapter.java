@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.fly.run.R;
 import com.fly.run.bean.CircleBean;
 import com.fly.run.utils.ImageLoaderOptions;
+import com.fly.run.view.ImageView.RoundAngleImageView;
 import com.fly.run.view.LoadImagesView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -102,7 +103,7 @@ public class CircleAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        public ImageView ivHeader;
+        public RoundAngleImageView ivHeader;
         public TextView tvName;
         public TextView tvTime;
         public TextView tvDesc;
@@ -112,12 +113,12 @@ public class CircleAdapter extends BaseAdapter {
         public LoadImagesView loadImagesView;
 
         public ViewHolder(View view) {
-            this.ivHeader = (ImageView) view.findViewById(R.id.iv_header_icon);
+            this.ivHeader = (RoundAngleImageView) view.findViewById(R.id.iv_header_icon);
             this.tvName = (TextView) view.findViewById(R.id.tv_name);
             this.tvTime = (TextView) view.findViewById(R.id.tv_time);
             this.tvDesc = (TextView) view.findViewById(R.id.tv_desc);
             this.tvAddress = (TextView) view.findViewById(R.id.tv_address);
-            this.layout_imgs = (LinearLayout)view.findViewById(R.id.layout_imgs);
+            this.layout_imgs = (LinearLayout) view.findViewById(R.id.layout_imgs);
             this.ivContent = (ImageView) view.findViewById(R.id.iv_content);
             this.loadImagesView = (LoadImagesView) view.findViewById(R.id.view_load_images);
         }

@@ -1,5 +1,6 @@
 package com.fly.run.activity.circle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,6 +35,7 @@ import java.util.List;
 
 public class CirclePublishActivity extends BaseUIActivity implements View.OnClickListener {
 
+    public static final int ACTION_PUSH_CIRCLE = 2001;
     private CommonActionBar actionBar;
     private EditText etInput;
     private TextView tvAddress;
@@ -41,6 +43,12 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private PublishCircleGridAdapter adapter;
     private HttpTaskUtil httpTaskUtil;
     private List<String> urlImages = new ArrayList<>();
+
+    public static void startActivityForResultRefresh(Activity context, ArrayList<String> list) {
+        Intent intent = new Intent(context, CirclePublishActivity.class);
+        intent.putExtra("images", list);
+        context.startActivityForResult(intent, ACTION_PUSH_CIRCLE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

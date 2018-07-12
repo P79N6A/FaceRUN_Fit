@@ -197,7 +197,7 @@ public class HttpTaskUtil {
 
     /**
      * 用户注册
-     * */
+     */
     public void RegisterTask(String account, String password) {
         try {
             OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
@@ -223,7 +223,7 @@ public class HttpTaskUtil {
 
     /**
      * 用户编辑
-     * */
+     */
     public void UserEditTask(String account, String name) {
         try {
             OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", account);
@@ -242,6 +242,38 @@ public class HttpTaskUtil {
                         resultListener.onResponse(response);
                 }
             }, paramAccount, paramName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 编辑用户信息
+     */
+    public void UserEditTask(AccountBean bean) {
+        try {
+            String header = bean.getHeadPortrait() == null ? "" : bean.getHeadPortrait();
+            String sex = bean.getSex() == null ? "" : bean.getSex();
+            String desc = bean.getDescription() == null ? "" : bean.getDescription();
+            OkHttpClientManager.Param paramAccount = new OkHttpClientManager.Param("account", bean.getAccount());
+            OkHttpClientManager.Param paramName = new OkHttpClientManager.Param("name", bean.getName());
+            OkHttpClientManager.Param paramHeader = new OkHttpClientManager.Param("header", header);
+            OkHttpClientManager.Param paramSex = new OkHttpClientManager.Param("sex", sex);
+            OkHttpClientManager.Param paramDesc = new OkHttpClientManager.Param("desc", desc);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_USER_EDIT, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    ToastUtil.show("用户编辑失败:服务器异常，请查看网络连接状态！");
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramAccount, paramName, paramHeader, paramSex, paramDesc);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -370,7 +402,7 @@ public class HttpTaskUtil {
         if (accountBean != null && !TextUtils.isEmpty(accountBean.getAccount())) {
             strUserId = accountBean.getAccount();
             strUserName = accountBean.getUsername();
-            strUserCover = accountBean.getHead_portrait() == null ? "" : accountBean.getHead_portrait();
+            strUserCover = accountBean.getHeadPortrait() == null ? "" : accountBean.getHeadPortrait();
         } else {
             strUserId = PhoneUtil.getDeviceId(App.getInstance());
             strUserName = strUserId;
