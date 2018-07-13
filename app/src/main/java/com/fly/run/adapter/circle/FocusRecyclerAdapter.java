@@ -48,7 +48,7 @@ public class FocusRecyclerAdapter extends RecyclerView.Adapter<FocusRecyclerAdap
     public void onBindViewHolder(FocusRecyclerAdapter.ViewHolder holder, int position) {
         FocusRecyclerBean bean = datas.get(position);
         holder.itemName.setText(bean.getName());
-        ImageLoader.getInstance().displayImage(bean.getHeaderUrl(), holder.itemImage, ImageLoaderOptions.optionsLanuchHeader);
+        ImageLoader.getInstance().displayImage(bean.getHeaderUrl(), holder.itemImage, ImageLoaderOptions.optionsUserHeader);
     }
 
     @Override

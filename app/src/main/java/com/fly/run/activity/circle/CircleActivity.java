@@ -49,10 +49,10 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_run:
+            case R.id.tv_dongtai:
                 viewPager.setCurrentItem(0,false);
                 break;
-            case R.id.tv_dongtai:
+            case R.id.tv_run:
                 viewPager.setCurrentItem(1,false);
                 break;
             case R.id.tv_guanzhu:

@@ -39,18 +39,18 @@
         android:background="@color/color_ffffff"
         android:layout_alignParentBottom="true">
         <TextView
-            android:id="@+id/tv_run"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="跑圈"
-            android:layout_weight="1"
-            android:gravity="center"/>
-
-        <TextView
             android:id="@+id/tv_dongtai"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="动态"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_run"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="FOCUS"
             android:layout_weight="1"
             android:gravity="center"/>
 

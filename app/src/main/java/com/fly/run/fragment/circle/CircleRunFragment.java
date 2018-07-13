@@ -100,6 +100,8 @@ public class CircleRunFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_circle_run, container, false);
         initActionBar(view);
         initView(view);
+        swipeRefreshLayout.setRefreshing(true);
+        loadTaskData();
         return view;
     }
 
@@ -220,17 +222,14 @@ public class CircleRunFragment extends BaseFragment {
                             adapter.addData(list);
                         }
                         adapter.notifyDataSetChanged();
-                        view_focus_header.setData(getUrls());
+//                        view_focus_header.setData(getUrls());
                     }
                 }
             } catch (Exception e) {
                 pageNum--;
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             } finally {
-                if (pageNum == 1)
-                    swipeRefreshLayout.setRefreshing(false);
-//                else
-//                    listView.doneMore();
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
 
@@ -238,6 +237,7 @@ public class CircleRunFragment extends BaseFragment {
         public void onFailure(Request request, Exception e) {
             pageNum--;
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
+            swipeRefreshLayout.setRefreshing(false);
         }
     };
 

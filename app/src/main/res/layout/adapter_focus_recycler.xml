@@ -1,19 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_6"
     android:gravity="center">
 
     <com.fly.run.view.ImageView.RoundAngleImageView
         android:id="@+id/imageview"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        app:roundHeight="35dp"
-        app:roundWidth="35dp"/>
+        android:src="@drawable/ic_user_header_default"
+        app:roundHeight="30dp"
+        app:roundWidth="30dp"/>
 
     <TextView
         android:id="@+id/textview"
@@ -22,7 +23,7 @@
         android:layout_below="@+id/imageview"
         android:layout_centerHorizontal="true"
         android:ellipsize="middle"
-        android:maxWidth="70dp"
+        android:maxWidth="60dp"
         android:singleLine="true"
         android:text="item" />
 </RelativeLayout>
