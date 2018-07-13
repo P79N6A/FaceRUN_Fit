@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/activity_bg_color"
-    android:orientation="vertical">
+    android:background="@color/activity_bg_color">
 
-    <com.fly.run.view.actionbar.CommonActionBar
-        android:id="@+id/common_action_bar"
+    <!--  <com.fly.run.view.actionbar.CommonActionBar
+          android:id="@+id/common_action_bar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+      <android.support.v4.widget.SwipeRefreshLayout
+          android:id="@+id/swipeRefreshLayout"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <ListView
+              android:id="@+id/listview"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:dividerHeight="@dimen/margin_6"
+              android:footerDividersEnabled="true"
+              android:scrollbars="none" />
+      </android.support.v4.widget.SwipeRefreshLayout>-->
+
+    <com.fly.run.view.viewpager.CustomViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_bottom_bar">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    </com.fly.run.view.viewpager.CustomViewPager>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/listview"
+        android:layout_height="45dp"
+        android:layout_marginTop="@dimen/margin_1"
+        android:background="@color/color_ffffff"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/tv_dongtai"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="@dimen/margin_6"
-            android:footerDividersEnabled="true"
-            android:scrollbars="none" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+            android:layout_height="match_parent"
+            android:text="动态"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_run"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="FOCUS"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_guanzhu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="关注"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_me"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="我的"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>
