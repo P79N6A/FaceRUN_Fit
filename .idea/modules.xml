@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FaceRUN_Fit.iml" filepath="$PROJECT_DIR$/FaceRUN_Fit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FaceRun.iml" filepath="$PROJECT_DIR$/FaceRun.iml" />
+      <module fileurl="file://E:\WorkSpace_AndroidStudiio\FaceRUN_Fit2\FaceRUN_Fit.iml" filepath="E:\WorkSpace_AndroidStudiio\FaceRUN_Fit2\FaceRUN_Fit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FaceRUN_Fit2.iml" filepath="$PROJECT_DIR$/FaceRUN_Fit2.iml" />
+      <module fileurl="file://E:\WorkSpace_AndroidStudiio\FaceRUN_Fit2\FaceRun.iml" filepath="E:\WorkSpace_AndroidStudiio\FaceRUN_Fit2\FaceRun.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

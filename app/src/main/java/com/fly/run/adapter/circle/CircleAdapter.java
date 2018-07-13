@@ -33,6 +33,10 @@ public class CircleAdapter extends BaseAdapter {
         this.mContext = context;
     }
 
+    public List<CircleBean> getDatas() {
+        return datas;
+    }
+
     public void addData(List<CircleBean> list) {
         if (list != null) {
             datas.addAll(list);
