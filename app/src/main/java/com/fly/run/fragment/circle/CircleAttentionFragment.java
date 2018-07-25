@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fly.run.R;
+import com.fly.run.view.actionbar.CommonActionBar;
+import com.fly.run.view.dialog.DialogChooseMedia;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,8 @@ public class CircleAttentionFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private CommonActionBar actionBar;
 
     public CircleAttentionFragment() {
         // Required empty public constructor
@@ -61,6 +65,19 @@ public class CircleAttentionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_circle_attention, container, false);
+        View view = inflater.inflate(R.layout.fragment_circle_attention, container, false);
+        initActionBar(view);
+        return view;
+    }
+
+    private void initActionBar(View view) {
+        actionBar = (CommonActionBar) view.findViewById(R.id.common_action_bar);
+        actionBar.setActionTitle("");
+        actionBar.setActionLeftIconListenr(-1, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
     }
 }

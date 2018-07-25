@@ -540,6 +540,12 @@ public class MainActivity extends BaseUIActivity
                             break;
                         case BroadcastUtil.USER_INFO_UPDATE:
                             accountBean = UserInfoManager.getInstance().getAccountInfo();
+                            if (accountBean == null){
+                                navUserName.setText("KEEP君");
+                                navUserAccount.setText("KEEP-GONING@YOU");
+                                ImageLoader.getInstance().displayImage("", navHeader, ImageLoaderOptions.optionsUserCornerHeader);
+                                return;
+                            }
                             String name = accountBean.getName();
                             if (!TextUtils.isEmpty(name))
                                 navUserName.setText(name);

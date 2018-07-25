@@ -178,10 +178,8 @@ public class PersonInfoActivity extends BaseUIActivity {
                     switch (action) {
                         case BroadcastUtil.USER_INFO_UPDATE:
                             AccountBean bean = UserInfoManager.getInstance().getAccountInfo();
-                            if (!TextUtils.isEmpty(bean.getName())){
-                                accountBean = bean;
-                                personHeaderView.setData(bean);
-                            }
+                            accountBean = bean;
+                            personHeaderView.setData(bean);
                             break;
                     }
                 }

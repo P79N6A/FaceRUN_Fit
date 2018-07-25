@@ -19,6 +19,7 @@ import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.config.Constant;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.IOTools;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.TextTools;
@@ -117,6 +118,7 @@ public class LoginActivity extends BaseUIActivity {
                 sendBroadcast(isLoginSuccess ? Login_State_Success : Login_State_Fail);
                 if (isLoginSuccess) {
 //                    setResult(RESULT_OK);
+                    BroadcastUtil.sendBroadcast(LoginActivity.this,BroadcastUtil.USER_INFO_UPDATE);
                     finish();
                 } else {
                     ToastUtil.show("登录失败");

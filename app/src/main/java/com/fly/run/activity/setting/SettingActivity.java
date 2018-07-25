@@ -20,6 +20,7 @@ import com.fly.run.config.Constant;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.AndroidOSInfoManager;
+import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.fly.run.view.dialog.DialogInformation;
@@ -124,6 +125,7 @@ public class SettingActivity extends BaseUIActivity implements View.OnClickListe
                         boolean del = userFile.delete();
                         if (del) {
                             UserInfoManager.getInstance().logout();
+                            BroadcastUtil.sendBroadcast(SettingActivity.this,BroadcastUtil.USER_INFO_UPDATE);
                             setResult(RESULT_OK);
                             finish();
                         }
