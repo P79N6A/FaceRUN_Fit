@@ -37,11 +37,16 @@ public class LoadImagesAdapter extends BaseAdapter {
     private List<String> datas = new ArrayList<>();
     private String mInages = "";
     private CircleBean circleBean = null;
-    private Map<Integer, UrlDrawableBean> mUrlDrawableMap = new HashMap<>();
+//    private Map<Integer, UrlDrawableBean> mUrlDrawableMap = new HashMap<>();
 
     public LoadImagesAdapter(Context context) {
         this.mContext = context;
     }
+
+//    public void clearUrlDrawableMap(){
+//        if (mUrlDrawableMap != null)
+//            mUrlDrawableMap.clear();
+//    }
 
     public void setData(List<String> list) {
         datas.clear();
@@ -70,15 +75,15 @@ public class LoadImagesAdapter extends BaseAdapter {
                 datas.add(s);
             }
         }
-        if (!TextUtils.isEmpty(photos)) {
-            String[] p = photos.split(",");
-            for (int i = 0; i < p.length; i++) {
-                UrlDrawableBean urlDrawableBean = new UrlDrawableBean();
-                urlDrawableBean.setPosition(i);
-                urlDrawableBean.setFilePath(p[i]);
-                mUrlDrawableMap.put(i, urlDrawableBean);
-            }
-        }
+//        if (!TextUtils.isEmpty(photos)) {
+//            String[] p = photos.split(",");
+//            for (int i = 0; i < p.length; i++) {
+//                UrlDrawableBean urlDrawableBean = new UrlDrawableBean();
+//                urlDrawableBean.setPosition(i);
+//                urlDrawableBean.setFilePath(p[i]);
+//                mUrlDrawableMap.put(i, urlDrawableBean);
+//            }
+//        }
     }
 
     @Override
@@ -112,7 +117,7 @@ public class LoadImagesAdapter extends BaseAdapter {
             if (!content.startsWith("http://"))
                 content = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, content);
         }
-        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsPicDefault, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(content, viewHolder.imageView, ImageLoaderOptions.optionsGrayDefault, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 
@@ -125,11 +130,11 @@ public class LoadImagesAdapter extends BaseAdapter {
 
             @Override
             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                UrlDrawableBean bean = mUrlDrawableMap.get(position);
-                if (bean.getDrawable() == null) {
-                    Drawable drawable = new BitmapDrawable(bitmap);
-                    bean.setDrawable(drawable);
-                }
+//                UrlDrawableBean bean = mUrlDrawableMap.get(position);
+//                if (bean.getDrawable() == null) {
+//                    Drawable drawable = new BitmapDrawable(bitmap);
+//                    bean.setDrawable(drawable);
+//                }
             }
 
             @Override
@@ -141,7 +146,7 @@ public class LoadImagesAdapter extends BaseAdapter {
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowImagesActivity.startShowImageActivity(mContext, circleBean.getPhotos(), position, mUrlDrawableMap);
+                ShowImagesActivity.startShowImageActivity(mContext, mInages,circleBean.getPhotos(), position);
             }
         });
         return convertView;

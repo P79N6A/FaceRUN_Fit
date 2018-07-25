@@ -132,7 +132,7 @@ public class LocationUtils {
             if (null != loc && loc.getErrorCode() == 0) {
                 
             } else {
-                ToastUtil.show("定位失败");
+//                ToastUtil.show("定位失败");
             }
         }
     };

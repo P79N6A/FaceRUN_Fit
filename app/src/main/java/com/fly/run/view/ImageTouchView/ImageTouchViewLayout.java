@@ -17,7 +17,7 @@ import com.fly.run.view.ImageZoom.ImageViewTouch;
 
 public class ImageTouchViewLayout extends RelativeLayout {
 
-    private ImageViewTouch imageViewTouch;
+    private ImageViewTouch imageViewTouch,imageViewTouchHD;
     private ProgressBar progressBar;
     private TextView tvPersent;
 
@@ -45,12 +45,23 @@ public class ImageTouchViewLayout extends RelativeLayout {
                 ((Activity)getContext()).finish();
             }
         });
+        imageViewTouchHD = (ImageViewTouch)findViewById(R.id.imageViewTouch_HD);
+        imageViewTouchHD.setSingleTapListener(new ImageViewTouch.OnImageViewTouchSingleTapListener() {
+            @Override
+            public void onSingleTapConfirmed() {
+                ((Activity)getContext()).finish();
+            }
+        });
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         tvPersent = (TextView)findViewById(R.id.tv_persent);
     }
 
     public ImageViewTouch getImageViewTouch() {
         return imageViewTouch;
+    }
+
+    public ImageViewTouch getImageViewTouchHD() {
+        return imageViewTouchHD;
     }
 
     public ProgressBar getProgressBar() {

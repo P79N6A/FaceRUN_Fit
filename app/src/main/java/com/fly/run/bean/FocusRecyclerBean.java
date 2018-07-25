@@ -11,6 +11,7 @@ public class FocusRecyclerBean implements Serializable {
     private int id;
     private String name;
     private String headerUrl;
+    private String headerUrlHD;
 
     public int getId() {
         return id;
@@ -37,5 +38,13 @@ public class FocusRecyclerBean implements Serializable {
     public FocusRecyclerBean setHeaderUrl(String headerUrl) {
         this.headerUrl = headerUrl;
         return this;
+    }
+
+    public String getHeaderUrlHD() {
+        return headerUrlHD;
+    }
+
+    public void setHeaderUrlHD(String headerUrlHD) {
+        this.headerUrlHD = headerUrlHD;
     }
 }

@@ -8,7 +8,7 @@ public class UrlConstants {
     /**
      * 公司 IP
      */
-    public static String HTTP_ROOT = "http://172.16.0.138:9090/";
+    public static String HTTP_ROOT = "http://172.16.0.173:9090/";
     /**
      * 阿里云
      */
@@ -98,9 +98,14 @@ public class UrlConstants {
     public static String HTTP_USER_QUERY_BY_ACCOUNT_ID = HTTP_ROOT + "account/select_by_id";
 
     /**
-     * 查询跑友圈
+     * 查询跑友圈（好友或已关注的人）
      */
     public static String HTTP_CIRCLE_QUERY = HTTP_ROOT + "circle/query";
+
+    /**
+     * 查询跑友圈（搜索其他跑者）
+     */
+    public static String HTTP_CIRCLE_SEARCH_QUERY = HTTP_ROOT + "circle/querySearch";
 
     /**
      * 查询我发的跑友圈

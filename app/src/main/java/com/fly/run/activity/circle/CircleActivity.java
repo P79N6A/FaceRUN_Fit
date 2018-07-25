@@ -23,6 +23,7 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     private CircleAttentionFragment circleAttentionFragment;
 
     private TextView tv_run,tv_dongtai,tv_guanzhu;
+    private View view_line_dongtai,view_line_run,view_line_guanzhu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         tv_run = (TextView)findViewById(R.id.tv_run);
         tv_dongtai = (TextView)findViewById(R.id.tv_dongtai);
         tv_guanzhu = (TextView)findViewById(R.id.tv_guanzhu);
+        view_line_dongtai = (View)findViewById(R.id.view_line_dongtai);
+        view_line_run = (View)findViewById(R.id.view_line_run);
+        view_line_guanzhu = (View)findViewById(R.id.view_line_guanzhu);
         tv_run.setOnClickListener(this);
         tv_dongtai.setOnClickListener(this);
         tv_guanzhu.setOnClickListener(this);
@@ -48,17 +52,27 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        setLineInvisiable();
         switch (view.getId()){
             case R.id.tv_dongtai:
                 viewPager.setCurrentItem(0,false);
+                view_line_dongtai.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_run:
                 viewPager.setCurrentItem(1,false);
+                view_line_run.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_guanzhu:
                 viewPager.setCurrentItem(2,false);
+                view_line_guanzhu.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void setLineInvisiable(){
+        view_line_dongtai.setVisibility(View.INVISIBLE);
+        view_line_run.setVisibility(View.INVISIBLE);
+        view_line_guanzhu.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -103,7 +117,6 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
 
         @Override
         public void onPageSelected(int position) {
-            ToastUtil.show("position = " + position);
             switch (position) {
                 case 0:
                     break;

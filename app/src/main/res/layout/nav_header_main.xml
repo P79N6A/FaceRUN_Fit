@@ -55,13 +55,16 @@
                             android:background="@drawable/bg_circle_white"
                             android:padding="@dimen/margin_2">
 
-                            <ImageView
+                            <com.fly.run.view.ImageView.RoundAngleImageView
                                 android:id="@+id/imageView"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true"
-                                android:src="@mipmap/ic_launcher" />
+                                android:src="@drawable/ic_user_header_default"
+                                android:scaleType="centerCrop"
+                                app:roundWidth="25dp"
+                                app:roundHeight="25dp"/>
                         </RelativeLayout>
 
                         <LinearLayout

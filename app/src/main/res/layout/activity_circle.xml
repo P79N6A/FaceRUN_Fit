@@ -35,40 +35,90 @@
         android:id="@+id/layout_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_1"
-        android:background="@color/color_ffffff"
-        android:layout_alignParentBottom="true">
-        <TextView
-            android:id="@+id/tv_dongtai"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="动态"
-            android:layout_weight="1"
-            android:gravity="center"/>
+        android:background="@color/color_ffffff">
 
-        <TextView
-            android:id="@+id/tv_run"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="FOCUS"
-            android:layout_weight="1"
-            android:gravity="center"/>
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tv_guanzhu"
+            <TextView
+                android:id="@+id/tv_dongtai"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="动态" />
+
+            <View
+                android:id="@+id/view_line_dongtai"
+                android:layout_width="22dp"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_6"
+                android:layout_weight="1"
+                android:background="@color/action_title_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="关注"
-            android:layout_weight="1"
-            android:gravity="center"/>
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_run"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="FOCUS" />
+
+            <View
+                android:id="@+id/view_line_run"
+                android:layout_width="22dp"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_6"
+                android:layout_weight="1"
+                android:background="@color/action_title_color"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_guanzhu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="关注" />
+
+            <View
+                android:id="@+id/view_line_guanzhu"
+                android:layout_width="22dp"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_6"
+                android:layout_weight="1"
+                android:background="@color/action_title_color"
+                android:visibility="invisible" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_me"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="我的"
-            android:visibility="gone"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="我的"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

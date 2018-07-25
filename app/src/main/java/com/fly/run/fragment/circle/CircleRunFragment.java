@@ -241,23 +241,4 @@ public class CircleRunFragment extends BaseFragment {
         }
     };
 
-    public List<FocusRecyclerBean> getUrls(){
-        List<FocusRecyclerBean> fileItems = new ArrayList<>();
-        if (adapter != null){
-            List<CircleBean> list = adapter.getDatas();
-            for (CircleBean bean : list){
-                String[] urls = bean.getPhotos().split(",");
-                for (String url : urls){
-                    if (!url.startsWith("http://"))
-                        url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
-                    String[] sf = url.split(File.separator);
-                    String fileName = (sf != null && sf.length > 0) ? sf[sf.length-1] : url;
-                    FocusRecyclerBean item = new FocusRecyclerBean();
-                    item.setName(fileName).setHeaderUrl(url);
-                    fileItems.add(item);
-                }
-            }
-        }
-        return fileItems;
-    }
 }

@@ -1,5 +1,6 @@
 package com.fly.run.activity;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -65,6 +66,7 @@ import com.fly.run.utils.PowerManagerUtil;
 import com.fly.run.utils.TimeFormatUtils;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.utils.WeatherUtil;
+import com.fly.run.view.ImageView.RoundAngleImageView;
 import com.fly.run.view.TextView.TextViewDrawable;
 import com.fly.run.view.actionbar.CommonMainActionBar;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -89,7 +91,7 @@ public class MainActivity extends BaseUIActivity
     private TextView tvAllDistance, tvNavAllDistance;
 
     private RelativeLayout layoutUserInfo;
-    private ImageView navHeader;
+    private RoundAngleImageView navHeader;
     private TextView navUserName, navUserAccount;
 
     private EventManager mWpEventManager;
@@ -99,11 +101,13 @@ public class MainActivity extends BaseUIActivity
     private TextView tvWeatherAir;
     private TextView tvWeatherC;
     private AccountBean accountBean;
+    public static Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        activity = this;
         //初始化语音唤醒功能
 //        initWakeUpGroup();
         //语音识别
@@ -133,7 +137,7 @@ public class MainActivity extends BaseUIActivity
         tvNavAllDistance = (TextView) navHeaderRoot.findViewById(tv_all_distance);
         navUserName = (TextView) navHeaderRoot.findViewById(R.id.tv_name);
         navUserAccount = (TextView) navHeaderRoot.findViewById(R.id.tv_subname);
-        navHeader = (ImageView) navHeaderRoot.findViewById(R.id.imageView);
+        navHeader = (RoundAngleImageView) navHeaderRoot.findViewById(R.id.imageView);
         layoutWeather = (RelativeLayout) navHeaderRoot.findViewById(R.id.layout_weather);
         tvWeatherAir = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_air);
         tvWeatherC = (TextView) navHeaderRoot.findViewById(R.id.tv_weather_c);
@@ -149,7 +153,7 @@ public class MainActivity extends BaseUIActivity
                     navUserAccount.setText(accountBean.getAccount());
             }
         }
-        ImageLoader.getInstance().displayImage(accountBean != null ? accountBean.getHeadPortrait() : "", navHeader, ImageLoaderOptions.optionsUserCornerHeader);
+        ImageLoader.getInstance().displayImage(accountBean != null ? accountBean.getHeadPortrait() : "", navHeader, ImageLoaderOptions.optionsUserHeader);
         layoutUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

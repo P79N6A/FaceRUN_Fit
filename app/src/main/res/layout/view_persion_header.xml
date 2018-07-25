@@ -18,13 +18,16 @@
         android:layout_centerInParent="true"
         android:background="@drawable/bg_circle_white">
 
-        <ImageView
+        <com.fly.run.view.ImageView.RoundAngleImageView
             android:id="@+id/iv_header_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/margin_2"
-            android:src="@drawable/ic_user_header_default" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user_header_default"
+            app:roundWidth="@dimen/margin_30"
+            app:roundHeight="@dimen/margin_30"/>
     </RelativeLayout>
 
     <RelativeLayout

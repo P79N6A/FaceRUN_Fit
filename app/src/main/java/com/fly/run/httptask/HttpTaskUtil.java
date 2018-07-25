@@ -195,6 +195,30 @@ public class HttpTaskUtil {
         }
     }
 
+    public void QueryCircleSearchRunTask(int pageNum, int pageSize) {
+        try {
+            OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
+            OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_SEARCH_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramPageNum, paramPageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
     /**
      * 用户注册
      */

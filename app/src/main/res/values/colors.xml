@@ -43,6 +43,7 @@
     <color name="translucent">#66000000</color>
     <!--<color name="action_title_color">#353535</color>-->
     <color name="action_title_color">#fca017</color>
+    <color name="action_title_color_light">#ec8d00</color>
     <drawable name="transparent_background">#00000000</drawable>
 
     <color name="color_corner_green_normal">#2E7D32</color>

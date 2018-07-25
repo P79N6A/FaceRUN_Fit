@@ -79,17 +79,18 @@ public class LoadImagesView extends RelativeLayout {
             String url = list[0];
             if (!TextUtils.isEmpty(url)) {
                 url = url.trim();
-                if (!url.startsWith("http://"))
-                    url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
+                if (!url.startsWith("http://") && !url.startsWith("https://"))
+                    url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url.trim());
             }
 //            final String finalUrl = url;
+            final String finalUrl = url;
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowImagesActivity.startShowImageActivity(getContext(), circleBean.getPhotos(),0);
+                    ShowImagesActivity.startShowImageActivity(getContext(), circleBean.getThumbs(),circleBean.getPhotos(),0);
                 }
             });
-            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsPicDefault, new ImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(url, imageView, ImageLoaderOptions.optionsGrayDefault, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

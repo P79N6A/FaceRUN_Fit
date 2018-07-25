@@ -14,6 +14,7 @@ import com.fly.run.R;
 import com.fly.run.bean.FitPlanBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.utils.DisplayUtil;
+import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.utils.SDCardUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -85,7 +86,7 @@ public class FitPlanAdapter extends BaseAdapter {
         } else if (!url.startsWith("http://") || !url.startsWith("https://"))
             url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, "fit/" + url);
         final ViewHolder finalViewHolder = viewHolder;
-        ImageLoader.getInstance().displayImage(url, viewHolder.ivIcon, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, viewHolder.ivIcon, ImageLoaderOptions.optionsGrayDefault, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 

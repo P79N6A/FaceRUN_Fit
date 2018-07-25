@@ -41,6 +41,8 @@ public class ImageLoaderOptions {
     public static DisplayImageOptions optionsLanuchHeader = getDisplayImageScaleOptions(R.drawable.ic_launcher_run);
     public static DisplayImageOptions optionsItemDefault = getDisplayImageScaleOptions(R.drawable.menu_bg_3);
     public static DisplayImageOptions optionsPicDefault = getDisplayImageScaleOptions(R.drawable.ic_setting_picture_press);
+    public static DisplayImageOptions optionsGrayDefault = getDisplayImageScaleOptions(R.drawable.bg_gray);
+    public static DisplayImageOptions optionsBlackDefault = getDisplayImageScaleOptions(R.drawable.bg_black);
 
     public static DisplayImageOptions getOptions(int drawable, int corner) {
         return getDisplayImageOptions(drawable, DisplayUtil.dp2px(corner));

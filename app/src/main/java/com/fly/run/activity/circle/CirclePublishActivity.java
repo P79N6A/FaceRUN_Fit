@@ -3,6 +3,8 @@ package com.fly.run.activity.circle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,16 +13,20 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.amap.api.location.AMapLocation;
 import com.fly.run.R;
 import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
+import com.fly.run.activity.WelRunActivity;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.PublishCircleGridAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.FileUploadImageBean;
 import com.fly.run.bean.ResultTaskBean;
+import com.fly.run.config.AppConstants;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.LocationUtils;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.ToastUtil;
@@ -44,6 +50,10 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private HttpTaskUtil httpTaskUtil;
     private List<String> urlImages = new ArrayList<>();
 
+    private LocationUtils locationUtils;
+    private String strProvince = "四川", strCity = "成都";
+    private String strAddress,strPoiName;
+
     public static void startActivityForResultRefresh(Activity context, ArrayList<String> list) {
         Intent intent = new Intent(context, CirclePublishActivity.class);
         intent.putExtra("images", list);
@@ -57,6 +67,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         initActionBar();
         initData();
         initView();
+        getLocaltionData();
     }
 
     private void initActionBar() {
@@ -254,6 +265,61 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         Logger.e(TAG, "onDestroy");
+        if (locationUtils != null)
+            locationUtils.destroyLocation();
         super.onDestroy();
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    if (!TextUtils.isEmpty(strPoiName))
+                        tvAddress.setText(strPoiName);
+                    break;
+            }
+        }
+    };
+
+    private void getLocaltionData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                locationUtils = new LocationUtils();
+                locationUtils.setListener(locationChangedListener);
+                locationUtils.startLocation(CirclePublishActivity.this, false);
+                Logger.e(TAG, "run over");
+            }
+        }).start();
+    }
+
+    LocationUtils.LocationChangedListener locationChangedListener = new LocationUtils.LocationChangedListener() {
+        @Override
+        public void onLocationChanged(AMapLocation loc) {
+            try {
+                if (null != loc && loc.getErrorCode() == 0) {
+                    AppConstants.aMapLocation = loc;
+                    strAddress = loc.getAddress();
+                    strPoiName = loc.getPoiName();
+                    strProvince = loc.getProvince();
+                    strCity = loc.getCity();
+                    if (strProvince.endsWith("省"))
+                        strProvince = strProvince.substring(0, strProvince.length() - 1);
+                    if (strCity.endsWith("市"))
+                        strCity = strCity.substring(0, strCity.length() - 1);
+                    Logger.e(TAG, "Province = " + strProvince + "  City = " + strCity);
+                    handler.sendEmptyMessage(1);
+                } else {
+                    Logger.e(TAG, "loc error " + strProvince + "  City = " + strCity);
+                    handler.sendEmptyMessage(0);
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            } finally {
+                locationUtils.stopLocation();
+            }
+        }
+    };
 }

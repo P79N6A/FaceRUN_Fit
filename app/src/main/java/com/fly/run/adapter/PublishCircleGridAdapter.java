@@ -71,10 +71,10 @@ public class PublishCircleGridAdapter extends BaseAdapter {
             if (url.equals("ADD")) {
                 viewHolder.ivHeader.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 String add_url = "drawable://" + R.drawable.ic_nav_menu_add;
-                ImageLoader.getInstance().displayImage(add_url, viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
+                ImageLoader.getInstance().displayImage(add_url, viewHolder.ivHeader, ImageLoaderOptions.optionsGrayDefault);
             } else {
                 viewHolder.ivHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                ImageLoader.getInstance().displayImage("file:///" + url, viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
+                ImageLoader.getInstance().displayImage("file:///" + url, viewHolder.ivHeader, ImageLoaderOptions.optionsGrayDefault);
             }
             viewHolder.ivHeader.setOnClickListener(new View.OnClickListener() {
                 @Override

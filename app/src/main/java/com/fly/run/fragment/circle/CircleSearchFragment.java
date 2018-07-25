@@ -1,6 +1,8 @@
 package com.fly.run.fragment.circle;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import com.fly.run.bean.FocusRecyclerBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.httptask.HttpTaskUtil;
+import com.fly.run.utils.Logger;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.fly.run.view.circle.FocusRecyclerView.FocusRecyclerView;
@@ -98,7 +101,7 @@ public class CircleSearchFragment extends Fragment {
 
     private void initActionBar(View view) {
         actionBar = (CommonActionBar) view.findViewById(R.id.common_action_bar);
-        actionBar.setActionTitle("跑圈");
+        actionBar.setActionTitle("");
         actionBar.setActionLeftIconListenr(-1, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +122,7 @@ public class CircleSearchFragment extends Fragment {
             @Override
             public void onRefresh() {
                 pageNum = 1;
+                loadTaskData();
             }
         });
         listView = (ListView) view.findViewById(R.id.listview);
@@ -127,12 +131,24 @@ public class CircleSearchFragment extends Fragment {
         view_focus_header = (FocusRecyclerView) view.findViewById(R.id.view_focus_header);
     }
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+
+                    break;
+            }
+        }
+    };
+
     private void loadTaskData() {
         if (httpTaskUtil == null) {
             httpTaskUtil = new HttpTaskUtil();
             httpTaskUtil.setResultListener(resultListener);
         }
-        httpTaskUtil.QueryCircleRunTask(pageNum, pageSize);
+        httpTaskUtil.QueryCircleSearchRunTask(pageNum, pageSize);
     }
 
     HttpTaskUtil.ResultListener resultListener = new HttpTaskUtil.ResultListener() {
@@ -145,13 +161,37 @@ public class CircleSearchFragment extends Fragment {
                         List<CircleBean> list = JSON.parseArray(bean.data, CircleBean.class);
                         if (list == null || list.size() == 0)
                             return;
-                        if (pageNum == 1) {
-                            adapter.setData(list);
-                        } else {
-                            adapter.addData(list);
+                        List<FocusRecyclerBean> fileItems = getUrls(list);
+                        StringBuffer sb = new StringBuffer();
+                        StringBuffer images = new StringBuffer();
+                        StringBuffer imagesHD = new StringBuffer();
+                        List<CircleBean> list1 = new ArrayList<>();
+                        for (int i=0;i<fileItems.size();i++){
+                            if (i != 0 && i % 7 == 0){
+                                if (sb.length() > 0)
+                                    sb.setLength(sb.length() - 1);
+                                CircleBean circleBean = new CircleBean();
+                                circleBean.setPhotos(sb.toString());
+                                list1.add(circleBean);
+                                sb.setLength(0);
+                            }
+                            FocusRecyclerBean bean1 = fileItems.get(i);
+                            sb.append(bean1.getHeaderUrl()).append(",");
+                            images.append(bean1.getHeaderUrl()).append(",");
+                            imagesHD.append(bean1.getHeaderUrlHD()).append(",");
                         }
-                        adapter.notifyDataSetChanged();
-                        view_focus_header.setData(getUrls());
+                        if (images.length() > 0)
+                            images.setLength(images.length() - 1);
+                        if (imagesHD.length() > 0)
+                            imagesHD.setLength(imagesHD.length() - 1);
+                        adapter.setmImages(images.toString(),imagesHD.toString());
+                        if (pageNum == 1) {
+                            adapter.setData(list1);
+                        } else {
+                            adapter.addData(list1);
+                        }
+                        adapter.notifyDataSetInvalidated();
+                        view_focus_header.setData(fileItems);
                     }
                 }
             } catch (Exception e) {
@@ -170,21 +210,32 @@ public class CircleSearchFragment extends Fragment {
         }
     };
 
-    public List<FocusRecyclerBean> getUrls() {
+    public List<FocusRecyclerBean> getUrls(List<CircleBean> list) {
         List<FocusRecyclerBean> fileItems = new ArrayList<>();
         if (adapter != null) {
-            List<CircleBean> list = adapter.getDatas();
             for (CircleBean bean : list) {
-                String[] urls = bean.getPhotos().split(",");
+                String thumbs = bean.getThumbs();
+                String photos = bean.getPhotos();
+                String[] urls = !TextUtils.isEmpty(thumbs) ? thumbs.split(",") : photos.split(",");
                 if (urls != null && urls.length > 0) {
-                    String url = urls[0];
-                    if (!url.startsWith("http://"))
-                        url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
-                    String[] sf = url.split(File.separator);
-                    String fileName = (sf != null && sf.length > 0) ? sf[sf.length - 1] : url;
-                    FocusRecyclerBean item = new FocusRecyclerBean();
-                    item.setName(fileName).setHeaderUrl(url);
-                    fileItems.add(item);
+                    int index = 0;
+                    for (String url : urls){
+                        url = url.trim();
+                        if (!url.startsWith("http://") && !url.startsWith("https://"))
+                            url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
+                        String urlHD = "";
+                        try {
+                            urlHD = photos.split(",")[index];
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        index++;
+                        String[] sf = url.split(File.separator);
+                        String fileName = (sf != null && sf.length > 0) ? sf[sf.length - 1] : url;
+                        FocusRecyclerBean item = new FocusRecyclerBean();
+                        item.setName(fileName).setHeaderUrl(url).setHeaderUrlHD(urlHD);
+                        fileItems.add(item);
+                    }
                 }
             }
         }
