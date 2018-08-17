@@ -21,7 +21,7 @@ public class MediaQueryUtil {
      */
     public static List<FileItem> getAllPhoto(Context context) {
         List<FileItem> photos = new ArrayList<>();
-        String[] projection = new String[]{MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DATA, MediaStore.Images.ImageColumns.DISPLAY_NAME};
+        String[] projection = new String[]{MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DATA, MediaStore.Images.ImageColumns.DISPLAY_NAME, MediaStore.Images.ImageColumns.DATE_MODIFIED};
         //asc 按升序排列
         //desc 按降序排列
         //projection 是定义返回的数据，selection 通常的sql 语句，例如  selection=MediaStore.Images.ImageColumns.MIME_TYPE+"=? " 那么 selectionArgs=new String[]{"jpg"};
@@ -31,11 +31,16 @@ public class MediaQueryUtil {
         String imageId = null;
         String fileName;
         String filePath;
+        String fileType;
+        long fileDate;
         while (cursor.moveToNext()) {
             imageId = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID));
             fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
             filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
-            FileItem fileItem = new FileItem(imageId, filePath, fileName);
+            fileDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_MODIFIED));
+//            fileType = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.MIME_TYPE));
+            Log.e("getAllPhoto", "fileDate = "+fileDate+"--" + filePath);
+            FileItem fileItem = new FileItem(imageId, filePath, fileName,fileDate,"");
             photos.add(fileItem);
         }
         cursor.close();
@@ -99,14 +104,49 @@ public class MediaQueryUtil {
         return texts;
     }
 
+    /**
+     * 查询视频文件
+     */
+    public static List<FileItem> getAllVideos(Context context) {
+        List<FileItem> texts = new ArrayList<>();
+        String[] projection = new String[]{MediaStore.Video.Media._ID, MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE, MediaStore.Video.Media.MIME_TYPE, MediaStore.Video.Media.DURATION, MediaStore.Video.Media.DATE_MODIFIED};
+        //相当于我们常用sql where 后面的写法
+        String selection = MediaStore.Video.Media.MIME_TYPE + "= ? ";
+        String[] selectionArgs = new String[]{"video/mp4"};
+        Cursor cursor = context.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, selection, selectionArgs, MediaStore.Video.Media.DATE_MODIFIED + " desc");
+        String fileId;
+        String fileName;
+        String filePath;
+        String fileType;
+        int duration;
+        long fileDate;
+        while (cursor.moveToNext()) {
+            fileId = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID));
+            fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE));
+            filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+            fileDate = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATE_MODIFIED));
+            fileType = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE));
+            duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media.DURATION));
+            Log.e("video", fileDate + " -- " + fileName + " -- " + cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE)) + "--" + filePath);
+            FileItem fileItem = new FileItem(fileId, filePath, fileName,fileDate,fileType,duration);
+            texts.add(fileItem);
+        }
+        cursor.close();
+        cursor = null;
+        return texts;
+    }
+
     public static List<FileItem> getAllVideoImages(Context context) {
         List<FileItem> files = new ArrayList<>();
         Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         // 只查询JPEG和PNG扩展名的图片，并按照最近修改时间排序
         StringBuffer selection = new StringBuffer();
-        selection.append(MediaStore.Images.Media.MIME_TYPE).append("= ? or ").append(MediaStore.Images.Media.MIME_TYPE);
-        selection.append(" = ? or ").append(MediaStore.Files.FileColumns.MIME_TYPE).append("= ?");
-        String[] args = new String[]{"image/jpeg", "image/png", "video/mp4"};
+//        selection.append(MediaStore.Images.Media.MIME_TYPE).append("= ? or ").append(MediaStore.Images.Media.MIME_TYPE);
+//        selection.append(" = ? or ").append(MediaStore.Files.FileColumns.MIME_TYPE).append("= ?");
+//        selection.append(" = ? or ").append(MediaStore.Video.Media.MIME_TYPE).append("= ?");
+//        String[] args = new String[]{"image/jpeg", "image/png", "video/mp4"};
+        selection.append(MediaStore.Images.Media.MIME_TYPE).append("= ? or ").append(MediaStore.Images.Media.MIME_TYPE).append(" = ?");
+        String[] args = new String[]{"image/jpeg", "image/png"};
         Cursor cursor = context.getContentResolver().query(MediaStore.Files.getContentUri("external"), null, selection.toString(), args, MediaStore.Images.Media.DATE_MODIFIED);
         List<String> photoUrlList = new ArrayList<String>();
         String fileId;

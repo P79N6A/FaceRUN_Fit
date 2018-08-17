@@ -7,7 +7,8 @@
     <com.fly.run.view.actionbar.CommonActionBar
         android:id="@+id/common_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
 
     <WebView
         android:id="@+id/webView"

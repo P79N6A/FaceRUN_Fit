@@ -36,6 +36,12 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppRedTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/red_cc</item>
+        <item name="colorPrimaryDark">@color/red_cc</item>
+        <item name="colorAccent">@color/red_cc</item>
+    </style>
+
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light">
         &lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;
         <item name="colorPrimaryDark">@android:color/transparent</item>

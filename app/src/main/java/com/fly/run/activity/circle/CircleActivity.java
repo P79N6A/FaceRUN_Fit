@@ -11,6 +11,7 @@ import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.fragment.circle.CircleAttentionFragment;
 import com.fly.run.fragment.circle.CircleRunFragment;
+import com.fly.run.fragment.circle.CircleSearch2Fragment;
 import com.fly.run.fragment.circle.CircleSearchFragment;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.viewpager.CustomViewPager;
@@ -20,10 +21,11 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     private CustomViewPager viewPager;
     private CircleRunFragment circleRunFragment;
     private CircleSearchFragment circleSearchFragment;
+    private CircleSearch2Fragment circleSearch2Fragment;
     private CircleAttentionFragment circleAttentionFragment;
 
-    private TextView tv_run,tv_dongtai,tv_guanzhu;
-    private View view_line_dongtai,view_line_run,view_line_guanzhu;
+    private TextView tv_run, tv_dongtai, tv_guanzhu;
+    private View view_line_dongtai, view_line_run, view_line_guanzhu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,12 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(pageChangeListener);
-        tv_run = (TextView)findViewById(R.id.tv_run);
-        tv_dongtai = (TextView)findViewById(R.id.tv_dongtai);
-        tv_guanzhu = (TextView)findViewById(R.id.tv_guanzhu);
-        view_line_dongtai = (View)findViewById(R.id.view_line_dongtai);
-        view_line_run = (View)findViewById(R.id.view_line_run);
-        view_line_guanzhu = (View)findViewById(R.id.view_line_guanzhu);
+        tv_run = (TextView) findViewById(R.id.tv_run);
+        tv_dongtai = (TextView) findViewById(R.id.tv_dongtai);
+        tv_guanzhu = (TextView) findViewById(R.id.tv_guanzhu);
+        view_line_dongtai = (View) findViewById(R.id.view_line_dongtai);
+        view_line_run = (View) findViewById(R.id.view_line_run);
+        view_line_guanzhu = (View) findViewById(R.id.view_line_guanzhu);
         tv_run.setOnClickListener(this);
         tv_dongtai.setOnClickListener(this);
         tv_guanzhu.setOnClickListener(this);
@@ -53,23 +55,23 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         setLineInvisiable();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_dongtai:
-                viewPager.setCurrentItem(0,false);
+                viewPager.setCurrentItem(0, false);
                 view_line_dongtai.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_run:
-                viewPager.setCurrentItem(1,false);
+                viewPager.setCurrentItem(1, false);
                 view_line_run.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_guanzhu:
-                viewPager.setCurrentItem(2,false);
+                viewPager.setCurrentItem(2, false);
                 view_line_guanzhu.setVisibility(View.VISIBLE);
                 break;
         }
     }
 
-    private void setLineInvisiable(){
+    private void setLineInvisiable() {
         view_line_dongtai.setVisibility(View.INVISIBLE);
         view_line_run.setVisibility(View.INVISIBLE);
         view_line_guanzhu.setVisibility(View.INVISIBLE);
@@ -93,9 +95,9 @@ public class CircleActivity extends BaseUIActivity implements View.OnClickListen
                         circleSearchFragment = new CircleSearchFragment();
                     return circleSearchFragment;
                 case 2:
-                    if (circleAttentionFragment == null)
-                        circleAttentionFragment = new CircleAttentionFragment();
-                    return circleAttentionFragment;
+                    if (circleSearch2Fragment == null)
+                        circleSearch2Fragment = new CircleSearch2Fragment();
+                    return circleSearch2Fragment;
                 default:
                     if (circleRunFragment == null)
                         circleRunFragment = new CircleRunFragment();

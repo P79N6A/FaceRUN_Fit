@@ -3,6 +3,7 @@ package com.fly.run.activity.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,17 +18,25 @@ import com.fly.run.activity.offlinemap.OfflineMapActivity;
 import com.fly.run.adapter.SettingAdapter;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.config.Constant;
+import com.fly.run.config.UrlConstants;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.AndroidOSInfoManager;
 import com.fly.run.utils.BroadcastUtil;
+import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.fly.run.view.dialog.DialogInformation;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class SettingActivity extends BaseUIActivity implements View.OnClickListener {
 
@@ -66,6 +75,12 @@ public class SettingActivity extends BaseUIActivity implements View.OnClickListe
                 }*/
                 if (SportModels[position].equals("版本说明")) {
                     ToastUtil.show(AndroidOSInfoManager.getAppVersion(SettingActivity.this));
+                    return;
+                }
+                if (SportModels[position].equals("意见反馈")) {
+                    return;
+                }
+                if (SportModels[position].equals("清理缓存")) {
                     return;
                 }
                 if (IntentClassList[position] == null)

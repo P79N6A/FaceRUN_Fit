@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fly.run.R;
@@ -21,6 +22,8 @@ public class CommonActionBar extends LinearLayout {
     private View viewStatus;
     private int statusHeight = 0;
 
+    private LinearLayout layoutRoot;
+    private RelativeLayout layout_actionbar_content;
     private ImageView ation_left_iv, action_right_iv;
     private TextView action_title, action_right_text;
 
@@ -41,12 +44,19 @@ public class CommonActionBar extends LinearLayout {
 
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.actionbar_common, this);
+        layoutRoot = (LinearLayout) findViewById(R.id.root);
         viewStatus = (View) findViewById(R.id.view_top_status);
+        layout_actionbar_content = (RelativeLayout) findViewById(R.id.layout_actionbar_content);
         ation_left_iv = (ImageView) findViewById(R.id.action_left_iv);
         action_right_iv = (ImageView) findViewById(R.id.action_right_iv);
         action_title = (TextView) findViewById(R.id.action_title);
         action_right_text = (TextView) findViewById(R.id.action_right_text);
         setStatusHeight();
+    }
+
+    public void setLayout_actionbar_content_visiable(int visiable) {
+        this.layout_actionbar_content.setVisibility(visiable);
+        layoutRoot.setBackgroundColor(getResources().getColor(R.color.red_cc));
     }
 
     public void setBackgroundSrc(int src) {

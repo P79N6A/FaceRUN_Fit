@@ -25,6 +25,7 @@ public class MyWebActivity extends BaseUIActivity {
 
     private void initActionBar() {
         actionBar = (CommonActionBar) findViewById(R.id.common_action_bar);
+        actionBar.setLayout_actionbar_content_visiable(View.GONE);
         actionBar.setActionLeftIconListenr(-1, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +108,7 @@ public class MyWebActivity extends BaseUIActivity {
         });
 
 //        data = getIntent().getStringExtra(KEY_DATA);
-        data = "http://172.16.0.138:9090/test/snack_wel";
+        data = "http://120.78.81.9/test/food_main";
         if (TextUtils.isEmpty(data)) {
             data = "";
         }

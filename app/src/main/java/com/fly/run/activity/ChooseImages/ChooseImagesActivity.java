@@ -14,12 +14,14 @@ import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
 import com.fly.run.adapter.ChooseImagesAdapter;
 import com.fly.run.bean.FileItem;
+import com.fly.run.utils.CompareOrderUtil;
 import com.fly.run.utils.MediaQueryUtil;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ChooseImagesActivity extends BaseUIActivity {
@@ -104,13 +106,29 @@ public class ChooseImagesActivity extends BaseUIActivity {
     private List<FileItem> list = null;
 
     private void initLocalImages() {
-        list = MediaQueryUtil.getAllPhoto(this);
+        List<FileItem> images = MediaQueryUtil.getAllPhoto(this);
+        if (images != null){
+            if (list == null)
+                list = new ArrayList<>();
+            list.addAll(images);
+        }
+        Collections.sort(list, new CompareOrderUtil());
+        Log.e(TAG, "initLocalImages size = " + list.size());
         handler.sendEmptyMessage(1);
     }
 
     private void initLocalVideos() {
-        List<FileItem> list = MediaQueryUtil.getAllVideoImages(this);
-        Log.e(TAG, "size = " + list.size());
+//        List<FileItem> list = MediaQueryUtil.getAllVideoImages(this);
+//        Log.e(TAG, "initLocalVideos size = " + list.size());
+//        List<FileItem> list2 = MediaQueryUtil.getAllVideo(this);
+//        Log.e(TAG, "initLocalVideos2 size = " + list2.size());
+        List<FileItem> videos = MediaQueryUtil.getAllVideos(this);
+        if (videos != null){
+            if (list == null)
+                list = new ArrayList<>();
+            list.addAll(videos);
+        }
+        Log.e(TAG, "initLocalVideos3 size = " + list.size());
     }
 
     private void initView() {

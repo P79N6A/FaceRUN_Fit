@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.fly.run.R;
 import com.fly.run.bean.FileItem;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.ImageLoaderOptions;
+import com.fly.run.utils.ImageLoaderUriUtils;
+import com.fly.run.utils.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -70,10 +73,18 @@ public class ChooseImagesAdapter extends BaseAdapter {
                 viewHolder.ivChoose.setImageResource(R.drawable.ic_new_chat_press);
             else
                 viewHolder.ivChoose.setImageResource(R.drawable.ic_new_chat_nor);
-            ImageLoader.getInstance().displayImage("file:///"+item.getFilePath(), viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
+            if (!TextUtils.isEmpty(item.getFileType()) && item.getFileType().endsWith("mp4")){
+                viewHolder.tvVideoDuration.setVisibility(View.VISIBLE);
+                viewHolder.tvVideoDuration.setText(""+item.getFileDuration());
+                ImageLoader.getInstance().displayImage(ImageLoaderUriUtils.getUriFromLocalFile(item.getFilePath()), viewHolder.ivHeader, ImageLoaderOptions.optionsGrayDefault);
+            }else {
+                viewHolder.tvVideoDuration.setVisibility(View.GONE);
+                ImageLoader.getInstance().displayImage("file:///"+item.getFilePath(), viewHolder.ivHeader, ImageLoaderOptions.optionsGrayDefault);
+            }
             viewHolder.ivHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ToastUtil.show(item.getFilePath());
                     if (listener != null) {
                         listener.doShowImage(position, item.getFilePath());
                     }
@@ -94,10 +105,12 @@ public class ChooseImagesAdapter extends BaseAdapter {
     class ViewHolder {
         private ImageView ivHeader;
         private ImageView ivChoose;
+        private TextView tvVideoDuration;
 
         ViewHolder(View view) {
             ivChoose = (ImageView) view.findViewById(R.id.iv_choose);
             ivHeader = (ImageView) view.findViewById(R.id.iv_icon);
+            tvVideoDuration = (TextView) view.findViewById(R.id.tv_video_duration);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivHeader.getLayoutParams();
             params.width = (DisplayUtil.screenWidth - DisplayUtil.dp2px(8)) / 3;
             params.height = params.width;

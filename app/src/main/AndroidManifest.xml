@@ -289,8 +289,11 @@
 
         <activity
             android:name=".activity.circle.CircleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
 
         <!--<activity-->
         <!--android:name="com.stickercamera.app.ui.MainActivity"-->
@@ -327,8 +330,15 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.media.ShowImagesActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="com.fly.run.activity.ChooseImages.ChooseImagesActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.training.plan.FitPlanActivity"
             android:screenOrientation="portrait"
@@ -352,7 +362,7 @@
         <activity
             android:name=".activity.webview.MyWebActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppRedTheme" />
     </application>
 
 </manifest>

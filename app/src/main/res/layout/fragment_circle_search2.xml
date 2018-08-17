@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.fly.run.fragment.circle.CircleSearchFragment">
+
+    <com.fly.run.view.actionbar.CommonActionBar
+        android:id="@+id/common_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.fly.run.view.circle.FocusRecyclerView.FocusRecyclerView
+        android:id="@+id/view_focus_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.fly.run.view.circle.FocusRecyclerView.FocusRecyclerView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_1"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>
