@@ -35,7 +35,7 @@ public class DialogChooseMedia extends Dialog {
     }
 
     public DialogChooseMedia(Context context) {
-        this(context, R.style.DialogFullScreen);
+        this(context, R.style.AppTheme);
     }
 
     private void initViews() {
