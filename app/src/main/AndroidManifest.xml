@@ -363,6 +363,13 @@
             android:name=".activity.webview.MyWebActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppRedTheme" />
+
+        <activity
+            android:name=".activity.circle.reply.CircleReplyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

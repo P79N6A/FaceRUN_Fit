@@ -11,6 +11,9 @@ import android.os.Bundle;
 public class BroadcastUtil {
 
     public static final String USER_INFO_UPDATE = "user_info_update";
+    public static final String CIRCLE_REPLY_UPDATE = "CIRCLE_REPLY_UPDATE";
+    public static final String CIRCLE_LIKE_UPDATE = "CIRCLE_LIKE_UPDATE";
+    public static final String CIRCLE_SHARE_UPDATE = "CIRCLE_SHARE_UPDATE";
 
     /**
      * 发送广播

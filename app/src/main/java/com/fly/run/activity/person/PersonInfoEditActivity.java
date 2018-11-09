@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,6 +21,8 @@ import com.fly.run.config.Constant;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.manager.upload.FileUploadIMRunnable;
+import com.fly.run.manager.upload.callback.IMFileUploadCallback;
 import com.fly.run.utils.BroadcastUtil;
 import com.fly.run.utils.IOTools;
 import com.fly.run.utils.ImageLoaderOptions;
@@ -38,6 +41,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PersonInfoEditActivity extends BaseUIActivity implements View.OnClickListener {
     private CommonActionBar actionBar;
@@ -50,6 +55,7 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
     private HttpTaskUtil httpTaskUtil;
     private AccountBean accountBean;
     private String headerPath = "";
+    private ExecutorService executorUploadImagePool = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,10 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
                 dialogTextContent.show();
                 break;
             case R.id.item_view_sex:
+                dialogTextContent = new DialogTextContent(PersonInfoEditActivity.this);
+                dialogTextContent.setTypeLine(5, DialogTextContent.ACTION_TYPE_SEX);
+                dialogTextContent.setOnEventListener(onTextContentEventListener);
+                dialogTextContent.show();
                 break;
             case R.id.item_view_like:
                 dialogTextContent = new DialogTextContent(PersonInfoEditActivity.this);
@@ -116,9 +126,13 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
                 break;
             case R.id.iv_task:
                 String strName = itemViewName.getContent_text();
-                String strLike = itemViewName.getContent_text();
-                if ((!TextUtils.isEmpty(strName) && !TextUtils.isEmpty(strName.trim())) || !TextUtils.isEmpty(headerPath))
-                    uploadFilesTask();
+                String strSex = itemViewSex.getContent_text();
+                String strLike = itemViewLike.getContent_text();
+                if (!TextUtils.isEmpty(strName) && !TextUtils.isEmpty(strName.trim())){
+                    httpTaskUtil.UserEditTask(accountBean);
+                }
+//                if ((!TextUtils.isEmpty(strName) && !TextUtils.isEmpty(strName.trim())) || !TextUtils.isEmpty(headerPath))
+//                    uploadFilesTask();
                 break;
         }
     }
@@ -151,6 +165,10 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
                 case DialogTextContent.ACTION_TYPE_NAME:
                     accountBean.setName(content);
                     itemViewName.setContent_text(content);
+                    break;
+                case DialogTextContent.ACTION_TYPE_SEX:
+                    accountBean.setSex(content);
+                    itemViewSex.setContent_text(content);
                     break;
                 case DialogTextContent.ACTION_TYPE_DESC:
                     accountBean.setDescription(content);
@@ -209,19 +227,54 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
                 String takePhotoPicpath = takeImagePath;
                 File file = new File(takePhotoPicpath);
                 if (file.exists() && file.length() > 0) {
-                    ArrayList<String> list = new ArrayList<>();
-                    list.add(file.getAbsolutePath());
-
+                    headerPath = file.getAbsolutePath();
+                    uploadFileRunnable(headerPath);
                 }
             } else if (requestCode == REQUEST_ALBUM) {
                 ArrayList<String> list = data.getStringArrayListExtra("images");
                 if (list != null && list.size() > 0) {
                     headerPath = list.get(0);
                     ImageLoader.getInstance().displayImage("file:///" + headerPath, ivHeader, ImageLoaderOptions.optionsUserHeader);
+                    uploadFileRunnable(headerPath);
                 }
             }
         }
         takeImagePath = "";
+    }
+
+    /**
+     * 上传文件runnable接口
+     * */
+    private void uploadFileRunnable(final String path) {
+        FileUploadIMRunnable runnable = new FileUploadIMRunnable(path, new IMFileUploadCallback(this, path, path) {
+
+            @Override
+            public void progress(int progress) {
+                super.progress(progress);
+
+            }
+
+            @Override
+            public void success(String result) {
+                super.success(result);
+                Log.e("12345","success path = "+path);
+                JSONObject condtion = JSONObject.parseObject(result);
+                if (condtion != null) {
+                    int code = condtion.getIntValue("code");
+                    if (code == 200) {
+                        String url = condtion.getString("url");
+                        accountBean.setHeadPortrait(url);
+                    }
+                }
+            }
+
+            @Override
+            public void error() {
+                super.error();
+                Log.e("12345","error path = "+path);
+            }
+        });
+        executorUploadImagePool.execute(runnable);
     }
 
     private void uploadFilesTask() {
@@ -243,7 +296,6 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
 
             @Override
             public void onResponse(String response) {
-                boolean isUpdate = false;
                 try {
                     if (!TextUtils.isEmpty(response)) {
                         JSONObject jsonObject = JSON.parseObject(response);
@@ -266,16 +318,13 @@ public class PersonInfoEditActivity extends BaseUIActivity implements View.OnCli
                             if (!url.startsWith("http://"))
                                 url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, url);
                             accountBean.setHeadPortrait(url);
-                            httpTaskUtil.UserEditTask(UserInfoManager.getInstance().getAccountInfo());
-                            isUpdate = true;
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     dismissProgressDialog();
                 } finally {
-                    if (!isUpdate)
-                        dismissProgressDialog();
+                    dismissProgressDialog();
                 }
             }
         });

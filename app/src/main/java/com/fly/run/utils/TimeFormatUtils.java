@@ -303,4 +303,15 @@ public class TimeFormatUtils {
         return formatDate;
     }
 
+    /**
+     * 获得特定格式的时间
+     *
+     * @return 时间格式 - 09-26 17:55
+     */
+    public static String getChatFileFormatDate() {
+        SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT3, Locale.getDefault());
+        String formatDate = format.format(new Date(System.currentTimeMillis()));
+        return formatDate;
+    }
+
 }

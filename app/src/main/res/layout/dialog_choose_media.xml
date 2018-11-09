@@ -11,40 +11,58 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:clickable="true"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/layout_album"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:background="@drawable/bg_circle_green">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_popup_photos"/>
+
             <TextView
                 android:id="@+id/dialog_album"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:drawableTop="@drawable/icon_popup_photos"
-                android:drawablePadding="@dimen/margin_6"
-                android:background="@drawable/bg_circle_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textColor="@color/color_ffffff"
                 android:gravity="center"
-                android:padding="@dimen/margin_12"
                 android:text="相册" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_camera"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:layout_marginLeft="@dimen/margin_30"
+            android:orientation="vertical"
+            android:background="@drawable/bg_circle_green"
+            android:layout_toRightOf="@+id/layout_album">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_popup_camera"/>
+
             <TextView
                 android:id="@+id/dialog_camera"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:drawableTop="@drawable/icon_popup_camera"
-                android:drawablePadding="@dimen/margin_6"
-                android:background="@drawable/bg_circle_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textColor="@color/color_ffffff"
                 android:gravity="center"
-                android:padding="@dimen/margin_12"
                 android:text="相机" />
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.fly.run.app.App;
 import com.fly.run.bean.AccountBean;
+import com.fly.run.bean.CircleReply;
 import com.fly.run.bean.NearByBean;
 import com.fly.run.config.UrlConstants;
 import com.fly.run.manager.UserInfoManager;
@@ -18,6 +19,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -78,6 +82,176 @@ public class HttpTaskUtil {
     public HttpTaskUtil setResultListener(ResultListener resultListener) {
         this.resultListener = resultListener;
         return this;
+    }
+
+    /**
+     * 点赞
+     * */
+    public void InsertCircleShareTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_CIRCLE_SHARE_INSERT, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, new IOException("Server Error"));
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 点赞
+     * */
+    public void InsertCircleLikeTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_CIRCLE_LIKE_INSERT, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, new IOException("Server Error"));
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 查询点赞数量
+     * */
+    public void QueryCircleLikeTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_CIRCLE_LIKE_QUERY, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, (IOException) e);
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 插入一条评论
+     * */
+    public void InsertCircleReplyTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_CIRCLE_REPLY_INSERT, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, (IOException) e);
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 查询跑友圈某条记录的评论
+     * */
+    public void QueryCircleReplyRunTask(int pageNum, int pageSize,int reply_circle_id,int reply_root_id) {
+        try {
+            OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
+            OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
+            OkHttpClientManager.Param replyCircleId = new OkHttpClientManager.Param("reply_circle_id", "" + reply_circle_id);
+            OkHttpClientManager.Param replyRootId = new OkHttpClientManager.Param("reply_root_id", "" + reply_root_id);
+            OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_REPLY_QUERY, new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            }, paramPageNum, paramPageSize,replyCircleId,replyRootId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 获取上传文件的token
+     * */
+    public String GetUploadTokenInfoTask(Map<String,String> param) {
+        String response = "";
+        try {
+            OkHttpClientManager.Param policyJsonStr = new OkHttpClientManager.Param("policyJsonStr", param.get("policyJsonStr"));
+            OkHttpClientManager.Param bucket = new OkHttpClientManager.Param("bucket", param.get("bucket"));
+            response = OkHttpClientManager.getInstance()._postAsString(UrlConstants.HTTP_QINIU_UPTOKEN,policyJsonStr,bucket);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+        return response;
     }
 
     public void QuerySysFitPlanTask() {
@@ -208,6 +382,7 @@ public class HttpTaskUtil {
         try {
             OkHttpClientManager.Param paramPageNum = new OkHttpClientManager.Param("pageNum", "" + pageNum);
             OkHttpClientManager.Param paramPageSize = new OkHttpClientManager.Param("pageSize", "" + pageSize);
+            OkHttpClientManager.Param userId = new OkHttpClientManager.Param("userId", "" + UserInfoManager.getInstance().getAccountId());
             OkHttpClientManager.getInstance()._postAsyn(UrlConstants.HTTP_CIRCLE_QUERY, new OkHttpClientManager.StringCallback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
@@ -220,7 +395,7 @@ public class HttpTaskUtil {
                     if (resultListener != null)
                         resultListener.onResponse(response);
                 }
-            }, paramPageNum, paramPageSize);
+            }, paramPageNum, paramPageSize,userId);
         } catch (Exception e) {
             e.printStackTrace();
             if (resultListener != null)

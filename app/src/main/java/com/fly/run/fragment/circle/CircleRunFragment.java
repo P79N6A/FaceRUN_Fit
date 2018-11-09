@@ -1,7 +1,10 @@
 package com.fly.run.fragment.circle;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.fly.run.R;
 import com.fly.run.activity.ChooseImages.ChooseImagesActivity;
+import com.fly.run.activity.MainActivity;
 import com.fly.run.activity.circle.CirclePublishActivity;
 import com.fly.run.adapter.circle.CircleAdapter;
 import com.fly.run.bean.AccountBean;
@@ -24,10 +28,14 @@ import com.fly.run.config.UrlConstants;
 import com.fly.run.fragment.base.BaseFragment;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.utils.AudioManagerUtil;
+import com.fly.run.utils.BroadcastUtil;
+import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.utils.ToastUtil;
 import com.fly.run.view.actionbar.CommonActionBar;
 import com.fly.run.view.circle.FocusRecyclerView.FocusRecyclerView;
 import com.fly.run.view.dialog.DialogChooseMedia;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.Request;
 
 import java.io.File;
@@ -88,10 +96,17 @@ public class CircleRunFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerReceiver();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unRegisterReceiver();
     }
 
     @Override
@@ -241,4 +256,33 @@ public class CircleRunFragment extends BaseFragment {
         }
     };
 
+    private BroadcastReceiver mReceiver;
+    public void registerReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BroadcastUtil.CIRCLE_REPLY_UPDATE);
+        intentFilter.addAction(BroadcastUtil.CIRCLE_LIKE_UPDATE);
+        intentFilter.addAction(BroadcastUtil.CIRCLE_SHARE_UPDATE);
+        if (null == mReceiver) {
+            mReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    switch (action) {
+                        case BroadcastUtil.CIRCLE_REPLY_UPDATE:
+                        case BroadcastUtil.CIRCLE_LIKE_UPDATE:
+                        case BroadcastUtil.CIRCLE_SHARE_UPDATE:
+                            loadTaskData();
+                            break;
+                    }
+                }
+            };
+        }
+        getActivity().registerReceiver(mReceiver, intentFilter);
+    }
+
+    public void unRegisterReceiver() {
+        if (null != mReceiver) {
+            getActivity().unregisterReceiver(mReceiver);
+        }
+    }
 }

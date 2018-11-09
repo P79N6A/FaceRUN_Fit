@@ -174,9 +174,12 @@ public class ShowImagesActivity extends BaseUIActivity {
                         urlHD = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2, urlHD);
                 } catch (Exception e){
                     e.printStackTrace();
+                    setProgressView(imageTouchViewLayout, View.GONE);
                 }
-                if (TextUtils.isEmpty(urlHD))
+                if (TextUtils.isEmpty(urlHD)){
+                    setProgressView(imageTouchViewLayout, View.GONE);
                     return;
+                }
                 ImageLoader.getInstance().displayImage(urlHD, imageTouchViewLayout.getImageViewTouchHD(), ImageLoaderOptions.optionsBlackDefault, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String s, View view) {

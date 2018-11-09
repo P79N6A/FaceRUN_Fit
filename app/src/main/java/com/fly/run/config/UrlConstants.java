@@ -8,11 +8,11 @@ public class UrlConstants {
     /**
      * 公司 IP
      */
-//    public static String HTTP_ROOT = "http://172.16.0.173:9090/";
+    public static String HTTP_ROOT = "http://172.16.0.173:9090/";
     /**
      * 阿里云
      */
-    public static String HTTP_ROOT = "http://120.78.81.9/";
+//    public static String HTTP_ROOT = "http://120.78.81.9/";
 
     /**
      * 单文件上传（图片）
@@ -131,4 +131,41 @@ public class UrlConstants {
      * 查询SysFITPlan
      */
     public static String HTTP_FIT_PLAN_QUERY = HTTP_ROOT + "fit/query_fit_plan";
+
+    public static final String BASE_URL_V3_5050 = "http://www.melinked.com:5050/";
+    public static final String HTTP_QINIU_UPTOKEN = BASE_URL_V3_5050 + "/qiniu/api/getUploadToken";
+    public static final String HTTP_QINIU_DATA_IM_FILE = "http://imfile.melinked.com/"; // 七牛IM文件下载地址
+    public static final String BASE_QINIIU_SCALE = "?imageView2/2/w/200";
+    public static final String BASE_QINIU_Thumbnail = "?vframe/jpg/offset/0"; // 七牛获取视频第一帧图片
+    public static final String BASE_QINIU_Thumbnail_2 = "?vframe/jpg/offset/"; // 七牛获取视频某一帧图片
+
+    /**
+     * 查询跑友圈某条记录的回复
+     */
+    public static String HTTP_CIRCLE_REPLY_QUERY = HTTP_ROOT + "circle/query_reply";
+
+    /**
+     * 添加回复
+     */
+    public static String HTTP_CIRCLE_REPLY_INSERT = HTTP_ROOT + "circle/insert_reply";
+
+    /**
+     * 点赞
+     */
+    public static String HTTP_CIRCLE_LIKE_INSERT = HTTP_ROOT + "circle/like/insert";
+
+    /**
+     * 查询点赞数量
+     */
+    public static String HTTP_CIRCLE_LIKE_QUERY = HTTP_ROOT + "circle/like/query";
+
+    /**
+     * 分享
+     */
+    public static String HTTP_CIRCLE_SHARE_INSERT = HTTP_ROOT + "circle/share/insert";
+
+    /**
+     * 查询分享数量
+     */
+    public static String HTTP_CIRCLE_SHARE_QUERY = HTTP_ROOT + "circle/share/query";
 }

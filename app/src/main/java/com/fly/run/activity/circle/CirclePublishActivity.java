@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -24,8 +25,11 @@ import com.fly.run.bean.CircleBean;
 import com.fly.run.bean.FileUploadImageBean;
 import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.config.AppConstants;
+import com.fly.run.config.UrlConstants;
 import com.fly.run.httptask.HttpTaskUtil;
 import com.fly.run.manager.UserInfoManager;
+import com.fly.run.manager.upload.FileUploadIMRunnable;
+import com.fly.run.manager.upload.callback.IMFileUploadCallback;
 import com.fly.run.utils.LocationUtils;
 import com.fly.run.utils.Logger;
 import com.fly.run.utils.OkHttpClientManager;
@@ -37,7 +41,11 @@ import com.squareup.okhttp.Request;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CirclePublishActivity extends BaseUIActivity implements View.OnClickListener {
 
@@ -53,6 +61,10 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
     private LocationUtils locationUtils;
     private String strProvince = "四川", strCity = "成都";
     private String strAddress,strPoiName;
+
+    private ExecutorService executorUploadImagePool = Executors.newSingleThreadExecutor();
+    private int uploadCount = 0;
+    private StringBuffer imagePathSB = new StringBuffer();
 
     public static void startActivityForResultRefresh(Activity context, ArrayList<String> list) {
         Intent intent = new Intent(context, CirclePublishActivity.class);
@@ -152,6 +164,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
             ToastUtil.show("请登录");
             return;
         }
+        actionBar.setEnabled(false);
         if (urlImages == null || urlImages.size() == 0) {
             insertCircleData("", "");
             return;
@@ -172,6 +185,7 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
                 ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             } finally {
                 dismissProgressDialog();
+                actionBar.setEnabled(true);
             }
         }
 
@@ -179,51 +193,118 @@ public class CirclePublishActivity extends BaseUIActivity implements View.OnClic
         public void onFailure(Request request, Exception e) {
             ToastUtil.show((e != null && !TextUtils.isEmpty(e.getMessage()) ? e.getMessage() : "网络请求失败"));
             dismissProgressDialog();
+            actionBar.setEnabled(true);
         }
     };
+
+    private void checkInsertCircle(){
+        if (uploadCount <= 0){
+            StringBuffer sb = new StringBuffer();
+            String imagePath = imagePathSB.toString();
+            if (imagePath.length() > 0){
+                imagePathSB.setLength(imagePathSB.length() - 1);
+                imagePath = imagePathSB.toString();
+                String[] thumbs = imagePath.split(",");
+                if (thumbs.length > 0){
+                    for (String s : thumbs){
+                        sb.append(s+UrlConstants.BASE_QINIIU_SCALE).append(",");
+                    }
+                    if (sb.length() > 0)
+                        sb.setLength(sb.length() - 1);
+                }
+            }
+            insertCircleData(imagePath, sb.toString());
+        }
+    }
+
+    /**
+     * 上传文件runnable接口
+     * */
+    private void uploadFileRunnable(final String path) {
+        FileUploadIMRunnable runnable = new FileUploadIMRunnable(path, new IMFileUploadCallback(this, path, path) {
+
+            @Override
+            public void progress(int progress) {
+                super.progress(progress);
+
+            }
+
+            @Override
+            public void success(String result) {
+                super.success(result);
+                Log.e("12345","success path = "+path);
+                uploadCount--;
+                JSONObject condtion = JSONObject.parseObject(result);
+                if (condtion != null) {
+                    int code = condtion.getIntValue("code");
+                    if (code == 200) {
+                        String url = condtion.getString("url");
+
+                        if (!TextUtils.isEmpty(url))
+                            imagePathSB.append(url).append(",");
+//                        insertCircleData(url, url+ UrlConstants.BASE_QINIIU_SCALE);
+                    }
+                }
+                checkInsertCircle();
+            }
+
+            @Override
+            public void error() {
+                super.error();
+                Log.e("12345","error path = "+path);
+                uploadCount--;
+                checkInsertCircle();
+            }
+        });
+        executorUploadImagePool.execute(runnable);
+    }
 
     private void uploadFilesTask() {
         if (urlImages == null || urlImages.size() == 0)
             return;
         File[] files = new File[urlImages.size()];
         String[] fileKeys = new String[urlImages.size()];
+        showProgreessDialog();
+        uploadCount = urlImages.size();
         for (int i = 0; i < urlImages.size(); i++) {
             files[i] = new File(urlImages.get(i));
             fileKeys[i] = urlImages.get(i);
+            Log.e("12345","urlImages path = "+urlImages.get(i));
+            uploadFileRunnable(urlImages.get(i));
         }
-        showProgreessDialog();
-        httpTaskUtil.UploadFilesTask(files, fileKeys, new OkHttpClientManager.StringCallback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                ToastUtil.show(e != null ? e.getMessage() : "onFailure 文件上传失败");
-                dismissProgressDialog();
-            }
 
-            @Override
-            public void onResponse(String response) {
-                dismissProgressDialog();
-                if (!TextUtils.isEmpty(response)) {
-                    JSONObject jsonObject = JSON.parseObject(response);
-                    if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {
-                        String data = jsonObject.getString("data");
-                        List<FileUploadImageBean> list = JSON.parseArray(data, FileUploadImageBean.class);
-                        StringBuffer photos = new StringBuffer();
-                        StringBuffer thumbs = new StringBuffer();
-                        for (FileUploadImageBean bean : list) {
-                            if (bean != null) {
-                                photos.append(bean.getFileNameMD5()).append(",");
-                                thumbs.append(bean.getFileNameThumb()).append(",");
-                            }
-                        }
-                        if (photos.length() > 0)
-                            photos.setLength(photos.length() - 1);
-                        if (thumbs.length() > 0)
-                            thumbs.setLength(thumbs.length() - 1);
-                        insertCircleData(photos.toString(), thumbs.toString());
-                    }
-                }
-            }
-        });
+//        httpTaskUtil.UploadFilesTask(files, fileKeys, new OkHttpClientManager.StringCallback() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                ToastUtil.show(e != null ? e.getMessage() : "onFailure 文件上传失败");
+//                dismissProgressDialog();
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                dismissProgressDialog();
+//                if (!TextUtils.isEmpty(response)) {
+//                    JSONObject jsonObject = JSON.parseObject(response);
+//                    if (jsonObject != null && jsonObject.containsKey("code") && jsonObject.getInteger("code") == 1) {
+//                        String data = jsonObject.getString("data");
+//                        List<FileUploadImageBean> list = JSON.parseArray(data, FileUploadImageBean.class);
+//                        StringBuffer photos = new StringBuffer();
+//                        StringBuffer thumbs = new StringBuffer();
+//                        for (FileUploadImageBean bean : list) {
+//                            if (bean != null) {
+//                                photos.append(bean.getFileNameMD5()).append(",");
+//                                thumbs.append(bean.getFileNameThumb()).append(",");
+//                            }
+//                        }
+//                        if (photos.length() > 0)
+//                            photos.setLength(photos.length() - 1);
+//                        if (thumbs.length() > 0)
+//                            thumbs.setLength(thumbs.length() - 1);
+//                        insertCircleData(photos.toString(), thumbs.toString());
+//                    }
+//                }
+//            }
+//        });
     }
 
     private void insertCircleData(String photos, String thumbs) {

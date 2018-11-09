@@ -15,6 +15,8 @@ import com.fly.run.bean.CircleBean;
 import com.fly.run.utils.ImageLoaderOptions;
 import com.fly.run.view.ImageView.RoundAngleImageView;
 import com.fly.run.view.LoadImagesView;
+import com.fly.run.view.circle.CircleBottomActionbarView;
+import com.fly.run.view.circle.CircleBottomReviewView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -94,19 +96,9 @@ public class CircleAdapter extends BaseAdapter {
             } else
                 viewHolder.tvAddress.setVisibility(View.GONE);
             ImageLoader.getInstance().displayImage("", viewHolder.ivHeader, ImageLoaderOptions.optionsLanuchHeader);
-//            String url = "";
-//            if (!TextUtils.isEmpty(item.getThumbs()))
-//                url = item.getThumbs();
             viewHolder.loadImagesView.setImagesData(item);
-//            if (!TextUtils.isEmpty(url)){
-//                String[] photos = url.split(",");
-//                if (photos != null && photos.length > 0){
-//                    url = photos[0];
-//                    if (!url.startsWith("http://"))
-//                        url = String.format(UrlConstants.HTTP_DOWNLOAD_FILE_2,url);
-//                }
-//            }
-//            ImageLoader.getInstance().displayImage(url, viewHolder.ivContent, ImageLoaderOptions.optionsLanuchHeader);
+            viewHolder.actionbarView.loadData(item);
+            viewHolder.reviewView.loadReviewData(item.getReply());
         }
         return convertView;
     }
@@ -120,6 +112,8 @@ public class CircleAdapter extends BaseAdapter {
         public LinearLayout layout_imgs;
         public ImageView ivContent;
         public LoadImagesView loadImagesView;
+        public CircleBottomActionbarView actionbarView;
+        public CircleBottomReviewView reviewView;
 
         public ViewHolder(View view) {
             this.ivHeader = (RoundAngleImageView) view.findViewById(R.id.iv_header_icon);
@@ -130,6 +124,8 @@ public class CircleAdapter extends BaseAdapter {
             this.layout_imgs = (LinearLayout) view.findViewById(R.id.layout_imgs);
             this.ivContent = (ImageView) view.findViewById(R.id.iv_content);
             this.loadImagesView = (LoadImagesView) view.findViewById(R.id.view_load_images);
+            this.actionbarView = (CircleBottomActionbarView) view.findViewById(R.id.view_actionbar);
+            this.reviewView = (CircleBottomReviewView) view.findViewById(R.id.view_review);
         }
     }
 }
