@@ -113,7 +113,9 @@ public class CircleBottomActionbarView extends LinearLayout implements View.OnCl
                         try {
                             ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
                             if (bean != null && bean.code == 1) {
-                                BroadcastUtil.sendBroadcast(getContext(),BroadcastUtil.CIRCLE_SHARE_UPDATE);
+//                                BroadcastUtil.sendBroadcast(getContext(),BroadcastUtil.CIRCLE_SHARE_UPDATE);
+                                int count = mCircleBean.getShareCount()+1;
+                                tv_share.setText(""+count);
                             } else {
                                 CustomToast.showRefreshToast(getContext(),false);
                             }
