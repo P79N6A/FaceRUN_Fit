@@ -57,4 +57,10 @@
     <color name="app_page_bkg">#fff5f5f5</color>
     <color name="color_dddddd">#dddddd</color>
 
+    <color name="color_theme_weixin">#07AF12</color>
+    <color name="color_theme_circle">#fca017</color>
+    <color name="color_theme_qq">#18BAFF</color>
+    <color name="color_theme_sina">#DF1D1F</color>
+    <color name="color_theme_twitter">#1296DB</color>
+
 </resources>

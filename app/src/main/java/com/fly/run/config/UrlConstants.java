@@ -8,11 +8,11 @@ public class UrlConstants {
     /**
      * 公司 IP
      */
-    public static String HTTP_ROOT = "http://172.16.0.173:9090/";
+//    public static String HTTP_ROOT = "http://172.16.0.173:9090/";
     /**
-     * 阿里云
+     * 华为云
      */
-//    public static String HTTP_ROOT = "http://120.78.81.9/";
+    public static String HTTP_ROOT = "http://114.116.124.23/";
 
     /**
      * 单文件上传（图片）
@@ -168,4 +168,14 @@ public class UrlConstants {
      * 查询分享数量
      */
     public static String HTTP_CIRCLE_SHARE_QUERY = HTTP_ROOT + "circle/share/query";
+
+    /**
+     * 同步跑步记录
+     */
+    public static String HTTP_RUN_INSERT = HTTP_ROOT + "run/insert";
+
+    /**
+     * 同步跑步记录
+     */
+    public static String HTTP_RUN_QUERY_LIST = HTTP_ROOT + "run/list_by_account";
 }

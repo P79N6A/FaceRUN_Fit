@@ -5,13 +5,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -57,14 +60,16 @@ public class CircleRunFragment extends BaseFragment {
     private String mParam2;
 
     private CommonActionBar actionBar;
-    private FocusRecyclerView view_focus_header;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private CircleAdapter adapter;
+    private ImageView iv_anim;
     private HttpTaskUtil httpTaskUtil;
 
     private int pageNum = 1;
     private final int pageSize = 40;
+    private AnimationDrawable animationDrawable;
+    private Handler handler = new Handler();
 
 
     public CircleRunFragment() {
@@ -159,8 +164,8 @@ public class CircleRunFragment extends BaseFragment {
         listView = (ListView) view.findViewById(R.id.listview);
         adapter = new CircleAdapter(getActivity());
         listView.setAdapter(adapter);
-
-        view_focus_header = (FocusRecyclerView)view.findViewById(R.id.view_focus_header);
+        iv_anim = (ImageView)view.findViewById(R.id.iv_anim);
+//        setXml2FrameAnim2();
     }
 
     DialogChooseMedia.OnEventListener onEventListener = new DialogChooseMedia.OnEventListener() {
@@ -256,6 +261,22 @@ public class CircleRunFragment extends BaseFragment {
         }
     };
 
+    /**
+     * 通过XML添加帧动画方法二
+     */
+    private void setXml2FrameAnim2() {
+
+        // 通过逐帧动画的资源文件获得AnimationDrawable示例
+        try {
+            animationDrawable = (AnimationDrawable) getResources().getDrawable(
+                    R.drawable.anim_kiss);
+            iv_anim.setBackground(animationDrawable);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     private BroadcastReceiver mReceiver;
     public void registerReceiver() {
         IntentFilter intentFilter = new IntentFilter();
@@ -269,9 +290,24 @@ public class CircleRunFragment extends BaseFragment {
                     String action = intent.getAction();
                     switch (action) {
                         case BroadcastUtil.CIRCLE_REPLY_UPDATE:
-                        case BroadcastUtil.CIRCLE_LIKE_UPDATE:
-                        case BroadcastUtil.CIRCLE_SHARE_UPDATE:
                             loadTaskData();
+                            break;
+                        case BroadcastUtil.CIRCLE_LIKE_UPDATE:
+                            if (animationDrawable != null && !animationDrawable.isRunning()) {
+                                animationDrawable.start();
+                                iv_anim.setVisibility(View.VISIBLE);
+                                int time = 23*50+5;
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        animationDrawable.stop();
+                                        iv_anim.setVisibility(View.INVISIBLE);
+                                    }
+                                },time);
+                            }
+                            break;
+                        case BroadcastUtil.CIRCLE_SHARE_UPDATE:
+
                             break;
                     }
                 }

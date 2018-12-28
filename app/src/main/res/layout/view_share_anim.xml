@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="@dimen/margin_120"
+        android:layout_height="@dimen/margin_120"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:id="@+id/layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shanxing1" />
+
+            <ImageView
+                android:id="@+id/iv_s1"
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_thrid_share_wx" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rotation="72"
+                android:src="@drawable/shanxing1" />
+
+            <ImageView
+                android:id="@+id/iv_s2"
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_marginRight="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_thrid_share_circle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rotation="144"
+                android:src="@drawable/shanxing1" />
+
+            <ImageView
+                android:id="@+id/iv_s3"
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="38dp"
+                android:src="@drawable/icon_thrid_share_wb" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rotation="216"
+                android:src="@drawable/shanxing1" />
+
+            <ImageView
+                android:id="@+id/iv_s4"
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_thrid_share_twitter" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rotation="-72"
+                android:src="@drawable/shanxing1" />
+
+            <ImageView
+                android:id="@+id/iv_s5"
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="38dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_thrid_share_qq" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_ring_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/view_ring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_circle_del"
+                android:padding="@dimen/margin_16"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_toast_fail" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

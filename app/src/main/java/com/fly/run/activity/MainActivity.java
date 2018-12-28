@@ -52,6 +52,7 @@ import com.fly.run.activity.webview.MyWebActivity;
 import com.fly.run.adapter.NavMainAdapter;
 import com.fly.run.bean.AccountBean;
 import com.fly.run.config.Constant;
+import com.fly.run.config.UrlConstants;
 import com.fly.run.db.helper.RunDBHelper;
 import com.fly.run.fragment.dialog.DialogWeatherFragment;
 import com.fly.run.manager.UserInfoManager;

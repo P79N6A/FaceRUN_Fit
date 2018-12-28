@@ -85,6 +85,68 @@ public class HttpTaskUtil {
     }
 
     /**
+     * 查询跑步记录
+     * */
+    public void queryRunDatasTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_RUN_QUERY_LIST, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, new IOException("Server Error"));
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
+     * 同步跑步记录
+     * */
+    public void synchronizeRunDataTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {
+        try {
+            OkHttpClientManager.getInstance().postAsyn(UrlConstants.HTTP_RUN_INSERT, callback != null ? callback : new OkHttpClientManager.StringCallback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    if (callback != null){
+                        callback.onFailure(request, e);
+                    } else if (resultListener != null)
+                        resultListener.onFailure(request, e);
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    if (callback != null){
+                        callback.onResponse(response);
+                    } else if (resultListener != null)
+                        resultListener.onResponse(response);
+                }
+            },param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (callback != null){
+                callback.onFailure(null, new IOException("Server Error"));
+            } else if (resultListener != null)
+                resultListener.onFailure(null, e);
+        }
+    }
+
+    /**
      * 点赞
      * */
     public void InsertCircleShareTask(Map<String,String> param, final OkHttpClientManager.StringCallback callback) {

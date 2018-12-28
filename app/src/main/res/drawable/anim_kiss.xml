@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true" >
+
+    <!-- animation-list 帧动画 -->
+    <!-- android:oneshot的值为 false代表播放多次，true代表只播放一次 -->
+    <!-- duration代表每张图片的播放时间 ,定义一个持续时间为50毫秒的动画帧 -->
+    <item
+        android:drawable="@drawable/memeda01"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda02"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda03"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda04"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda05"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda06"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda07"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda08"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda09"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda10"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda11"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda12"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda13"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda14"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda15"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda16"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda17"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda18"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda19"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda20"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda21"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda22"
+        android:duration="50"/>
+    <item
+        android:drawable="@drawable/memeda23"
+        android:duration="50"/>
+
+</animation-list>

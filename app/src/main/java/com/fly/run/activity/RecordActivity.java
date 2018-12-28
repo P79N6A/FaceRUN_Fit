@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.alibaba.fastjson.JSON;
 import com.amap.api.maps.model.LatLng;
 import com.fly.run.R;
 import com.fly.run.activity.base.BaseUIActivity;
@@ -20,10 +22,14 @@ import com.fly.run.activity.map.record.RecordMapActivity;
 import com.fly.run.activity.map.smooth.SmoothMoveActivity;
 import com.fly.run.activity.map.trace.TraceActivity;
 import com.fly.run.adapter.RecordAdapter;
+import com.fly.run.bean.ResultTaskBean;
 import com.fly.run.bean.RunBean;
 import com.fly.run.db.helper.RunDBHelper;
+import com.fly.run.httptask.HttpTaskUtil;
+import com.fly.run.manager.UserInfoManager;
 import com.fly.run.utils.DisplayUtil;
 import com.fly.run.utils.FileUtil;
+import com.fly.run.utils.OkHttpClientManager;
 import com.fly.run.utils.SDCardUtil;
 import com.fly.run.utils.TimeFormatUtils;
 import com.fly.run.utils.ToastUtil;
@@ -32,10 +38,15 @@ import com.fly.run.view.SwipeListView.SwipeMenuCreator;
 import com.fly.run.view.SwipeListView.SwipeMenuItem;
 import com.fly.run.view.SwipeListView.SwipeMenuListView;
 import com.fly.run.view.actionbar.CommonActionBar;
+import com.fly.run.view.toast.CustomToast;
+import com.squareup.okhttp.Request;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecordActivity extends BaseUIActivity {
 
@@ -44,6 +55,7 @@ public class RecordActivity extends BaseUIActivity {
     private RecordAdapter adapter;
     private String LogPath = SDCardUtil.getLogDir();
     private List<LatLng> recordList = new ArrayList<>();
+    private HttpTaskUtil httpTaskUtil;
 
     private Handler handler = new Handler();
 
@@ -51,6 +63,7 @@ public class RecordActivity extends BaseUIActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        httpTaskUtil = new HttpTaskUtil();
         initView();
         loadDataDB();
     }
@@ -151,7 +164,7 @@ public class RecordActivity extends BaseUIActivity {
                 // set item width
                 openItem.setWidth(DisplayUtil.dp2px(80));
                 // set item title
-                openItem.setTitle(getString(R.string.action_swipe_correct_line));
+                openItem.setTitle(getString(R.string.action_swipe_synchronize));
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color
@@ -195,14 +208,15 @@ public class RecordActivity extends BaseUIActivity {
                 switch (index) {
                     case 0:
                         // edit
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(RecordActivity.this, TraceActivity.class);
-                                intent.putExtra("Bean", bean);
-                                startActivity(intent);
-                            }
-                        }, 240);
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Intent intent = new Intent(RecordActivity.this, TraceActivity.class);
+//                                intent.putExtra("Bean", bean);
+//                                startActivity(intent);
+//                            }
+//                        }, 240);
+                        synchronizeRunDataTask(bean);
                         break;
                     case 1:
                         // delete
@@ -390,6 +404,44 @@ public class RecordActivity extends BaseUIActivity {
                 builder.show();
             }
         }, 200);
+    }
+
+    private void synchronizeRunDataTask(RunBean runBean){
+        if (runBean == null)
+            return;
+        Map<String,String> param = new HashMap<>();
+        param.put("account_id", ""+UserInfoManager.getInstance().getAccountId());
+        param.put("longitude",""+runBean.getmLon());
+        param.put("latitude",""+runBean.getmLat());
+        param.put("address",TextUtils.isEmpty(runBean.getmAddress()) ? "" : runBean.getmAddress());
+        param.put("nearby",TextUtils.isEmpty(runBean.getmNearBy()) ? "" : runBean.getmNearBy());
+        param.put("distance",TextUtils.isEmpty(runBean.getmRunDistance()) ? "" : runBean.getmRunDistance());
+        param.put("speed",TextUtils.isEmpty(runBean.getmRunSpeed()) ? "" : runBean.getmRunSpeed());
+        param.put("use_time",TextUtils.isEmpty(runBean.getmUseTime()) ? "" : runBean.getmUseTime());
+        param.put("heat",TextUtils.isEmpty(runBean.getmRunHeat()) ? "" : runBean.getmRunHeat());
+        param.put("coordinate_list",TextUtils.isEmpty(runBean.getmRunCoordinateList()) ? "" : runBean.getmRunCoordinateList());
+        param.put("cover",TextUtils.isEmpty(runBean.getmRunCover()) ? "" : runBean.getmRunCover());
+        param.put("city",TextUtils.isEmpty(runBean.getmCity()) ? "" : runBean.getmCity());
+        param.put("district",TextUtils.isEmpty(runBean.getmDistrict()) ? "" : runBean.getmDistrict());
+        param.put("create_at",TextUtils.isEmpty(runBean.getmRunDate()) ? "" : runBean.getmRunDate());
+        httpTaskUtil.synchronizeRunDataTask(param, new OkHttpClientManager.StringCallback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                CustomToast.showRefreshToast(getApplicationContext(),false);
+            }
+
+            @Override
+            public void onResponse(String response) {
+                ResultTaskBean bean = JSON.parseObject(response, ResultTaskBean.class);
+                if (bean != null && bean.code == 1) {
+                    if (!TextUtils.isEmpty(bean.data)) {
+                        CustomToast.showRefreshToast(getApplicationContext(),true);
+                    }
+                } else {
+                    CustomToast.showRefreshToast(getApplicationContext(),false);
+                }
+            }
+        });
     }
 
     @Override

@@ -563,21 +563,23 @@ public class SmoothMoveActivity extends BaseUIActivity implements AMap.OnMarkerC
             double lon = traceItem.getDoubleValue("mLon");
             filter4Point(i, lat, lon);
             LatLng mLatLng = new LatLng(lat, lon);
-            if (speed >= 10 && speed < 15) {
-                if (i % 5 == 0)
-                    locLists.add(mLatLng);
-            } else if (speed >= 15 && speed < 20) {
-                if (i % 10 == 0)
-                    locLists.add(mLatLng);
-            } else if (speed >= 20 && speed < 25) {
-                if (i % 15 == 0)
-                    locLists.add(mLatLng);
-            } else if (speed >= 25) {
-                if (i % 20 == 0)
-                    locLists.add(mLatLng);
-            } else {
+//            if (speed >= 10 && speed < 15) {
+//                if (i % 5 == 0)
+//                    locLists.add(mLatLng);
+//            } else if (speed >= 15 && speed < 20) {
+//                if (i % 10 == 0)
+//                    locLists.add(mLatLng);
+//            } else if (speed >= 20 && speed < 25) {
+//                if (i % 15 == 0)
+//                    locLists.add(mLatLng);
+//            } else if (speed >= 25) {
+//                if (i % 20 == 0)
+//                    locLists.add(mLatLng);
+//            } else {
+//                locLists.add(mLatLng);
+//            }
+            if (i % 10 == 0)
                 locLists.add(mLatLng);
-            }
             if (i > 0) {
                 LatLng preLatlon = locLists.get(i - 1);
                 double oneDistance = AMapUtils.calculateLineDistance(mLatLng, preLatlon);

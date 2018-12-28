@@ -160,7 +160,7 @@ public class CircleBottomActionbarView extends LinearLayout implements View.OnCl
                                 AnimUtil.scaleZanAnim(iv_zan, 1.4f, 1.0f, 0, 400);
                                 int count = mCircleBean.getLikeCount()+1;
                                 tv_zan.setText(""+count);
-//                                BroadcastUtil.sendBroadcast(getContext(),BroadcastUtil.CIRCLE_LIKE_UPDATE);
+                                BroadcastUtil.sendBroadcast(getContext(),BroadcastUtil.CIRCLE_LIKE_UPDATE);
                             } else {
                                 CustomToast.showRefreshToast(getContext(),false);
                             }

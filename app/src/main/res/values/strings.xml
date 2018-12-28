@@ -32,6 +32,7 @@
     <string name="action_swipe_delete">删除</string>
     <string name="action_swipe_edit">编辑</string>
     <string name="action_swipe_correct_line">轨迹</string>
+    <string name="action_swipe_synchronize">同步</string>
 
     <string name="action_wake_up_badi">巴弟快跑</string>
     <string name="action_wake_up_run_start">开始跑步</string>
